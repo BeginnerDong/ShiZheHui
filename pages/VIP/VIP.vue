@@ -1,0 +1,303 @@
+<template>
+	<view>
+		
+		<view class="vipHead">
+			<view class="position-relative left-0 top-0 right-0" style="height: 270rpx;"><image src="../../static/images/vip-icon0.png" mode="widthFix"></image></view>
+		</view>
+		
+		<view class="mx-3">
+			
+			<!-- 会员卡 -->
+			<view class="vipCard rounded10 overflow-h p-3 position-relative">
+				<view class="position-absoluteXY"><image src="../../static/images/vip-icon01.png" mode=""></image></view>
+				<view class="cont position-relative main-text-color">
+					<view style="height: 176rpx;">
+						<view class="font-36 font-weight">会员卡/VIP</view>
+						<view class="mt-1 font-26">按一年用户消费计算，每年会节省￥5623</view>
+					</view>
+					
+					<view class="d-flex a-center j-sb">
+						<view class="font-26" style="width: 65%;color: #f27f97;">试折惠，专业会员制电商平台</view>
+						<view class="btn text-white text-center font-28" @click="VipBuyShow">立即开通</view>
+					</view>
+				</view>
+			</view>
+			
+			<!-- 四大权益 -->
+			<view class="VipFour mt-2 bg-white rounded10 py-3 px-4 main-text-color text-center">
+				<view class="font-32 font-weight mb-3">会员专享4大权益</view>
+				<view class=" d-flex a-center j-sb "  @click="vipQyBoxShow">
+					<view class="item">
+						<view class="icon"><image src="../../static/images/vip-icon2.png" mode=""></image></view>
+						<view class="font-26 mt-2">优惠独享</view>
+						<view class="text2 font-24 mt">专享秒杀</view>
+					</view>
+					<view class="item">
+						<view class="icon"><image src="../../static/images/vip-icon3.png" mode=""></image></view>
+						<view class="font-26 mt-2">快人一步</view>
+						<view class="text2 font-24 mt">优先发货</view>
+					</view>
+					<view class="item">
+						<view class="icon"><image src="../../static/images/vip-icon4.png" mode=""></image></view>
+						<view class="font-26 mt-2">会员独享</view>
+						<view class="text2 font-24 mt">会员礼</view>
+					</view>
+					<view class="item">
+						<view class="icon"><image src="../../static/images/vip-icon5.png" mode=""></image></view>
+						<view class="font-26 mt-2">一网打尽</view>
+						<view class="text2 font-24 mt">吃喝玩乐</view>
+					</view>
+				</view>
+			</view>
+		
+			<!-- 首冲会员享受优惠 -->
+			<view class="pinTab oh px-2 mt-2 py-3 bg-white rounded10">
+				<view class="font-30 font-weight d-flex j-sb a-center">首冲会员享受优惠</view>
+				<view class="d-flex pt-3">
+					<view class="item" v-for="(item,index) in productData" :key="index" @click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail'}})">
+						<view class="pic"><image src="../../static/images/vip-img.png" mode=""></image></view>
+						<view class="tit font-24 avoidOverflow">好孩子儿童餐具宝宝学吃饭</view>
+						<view class="yuanJia mb-1">121</view>
+						<view class="d-flex a-center font-20 red">团购价<span class="price font-weight font-28">88</span></view>
+					</view>
+				</view>
+			</view>
+			
+			<!-- 月卡礼品 -->
+			<view class="pinTab oh px-2 mt-2 py-3 bg-white rounded10">
+				<view class="font-30 font-weight d-flex j-sb a-center">月卡礼品</view>
+				<view class="d-flex pt-3">
+					<view class="item" v-for="(item,index) in productData" :key="index" @click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail'}})">
+						<view class="pic"><image src="../../static/images/vip-img.png" mode=""></image></view>
+						<view class="tit font-24 avoidOverflow">好孩子儿童餐具宝宝学吃饭</view>
+						<view class="yuanJia mb-1">121</view>
+						<view class="d-flex a-center font-20 red">团购价<span class="price font-weight font-28">88</span></view>
+					</view>
+				</view>
+			</view>
+			
+			<!-- 季卡礼品 -->
+			<view class="pinTab oh px-2 mt-2 py-3 bg-white rounded10">
+				<view class="font-30 font-weight d-flex j-sb a-center">季卡礼品</view>
+				<view class="d-flex pt-3">
+					<view class="item" v-for="(item,index) in productData" :key="index" @click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail'}})">
+						<view class="pic"><image src="../../static/images/vip-img.png" mode=""></image></view>
+						<view class="tit font-24 avoidOverflow">好孩子儿童餐具宝宝学吃饭</view>
+						<view class="yuanJia mb-1">121</view>
+						<view class="d-flex a-center font-20 red">团购价<span class="price font-weight font-28">88</span></view>
+					</view>
+				</view>
+			</view>
+			
+			<!-- 半年卡礼品 -->
+			<view class="pinTab oh px-2 mt-2 py-3 bg-white rounded10">
+				<view class="font-30 font-weight d-flex j-sb a-center">半年卡礼品</view>
+				<view class="d-flex pt-3">
+					<view class="item" v-for="(item,index) in productData" :key="index" @click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail'}})">
+						<view class="pic"><image src="../../static/images/vip-img.png" mode=""></image></view>
+						<view class="tit font-24 avoidOverflow">好孩子儿童餐具宝宝学吃饭</view>
+						<view class="yuanJia mb-1">121</view>
+						<view class="d-flex a-center font-20 red">团购价<span class="price font-weight font-28">88</span></view>
+					</view>
+				</view>
+			</view>
+			
+			<!-- 年卡礼品 -->
+			<view class="pinTab oh px-2 mt-2 py-3 bg-white rounded10">
+				<view class="font-30 font-weight d-flex j-sb a-center">年卡礼品</view>
+				<view class="d-flex pt-3">
+					<view class="item" v-for="(item,index) in productData" :key="index" @click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail'}})">
+						<view class="pic"><image src="../../static/images/vip-img.png" mode=""></image></view>
+						<view class="tit font-24 avoidOverflow">好孩子儿童餐具宝宝学吃饭</view>
+						<view class="yuanJia mb-1">121</view>
+						<view class="d-flex a-center font-20 red">团购价<span class="price font-weight font-28">88</span></view>
+					</view>
+				</view>
+			</view>
+		
+		</view>
+		
+		<!-- 选择会员卡种类 -->
+		<view class="black-bj" v-show="is_show"></view>
+		<view class="VipBuy bg-white border-bottom" v-show="is_VipBuy">
+			<view class="closebtn" @click="VipBuyShow">×</view>
+			<view class="font-32 font-weight text-center pt pb-4 border-bottom">选择会员卡种类</view>
+			<view class="d-flex a-center j-sb py-4 border-bottom font-weight">
+				<view class="seltCard d-flex j-center a-center" :class="vipCurr==index?'on':''" v-for="(item,index) in vipMoney" :key="index" @click="vipChange(index)">
+					<view class="flexColumn">
+						<view class="d-flex j-center font-26 mb-1">
+							<image class="icon" :src="item.iconUrl" mode=""></image>
+							<view>{{item.name}}</view>
+						</view>
+						<view class="font-24 d-flex a-center j-center">￥<span class="font-40">{{item.price}}</span></view>
+					</view>
+					<view class="seltIcon"><image :src="vipCurr==index?'../../static/images/vip-icon11.png':''" mode=""></image></view>
+				</view>
+			</view>
+			<view class="py-4 border-bottom d-flex a-center j-sb">
+				<view class="font-30 font-weight">支付方式</view>
+				<view class="d-flex j-end a-center font-26">
+					<image style="width: 38rpx;height: 36rpx;margin-right: 6rpx;" src="../../static/images/vip-icon12.png" mode=""></image>
+					<view>微信支付</view>
+				</view>
+			</view>
+			<view class="twoBtn position-relative text-white text-center">
+				<view class="position-absoluteXY"><image src="../../static/images/vip-icon14.png" mode=""></image></view>
+				<view class="cont d-flex a-center j-sb font-weight">
+					<view class="btn font-40" style="width: 440rpx;">￥69</view>
+					<view class="btn font-30" style="width: 250rpx;">确认支付</view>
+				</view>
+			</view>
+		</view>
+		
+		<!-- 四大权限弹框 -->
+		<view class="vipQyBox bg-white rounded10" v-show="is_vipQy">
+			<view class="closeBtn" @click="vipQyBoxShow">×</view>
+			<swiper class="swiper-box rounded10 overflow-h" indicator-dots="true" autoplay="true" interval="3000" duration="1000" indicator-color="#adadad" indicator-active-color="#ffbcd7">
+				<block v-for="(item,index) in vipQyData" :key="index ">
+					<swiper-item class="swiper-item px-3 py-4 bg-white">
+						<view class="hei d-flex a-center main-text-color p-3 rounded10">
+							<view class="logo mr-2"><image src="../../static/images/vip-icon2.png" mode=""></image></view>
+							<view>
+								<view class="font-weight">优惠独享</view>
+								<view class="fs20">专享秒杀</view>
+							</view>
+						</view>
+						
+						<view class="xqInfor font-26 mt-4">
+							<view>月卡、季卡、半年卡、年卡会员可享所有秒杀价商品</view>
+							<view>月卡、季卡、半年卡、年卡会员可享所有秒杀价商品月卡、季卡、半年卡、年卡会员可享所有秒杀价商品</view>
+						</view>
+					</swiper-item>
+				</block>
+			</swiper>
+		</view>
+		
+		<!--底部tab键-->
+		<view class="navbar">
+			<view class="navbar_item" @click="Router.redirectTo({route:{path:'/pages/index/index'}})">
+				<view class="nav_img">
+					<image src="../../static/images/nabar1.png" />
+				</view>
+				<view class="text">首页</view>
+			</view>
+			<view class="navbar_item" @click="Router.redirectTo({route:{path:'/pages/classify/classify'}})">
+				<view class="nav_img">
+					<image src="../../static/images/nabar2.png" />
+				</view>
+				<view class="text">分类</view>
+			</view>
+			<view class="navbar_item" @click="Router.redirectTo({route:{path:'/pages/VIP/VIP'}})" >
+				<view class="nav_img">
+					<image src="../../static/images/nabar3-a.png" />
+				</view>
+				<view class="text this-text">VIP</view>
+			</view>
+			<view class="navbar_item" @click="Router.redirectTo({route:{path:'/pages/car/car'}})" >
+				<view class="nav_img">
+					<image src="../../static/images/nabar4.png" />
+				</view>
+				<view class="text">购物车</view>
+			</view>
+			<view class="navbar_item" @click="Router.redirectTo({route:{path:'/pages/user/user'}})" >
+				<view class="nav_img">
+					<image src="../../static/images/nabar5.png" />
+				</view>
+				<view class="text">我的</view>
+			</view>
+		</view>
+		<!--底部tab键 end-->
+		
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				Router:this.$Router,
+				showView: false,
+				wx_info:{},
+				is_show:false,
+				productData:3,
+				is_VipBuy:false,
+				vipCurr:0,
+				vipMoney:[
+					{iconUrl:'../../static/images/vip-icon7.png',name:'月卡',price:"69"},
+					{iconUrl:'../../static/images/vip-icon8.png',name:'季卡',price:"69"},
+					{iconUrl:'../../static/images/vip-icon9.png',name:'半年卡',price:"69"},
+					{iconUrl:'../../static/images/vip-icon10.png',name:'年卡',price:"69"}
+				],
+				is_vipQy:false,
+				vipQyData:4
+			}
+		},
+		
+		onLoad(options) {
+			const self = this;
+			// self.$Utils.loadAll(['getMainData'], self);
+		},
+		methods: {
+			vipChange(index){
+				const self = this;
+				self.vipCurr = index
+			},
+			VipBuyShow(){
+				const self = this;
+					self.is_show = !self.is_show;
+					self.is_VipBuy = !self.is_VipBuy
+			},
+			vipQyBoxShow(){
+				const self = this;
+					self.is_show = !self.is_show;
+					self.is_vipQy = !self.is_vipQy
+			},
+			getMainData() {
+				const self = this;
+				console.log('852369')
+				const postData = {};
+				postData.tokenFuncName = 'getProjectToken';
+				self.$apis.orderGet(postData, callback);
+			}
+		}
+	};
+</script>
+
+<style>
+	@import "../../assets/style/navbar.css";
+	@import "../../assets/style/productList.css";
+	@import "../../assets/style/detail.css";
+	
+	page{padding-bottom: 140rpx;background-color: #F5F5F5;}
+	.vipCard{height: 300rpx;margin-top: -190rpx;}
+	.vipCard .cont{z-index: 2; color: #e95071;}
+	.vipCard .btn{width: 160rpx;height: 60rpx;line-height: 60rpx;border-radius: 40rpx;background-image: linear-gradient(to right,#ff9aaf,#ff708e);box-shadow: 0 2px 5px rgba(253,73,110,0.3);}
+	
+	.VipFour{height: 316rpx;}
+	.VipFour .item{height: 182rpx;}
+	.VipFour .item .icon{width: 90rpx;height: 90rpx;margin: 0 auto;}
+	.VipFour .item .text2{color: #ffc3cf;}
+	
+	.pinTab .item{width: 200rpx;height: 330rpx;margin-right: 26rpx;}
+	.pinTab .item:nth-of-type(3n){margin-right: 0;}
+	.pinTab .item .pic{height: 200rpx;}
+	
+	.black-bj,.VipBuy{bottom: 110rpx;}
+	.VipBuy{width: 100%;border-radius: 20rpx 20rpx 0 0;position: fixed;left: 0;right: 0;height: 770rpx;z-index: 50;padding: 30rpx;padding-bottom: 140rpx;}
+	.seltCard{width: 165rpx;height: 200rpx;border:1px solid #e1e1e1;position: relative;border-radius: 14rpx;overflow: hidden;}
+	.seltCard .icon{width: 34rpx;height: 34rpx;margin-right: 6rpx;}
+	.seltCard.on{border: 1px solid #FFB2C2;background: #fff3f8;}
+	.seltCard .seltIcon{content: '';width: 62rpx;height: 52rpx;position: absolute;right: 0;bottom: 0;}
+	
+	.twoBtn{height: 100rpx; margin-top: 80rpx;}
+	.twoBtn .cont{position: relative;z-index: 2;line-height: 100rpx;}
+	
+	/* 权益弹框 */
+	.vipQyBox{width: 580rpx;height: 650rpx;position: fixed;left: 50%;top: 50%;transform: translate(-50%,-50%);z-index: 50;}
+	.vipQyBox .hei{background-color: #222222;height: 120rpx;}
+	.vipQyBox .logo{width: 70rpx;height: 70rpx;}
+	.swiper-box {width: 100%;height: 650rpx;}
+	.swiper-box swiper-item{width: 100%;box-sizing: border-box;}
+	.xqInfor view{line-height: 40rpx;margin-bottom: 10rpx;}
+</style>
+

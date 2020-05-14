@@ -1,0 +1,196 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页",//设置页面标题文字
+				"onReachBottomDistance":100,
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#122433"
+			}
+		},
+		{
+			"path": "pages/seachProduct/seachProduct",
+			"style": {
+				"navigationBarTitleText": "搜索",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/car/car",
+			"style": {
+				"navigationBarTitleText": "购物车",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/orderConfim/orderConfim",
+			"style": {
+				"navigationBarTitleText": "确认订单",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/zitiAddress/zitiAddress",
+			"style": {
+				"navigationBarTitleText": "自提点",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"onReachBottomDistance":100,
+				"navigationBarBackgroundColor": "#ffb2c2"
+			}
+		},
+		{
+			"path": "pages/classify/classify",
+			"style": {
+				"navigationBarTitleText": "分类",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/productList/productList",
+			"style": {
+				"navigationBarTitleText": "商品",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/productDetail/productDetail",
+			"style": {
+				"navigationBarTitleText": "详情",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/seckillList/seckillList",
+			"style": {
+				"navigationBarTitleText": "秒杀商品",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/seckillDetail/seckillDetail",
+			"style": {
+				"navigationBarTitleText": "详情",//秒杀详情
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/product-PingJia/product-PingJia",
+			"style": {
+				"navigationBarTitleText": "商品评论",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/user_address/user_address",
+			"style": {
+				"navigationBarTitleText": "地址管理",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/user_addressAdd/user_addressAdd",
+			"style": {
+				"navigationBarTitleText": "新增地址",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/VIP/VIP",
+			"style": {
+				"navigationBarTitleText": "VIP",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/userOrder/userOrder",
+			"style": {
+				"navigationBarTitleText": "我的订单",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/userOrder-pingjia/userOrder-pingjia",
+			"style": {
+				"navigationBarTitleText": "商品评价",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/userOrder-pingjiaList/userOrder-pingjiaList",
+			"style": {
+				"navigationBarTitleText": "订单评论",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/userOrder-pingjiaok/userOrder-pingjiaok",
+			"style": {
+				"navigationBarTitleText": "订单评论",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/pintuanlList/pintuanlList",
+			"style": {
+				"navigationBarTitleText": "团购商品",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/userOrder-myPingjia/userOrder-myPingjia",
+			"style": {
+				"navigationBarTitleText": "我的评论",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/aboutUs/aboutUs",
+			"style": {
+				"navigationBarTitleText": "关于我们",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/userPartner/userPartner",
+			"style": {
+				"navigationBarTitleText": "合作伙伴",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/userProposal/userProposal",
+			"style": {
+				"navigationBarTitleText": "投诉建议",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/storeLogin/storeLogin",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"onReachBottomDistance":100
+			}
+		}
+    ],
+	"globalStyle": {
+		//"navigationStyle":"custom",
+		"navigationBarTextStyle": "black",//导航栏文字
+		"navigationBarTitleText": "",
+		"navigationBarBackgroundColor": "#FFFFFF"
+	},
+	"condition": { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [{
+			"name": "", //模式名称
+			"path": "", //启动页面，必选
+			"query": "" //启动参数，在页面的onLoad函数里面得到
+		}]
+	}
+}
