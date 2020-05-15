@@ -10,6 +10,13 @@
 			}
 		},
 		{
+			"path": "pages/seach/seach",
+			"style": {
+				"navigationBarTitleText": "搜索",
+				"onReachBottomDistance":100
+			}
+		},
+		{
 			"path": "pages/seachProduct/seachProduct",
 			"style": {
 				"navigationBarTitleText": "搜索",
@@ -175,6 +182,90 @@
 			"path": "pages/storeLogin/storeLogin",
 			"style": {
 				"navigationBarTitleText": "登录",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/storeOrder/storeOrder",
+			"style": {
+				"navigationBarTitleText": "门店订单",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/storeOrder-detail/storeOrder-detail",
+			"style": {
+				"navigationBarTitleText": "订单核销",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/user-Looting/user-Looting",
+			"style": {
+				"navigationBarTitleText": "我的夺宝",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/user-LootingOrder/user-LootingOrder",
+			"style": {
+				"navigationBarTitleText": "夺宝订单",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/user-mySeckill/user-mySeckill",
+			"style": {
+				"navigationBarTitleText": "我的秒杀",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/user-Collage/user-Collage",
+			"style": {
+				"navigationBarTitleText": "我的拼团",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/user-CollageOrder/user-CollageOrder",
+			"style": {
+				"navigationBarTitleText": "拼团订单",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/pintuanlDetail/pintuanlDetail",
+			"style": {
+				"navigationBarTitleText": "详情",//拼团详情
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/pintuanlDetail-pinMore/pintuanlDetail-pinMore",
+			"style": {
+				"navigationBarTitleText": "拼团",//更多拼团
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/OneYuan/OneYuan",
+			"style": {
+				"navigationBarTitleText": "一元夺宝",
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/OneYuanDetail/OneYuanDetail",
+			"style": {
+				"navigationBarTitleText": "详情",//出价详情
+				"onReachBottomDistance":100
+			}
+		},
+		{
+			"path": "pages/seckill-car/seckill-car",
+			"style": {
+				"navigationBarTitleText": "购物车",
 				"onReachBottomDistance":100
 			}
 		}

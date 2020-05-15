@@ -3,18 +3,17 @@
 		<view class="border-bottom position-fixed left-0 right-0 top0"></view>
 		<!-- 搜索 -->
 		<view class="seachbox d-flex a-center j-sb bg-white px-3 py-3"> 
-			<view class="d-flex a-center rr f5bj" style="width:100%;" @click="Router.navigateTo({route:{path:'/pages/seachProduct/seachProduct'}})">
+			<view class="d-flex a-center rr f5bj" style="width:100%;" @click="Router.navigateTo({route:{path:'/pages/seach/seach'}})">
 				<button class="seachBtn" type="button"><image src="../../static/images/home-icon1.png" mode=""></image></button>
 				<view class="input">
 					<input type="text" name="" value="" placeholder="搜索您想要的商品" placeholder-class="placeholder" />
 				</view>
-				<view class="delt d-flex j-center a-center"><text>×</text></view>
 			</view>
 		</view>
 		
 		<view class="mx-3 mt-3">
 			<view class="proRow">
-				<view class="item d-flex a-start j-sb mt-3" v-for="(item,index) in seckillData" :key="index" @click="Router.navigateTo({route:{path:'/pages//'}})">
+				<view class="item d-flex a-start j-sb mt-3" v-for="(item,index) in seckillData" :key="index" @click="Router.navigateTo({route:{path:'/pages/pintuanlDetail/pintuanlDetail'}})">
 					<view class="pic"><image src="../../static/images/home-img01.png" mode=""></image></view>
 					<view class="infor">
 						<view class="avoidOverflow2 font-30">12色可水洗油画棒 水溶性旋转涂料板</view>

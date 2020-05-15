@@ -20,7 +20,7 @@
 				</view>
 			</view>
 			
-			<view class="item submitbtn" style="padding: 0;border: 0;margin-top: 100rpx;" @click="Router.navigateTo({route:{path:'/pages//'}})">
+			<view class="item submitbtn" style="padding: 0;border: 0;margin-top: 100rpx;" @click="Router.navigateTo({route:{path:'/pages/storeOrder/storeOrder'}})">
 				<button class="Wbtn" type="submint">登录</button>
 			</view>
 		</view>

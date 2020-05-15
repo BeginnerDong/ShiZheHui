@@ -7,7 +7,6 @@
 				<view class="input">
 					<input type="text" name="" value="" placeholder="搜索您想要的商品" placeholder-class="placeholder" />
 				</view>
-				<view class="delt d-flex j-center a-center"><text>×</text></view>
 			</view>
 			<view class="font-30 main-text-color">搜索</view>
 		</view>

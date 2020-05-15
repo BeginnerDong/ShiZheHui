@@ -29,3 +29,8 @@
 .tip-button .item{width: 50%;box-sizing: border-box; line-height: 100rpx;}
 .tip-button .item:first-child{border-right:1px solid #eee;}
 
+/* 列表中的一排三小图 */
+.proRow .item .picBox{width: 85%;}
+.proRow .item .picBox image{width: 120rpx;height: 120rpx;margin-right: 20rpx;border-radius: 8rpx;}
+
+

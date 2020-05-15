@@ -130,7 +130,7 @@
 	@import "../../assets/style/productList.css";
 	
 	
-	.leftNav{width: 180rpx;background-color: #F5F5F5;position: fixed;left:0;top: 45px;bottom: 0;}
+	.leftNav{width: 180rpx;background-color: #F5F5F5;position: fixed;left:0;top: 88px;bottom: 0;}
 	.leftNav .tt{width: 100%;height: 100rpx;line-height: 98rpx;border-bottom: 1px solid #fff;}
 	.leftNav .tt:last-child{margin-right: 0;}
 	.leftNav .tt.on{background-color: #fff;font-weight: bold;position: relative;}

@@ -3,14 +3,13 @@
 		<view class="border-bottom position-fixed left-0 right-0 top0"></view>
 		<!-- 搜索 -->
 		<view class="seachbox d-flex a-center j-sb bg-white px-3 py-3"> 
-			<view class="d-flex a-center rr f5bj" style="width: 85%;" @click="Router.navigateTo({route:{path:'/pages/seachProduct/seachProduct'}})">
+			<view class="d-flex a-center rr f5bj" style="width: 85%;" @click="Router.navigateTo({route:{path:'/pages/seach/seach'}})">
 				<button class="seachBtn" type="button"><image src="../../static/images/home-icon1.png" mode=""></image></button>
 				<view class="input">
 					<input type="text" name="" value="" placeholder="搜索您想要的商品" placeholder-class="placeholder" />
 				</view>
-				<view class="delt d-flex j-center a-center"><text>×</text></view>
 			</view>
-			<view class="position-relative mr-2" style="width: 40rpx;height: 40rpx;">
+			<view class="position-relative mr-2" style="width: 40rpx;height: 40rpx;" @click="Router.navigateTo({route:{path:'/pages/seckill-car/seckill-car'}})">
 				<view class="carNum">3</view>
 				<image src="../../static/images/seconds kill-icon.png" mode=""></image>
 			</view>

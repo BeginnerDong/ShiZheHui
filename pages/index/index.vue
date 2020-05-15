@@ -2,7 +2,6 @@
 	<view>
 		
 		<view class="px-3 py-3 headTop">
-			<!-- <view class=""></view> -->
 			<view class="d-flex j-sb a-center">
 				<view class="d-flex a-center text-white">
 					<view class="font-30 font-weight mr-1">雁塔区</view>
@@ -52,7 +51,7 @@
 		
 		<view class="mx-3 d-flex a-center zq-lable">
 			<view class="item p-2 position-relative" style="background-image: linear-gradient(to right,#fff0e5,#ffe4d0);">
-				<view class="font-30 font-weight" style="color: #fe8934;">一元夺宝</view>
+				<view class="font-30 font-weight" style="color: #fe8934;" @click="Router.navigateTo({route:{path:'/pages/OneYuan/OneYuan'}})">一元夺宝</view>
 				<view class="font-20 color6">去看看</view>
 				<view class="icon"><image src="../../static/images/home-icon01.png" mode=""></image></view>
 			</view>

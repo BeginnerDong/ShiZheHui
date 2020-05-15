@@ -124,19 +124,19 @@
 					<view class="font-30 font-weight">我的活动</view>
 				</view>
 				<view class="menu d-flex j-sb a-center color6 py-3 text-center">
-					<view class="item" @click="Router.navigateTo({route:{path:'/pages//'}})">
+					<view class="item" @click="Router.navigateTo({route:{path:'/pages/user-Looting/user-Looting'}})">
 						<view class="icon">
 							<image src="../../static/images/about-icon-01.png"></image>
 						</view>
 						<view>我的夺宝</view>
 					</view>
-					<view class="item" @click="Router.navigateTo({route:{path:'/pages//'}})">
+					<view class="item" @click="Router.navigateTo({route:{path:'/pages/user-mySeckill/user-mySeckill'}})">
 						<view class="icon">
 							<image src="../../static/images/about-icon-02.png"></image>
 						</view>
 						<view>我的秒杀</view>
 					</view>
-					<view class="item" @click="Router.navigateTo({route:{path:'/pages//'}})">
+					<view class="item" @click="Router.navigateTo({route:{path:'/pages/user-Collage/user-Collage'}})">
 						<view class="icon">
 							<image src="../../static/images/about-icon-03.png"></image>
 						</view>

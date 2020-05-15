@@ -32,3 +32,10 @@
 .xqbotomBar .small-btn .child{width: 25%;}
 .xqbotomBar .small-btn .icon image{width: 30rpx;height: 30rpx;margin: 0 auto;}
 
+
+/* 拼团 */
+.detail_join .item .photo{width: 80rpx; height: 80rpx;border-radius: 50%;margin-right: 20rpx;overflow: hidden;}
+.detail_join .tit{width: 220rpx;}
+.detail_join .downTime{width: 240rpx;}
+.detail_join .go{width: 120rpx;line-height: 50rpx;height: 50rpx;}
+

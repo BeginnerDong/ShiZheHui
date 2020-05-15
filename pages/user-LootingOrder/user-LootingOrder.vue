@@ -27,8 +27,8 @@
 		
 		<view class="mt-3 mx-3">
 			<view class="proRow"  v-show="currNav==1">
-				<view class="item mb-3 bg-white">
-					<view class="priList"  v-for="(item,index) in orderData" :key="index">
+				<view class="item mb-3 bg-white" v-for="(item,index) in orderData" :key="index">
+					<view class="priList">
 						<view class="font-24 d-flex j-sb a-center mb-2">
 							<view class="color9">交易时间：2020-01-18</view>
 							<view class="red" v-if="stateOne==1||stateOne==2">待发货</view>
@@ -43,27 +43,27 @@
 							<view class="infor">
 								<view class="tit avoidOverflow">墨西哥牛油果8枚单果200g左右</view>
 								<view class="d-flex font-24 color6 mt-1">
-									<view class="specsBtn mr-1">精装品5斤</view>
+									<view class="text-secondary">全新 | L(170/88A)码</view>
 								</view>
 								<view class="B-price d-flex a-center j-sb">
 									<view class="d-flex a-center">
-										<view class="price font-30 font-weight mr-2">88</view>
-										<view class="font-24">会员</view>
-										<view class="VipPrice font-30"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥69</view>
+										<view class="red d-flex a-center font-24">交易价<view class="font-30 font-weight mr-2">￥88</view></view>
+										
+										<view class="yuanJia">121</view>
 									</view>
 									<view class="font-26">×1</view>
 								</view>
 							</view>
 						</view>
 					</view>
-					<view class="underBtn d-flex j-end a-center py-3" v-if="stateOne==3" @click="Router.navigateTo({route:{path:'/pages/orderConfim/orderConfim'}})">
+					<view class="underBtn d-flex j-end a-center pb-3" v-if="stateOne==3">
 						<view class="Bbtn red">确认收货</view>
 					</view>
-					<view class="underBtn d-flex j-end a-center py-3"  v-if="stateOne==4">
-						<view class="Bbtn red" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaList/userOrder-pingjiaList'}})">去评价</view>
+					<view class="underBtn d-flex j-end a-center pb-3"  v-if="stateOne==4">
+						<view class="Bbtn red" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjia/userOrder-pingjia'}})">去评价</view>
 					</view>
-					<view class="underBtn d-flex j-end a-center py-3"  v-if="stateOne==5">
-						<view class="Bbtn red" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaok/userOrder-pingjiaok'}})">查看评论</view>
+					<view class="pb-3"  v-if="stateOne==5">
+						<view class="px-3 f5bj rounded10 py-2 font-26 color6">路费及人事法规偶然时间管理认识就结果反馈了登记管理发的寄过来发动机就开了家</view>
 					</view>
 				</view>
 			</view>
@@ -75,7 +75,7 @@
 							<view class="color9">交易时间：2020-01-18</view>
 							<view class="red" v-if="stateTwo==1||stateTwo==2">待取货</view>
 							<view class="red" v-if="stateTwo==3">已核销</view>
-							<view class="red" v-if="stateTwo==4">已评价</view>
+							<view class="red" v-if="stateTwo==4">已评论</view>
 						</view>
 						<view class="d-flex a-center j-sb">
 							<view class="pic">
@@ -84,13 +84,13 @@
 							<view class="infor">
 								<view class="tit avoidOverflow">墨西哥牛油果8枚单果200g左右</view>
 								<view class="d-flex font-24 color6 mt-1">
-									<view class="specsBtn mr-1">精装品5斤</view>
+									<view class="text-secondary">全新 | L(170/88A)码</view>
 								</view>
 								<view class="B-price d-flex a-center j-sb">
 									<view class="d-flex a-center">
-										<view class="price font-30 font-weight mr-2">88</view>
-										<view class="font-24">会员</view>
-										<view class="VipPrice font-30"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥69</view>
+										<view class="red d-flex a-center font-24">交易价<view class="font-30 font-weight mr-2">￥88</view></view>
+										
+										<view class="yuanJia">121</view>
 									</view>
 									<view class="font-26">×1</view>
 								</view>
@@ -101,11 +101,11 @@
 						<view>核销码：</view>
 						<view class="hxEwm"  @click="hxEwmShow"><image src="../../static/images/ma-img.png" mode=""></image></view>
 					</view>
-					<view class="underBtn d-flex j-end a-center py-3"  v-if="stateTwo==3">
-						<view class="Bbtn red" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaList/userOrder-pingjiaList'}})">去评价</view>
+					<view class="underBtn d-flex j-end a-center pb-3"  v-if="stateTwo==3">
+						<view class="Bbtn red" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjia/userOrder-pingjia'}})">去评价</view>
 					</view>
-					<view class="underBtn d-flex j-end a-center py-3"  v-if="stateTwo==4">
-						<view class="Bbtn red" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaok/userOrder-pingjiaok'}})">查看评论</view>
+					<view class="pb-3" v-if="stateTwo==4">
+						<view class="px-3 f5bj rounded10 py-2 font-26 color6">路费及人事法规偶然时间管理认识就结果反馈了登记管理发的寄过来发动机就开了家</view>
 					</view>
 				</view>
 			</view>
@@ -134,10 +134,10 @@
 				wx_info:{},
 				is_show:false,
 				stateOne:1,
-				stateTwo:1,
-				orderData:2,
+				orderData:1,
 				currNav:1,
-				is_hxEwmShow:false
+				is_hxEwmShow:false,
+				stateTwo:1
 			}
 		},
 		onLoad() {
@@ -192,5 +192,5 @@
 	.hxEwm{width: 80rpx;height: 80rpx;}
 	
 	.hxEwmShow{width: 70%;position: fixed;top: 45%;left: 50%;transform: translate(-50%,-50%);z-index: 50;}
-	.hxEwmShow .ewm{width: 400rpx;height: 400rpx;display: block; margin: 0 auto;}
+	.hxEwmShow .ewm{width: 440rpx;height: 440rpx;display: block; margin: 0 auto;}
 </style>

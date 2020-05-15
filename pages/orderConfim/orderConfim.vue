@@ -140,4 +140,5 @@
 	.editMsg{width: 48%;height: 60rpx;padding: 0 10rpx;box-sizing: border-box;border: 1px solid #eee;box-sizing: border-box;text-align: center;}
 	.editMsg input{width: 100%;height: 60rpx;line-height: 60rpx;box-sizing: border-box;text-align: center;font-size: 26rpx;}
 	
+	/* .specsBtn{padding: 0 10rpx;line-height: 44rpx;background-color: #f7f7f7;border-radius: 6rpx;} */
 </style>

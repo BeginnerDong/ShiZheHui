@@ -33,5 +33,4 @@
 	/* @import "../../assets/style/detail.css"; */
 	page{padding-bottom: 60rpx;}
 	
-	
 </style>
