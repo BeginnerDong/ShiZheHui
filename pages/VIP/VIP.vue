@@ -151,11 +151,11 @@
 		</view>
 		
 		<!-- 四大权限弹框 -->
-		<view class="vipQyBox bg-white rounded10" v-show="is_vipQy">
+		<view class="vipQyBox rounded10" v-show="is_vipQy">
 			<view class="closeBtn" @click="vipQyBoxShow">×</view>
-			<swiper class="swiper-box rounded10 overflow-h" indicator-dots="true" autoplay="true" interval="3000" duration="1000" indicator-color="#adadad" indicator-active-color="#ffbcd7">
-				<block v-for="(item,index) in vipQyData" :key="index ">
-					<swiper-item class="swiper-item px-3 py-4 bg-white">
+			<swiper class="swiper" :previous-margin="swiper.margin" :next-margin='swiper.margin' :circular="true" @change="swiperChange">
+				<swiper-item v-for="(item,index) in swiper.list" :key="index" >
+					<view class="list" :class="{'le-active':swiper.index == index}">
 						<view class="hei d-flex a-center main-text-color p-3 rounded10">
 							<view class="logo mr-2"><image src="../../static/images/vip-icon2.png" mode=""></image></view>
 							<view>
@@ -168,8 +168,8 @@
 							<view>月卡、季卡、半年卡、年卡会员可享所有秒杀价商品</view>
 							<view>月卡、季卡、半年卡、年卡会员可享所有秒杀价商品月卡、季卡、半年卡、年卡会员可享所有秒杀价商品</view>
 						</view>
-					</swiper-item>
-				</block>
+					</view>
+				</swiper-item>
 			</swiper>
 		</view>
 		
@@ -212,6 +212,7 @@
 </template>
 
 <script>
+	
 	export default {
 		data() {
 			return {
@@ -229,7 +230,12 @@
 					{iconUrl:'../../static/images/vip-icon10.png',name:'年卡',price:"69"}
 				],
 				is_vipQy:false,
-				vipQyData:4
+				vipQyData:4,
+				swiper: {
+					margin: "105rpx",
+					index: 0,
+					list: 3
+				}
 			}
 		},
 		
@@ -251,6 +257,10 @@
 				const self = this;
 					self.is_show = !self.is_show;
 					self.is_vipQy = !self.is_vipQy
+			},
+			//swiper滑动事件
+			swiperChange: function(e) {
+				this.swiper.index = e.detail.current;
 			},
 			getMainData() {
 				const self = this;
@@ -293,11 +303,14 @@
 	.twoBtn .cont{position: relative;z-index: 2;line-height: 100rpx;}
 	
 	/* 权益弹框 */
-	.vipQyBox{width: 580rpx;height: 650rpx;position: fixed;left: 50%;top: 50%;transform: translate(-50%,-50%);z-index: 50;}
+	.vipQyBox{width: 100%;height: 650rpx;position: fixed;left: 50%;top: 50%;transform: translate(-50%,-50%);z-index: 50;}
 	.vipQyBox .hei{background-color: #222222;height: 120rpx;}
 	.vipQyBox .logo{width: 70rpx;height: 70rpx;}
-	.swiper-box {width: 100%;height: 650rpx;}
-	.swiper-box swiper-item{width: 100%;box-sizing: border-box;}
 	.xqInfor view{line-height: 40rpx;margin-bottom: 10rpx;}
+	
+	
+	.swiper {height: 650rpx;margin: 0 20rpx;}
+	.swiper .list {width: 100%;height: 100%;display: block;transform: scale(0.85);transition: transform 0.3s ease-in-out 0s;border-radius: 4px;padding: 30rpx;box-sizing: border-box;background-color: #fff;}
+	.swiper .list.le-active {transform: scale(1);}
 </style>
 

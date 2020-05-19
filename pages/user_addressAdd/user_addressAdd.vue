@@ -5,25 +5,25 @@
 		<view class="myRowBetween">
 			<view class="item d-flex j-sb a-center">
 				<view class="ll">姓名</view>
-				<view class="rr fs13">
+				<view class="rr">
 					<input type="text" placeholder="请输入姓名" placeholder-class="placeholder">
 				</view>
 			</view>	
 			<view class="item d-flex j-sb a-center">
 				<view class="ll">手机号</view>
-				<view class="rr fs13" >
+				<view class="rr" >
 					<input type="number" placeholder="请输入手机号" placeholder-class="placeholder">
 				</view>
 			</view>	
 			<view class="item d-flex j-sb a-center">
 				<view class="ll">所在地区</view>
-				<view class="rr fs13 color9">
+				<view class="rr color9">
 					请选择<image class="arrowR" src="../../static/images/home-icon7.png" mode=""></image>
 				</view>
 			</view>	
 			<view class="item d-flex j-sb a-center">
 				<view class="ll">详细地址</view>
-				<view class="rr fs13" >
+				<view class="rr" >
 					<input type="text" placeholder="请填写" placeholder-class="placeholder">
 				</view>
 			</view>	
