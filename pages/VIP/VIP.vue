@@ -13,12 +13,13 @@
 				<view class="cont position-relative main-text-color">
 					<view style="height: 176rpx;">
 						<view class="font-36 font-weight">会员卡/VIP</view>
-						<view class="mt-1 font-26">按一年用户消费计算，每年会节省￥5623</view>
+						<view class="mt-1 font-26">{{isMember&&isMember==true?'按您的消费计算':'按一年用户消费计算'}}，每年会节省￥{{save}}</view>
 					</view>
 					
 					<view class="d-flex a-center j-sb">
-						<view class="font-26" style="width: 65%;color: #f27f97;">试折惠，专业会员制电商平台</view>
-						<view class="btn text-white text-center font-28" @click="VipBuyShow">立即开通</view>
+						<view class="font-26" style="width: 65%;color: #f27f97;" v-if="!isMember">试折惠，专业会员制电商平台</view>
+						<view class="font-26" style="width: 65%;color: #f27f97;" v-else>有效期至：{{Utils.timeto(userInfoData.member_time*1000,'ymd')}}</view>
+						<view class="btn text-white text-center font-28" @click="VipBuyShow">{{isMember&&isMember==true?'立即续费':'立即开通'}}</view>
 					</view>
 				</view>
 			</view>
@@ -52,13 +53,14 @@
 		
 			<!-- 首冲会员享受优惠 -->
 			<view class="pinTab oh px-2 mt-2 py-3 bg-white rounded10">
-				<view class="font-30 font-weight d-flex j-sb a-center">首冲会员享受优惠</view>
+				<view class="font-30 font-weight d-flex j-sb a-center">首充会员享受优惠</view>
 				<view class="d-flex pt-3">
-					<view class="item" v-for="(item,index) in productData" :key="index" @click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail'}})">
-						<view class="pic"><image src="../../static/images/vip-img.png" mode=""></image></view>
-						<view class="tit font-24 avoidOverflow">好孩子儿童餐具宝宝学吃饭</view>
-						<view class="yuanJia mb-1">121</view>
-						<view class="d-flex a-center font-20 red">团购价<span class="price font-weight font-28">88</span></view>
+					<view class="item" v-for="(item,index) in mainData" v-if="item.member==0" :key="index" :data-id="item.id"
+					 @click="Router.navigateTo({route:{path:'/pages/vipProductDetail/vipProductDetail?id='+$event.currentTarget.dataset.id+'&type==new'}})">
+						<view class="pic"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
+						<view class="tit font-24 avoidOverflow">{{item.title}}</view>
+						<view class="yuanJia mb-1">{{item.o_price}}</view>
+						<view class="d-flex a-center font-20 red"><span class="price font-weight font-28">{{item.price}}</span></view>
 					</view>
 				</view>
 			</view>
@@ -67,11 +69,12 @@
 			<view class="pinTab oh px-2 mt-2 py-3 bg-white rounded10">
 				<view class="font-30 font-weight d-flex j-sb a-center">月卡礼品</view>
 				<view class="d-flex pt-3">
-					<view class="item" v-for="(item,index) in productData" :key="index" @click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail'}})">
-						<view class="pic"><image src="../../static/images/vip-img.png" mode=""></image></view>
-						<view class="tit font-24 avoidOverflow">好孩子儿童餐具宝宝学吃饭</view>
-						<view class="yuanJia mb-1">121</view>
-						<view class="d-flex a-center font-20 red">团购价<span class="price font-weight font-28">88</span></view>
+					<view class="item" v-for="(item,index) in mainData" v-if="item.member==1" :key="index" :data-id="item.id"
+					@click="Router.navigateTo({route:{path:'/pages/vipProductDetail/vipProductDetail?id='+$event.currentTarget.dataset.id}})">
+						<view class="pic"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
+						<view class="tit font-24 avoidOverflow">{{item.title}}</view>
+						<view class="yuanJia mb-1">{{item.o_price}}</view>
+						<view class="d-flex a-center font-20 red"><span class="price font-weight font-28">{{item.price}}</span></view>
 					</view>
 				</view>
 			</view>
@@ -80,11 +83,12 @@
 			<view class="pinTab oh px-2 mt-2 py-3 bg-white rounded10">
 				<view class="font-30 font-weight d-flex j-sb a-center">季卡礼品</view>
 				<view class="d-flex pt-3">
-					<view class="item" v-for="(item,index) in productData" :key="index" @click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail'}})">
-						<view class="pic"><image src="../../static/images/vip-img.png" mode=""></image></view>
-						<view class="tit font-24 avoidOverflow">好孩子儿童餐具宝宝学吃饭</view>
-						<view class="yuanJia mb-1">121</view>
-						<view class="d-flex a-center font-20 red">团购价<span class="price font-weight font-28">88</span></view>
+					<view class="item" v-for="(item,index) in mainData" v-if="item.member==2" :key="index" :data-id="item.id"
+					@click="Router.navigateTo({route:{path:'/pages/vipProductDetail/vipProductDetail?id='+$event.currentTarget.dataset.id}})">
+						<view class="pic"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
+						<view class="tit font-24 avoidOverflow">{{item.title}}</view>
+						<view class="yuanJia mb-1">{{item.o_price}}</view>
+						<view class="d-flex a-center font-20 red"><span class="price font-weight font-28">{{item.price}}</span></view>
 					</view>
 				</view>
 			</view>
@@ -93,11 +97,12 @@
 			<view class="pinTab oh px-2 mt-2 py-3 bg-white rounded10">
 				<view class="font-30 font-weight d-flex j-sb a-center">半年卡礼品</view>
 				<view class="d-flex pt-3">
-					<view class="item" v-for="(item,index) in productData" :key="index" @click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail'}})">
-						<view class="pic"><image src="../../static/images/vip-img.png" mode=""></image></view>
-						<view class="tit font-24 avoidOverflow">好孩子儿童餐具宝宝学吃饭</view>
-						<view class="yuanJia mb-1">121</view>
-						<view class="d-flex a-center font-20 red">团购价<span class="price font-weight font-28">88</span></view>
+					<view class="item" v-for="(item,index) in mainData" v-if="item.member==3" :key="index" :data-id="item.id"
+					@click="Router.navigateTo({route:{path:'/pages/vipProductDetail/vipProductDetail?id='+$event.currentTarget.dataset.id}})">
+						<view class="pic"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
+						<view class="tit font-24 avoidOverflow">{{item.title}}</view>
+						<view class="yuanJia mb-1">{{item.o_price}}</view>
+						<view class="d-flex a-center font-20 red"><span class="price font-weight font-28">{{item.price}}</span></view>
 					</view>
 				</view>
 			</view>
@@ -106,11 +111,12 @@
 			<view class="pinTab oh px-2 mt-2 py-3 bg-white rounded10">
 				<view class="font-30 font-weight d-flex j-sb a-center">年卡礼品</view>
 				<view class="d-flex pt-3">
-					<view class="item" v-for="(item,index) in productData" :key="index" @click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail'}})">
-						<view class="pic"><image src="../../static/images/vip-img.png" mode=""></image></view>
-						<view class="tit font-24 avoidOverflow">好孩子儿童餐具宝宝学吃饭</view>
-						<view class="yuanJia mb-1">121</view>
-						<view class="d-flex a-center font-20 red">团购价<span class="price font-weight font-28">88</span></view>
+					<view class="item" v-for="(item,index) in mainData" v-if="item.member==4" :key="index" :data-id="item.id"
+					@click="Router.navigateTo({route:{path:'/pages/vipProductDetail/vipProductDetail?id='+$event.currentTarget.dataset.id}})">
+						<view class="pic"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
+						<view class="tit font-24 avoidOverflow">{{item.title}}</view>
+						<view class="yuanJia mb-1">{{item.o_price}}</view>
+						<view class="d-flex a-center font-20 red"><span class="price font-weight font-28">{{item.price}}</span></view>
 					</view>
 				</view>
 			</view>
@@ -123,11 +129,12 @@
 			<view class="closebtn" @click="VipBuyShow">×</view>
 			<view class="font-32 font-weight text-center pt pb-4 border-bottom">选择会员卡种类</view>
 			<view class="d-flex a-center j-sb py-4 border-bottom font-weight">
-				<view class="seltCard d-flex j-center a-center" :class="vipCurr==index?'on':''" v-for="(item,index) in vipMoney" :key="index" @click="vipChange(index)">
+				<view class="seltCard d-flex j-center a-center" :class="vipCurr==index?'on':''" 
+				v-for="(item,index) in cardData" :key="index" @click="vipChange(index)">
 					<view class="flexColumn">
 						<view class="d-flex j-center font-26 mb-1">
-							<image class="icon" :src="item.iconUrl" mode=""></image>
-							<view>{{item.name}}</view>
+							<image class="icon" :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image>
+							<view>{{item.title}}</view>
 						</view>
 						<view class="font-24 d-flex a-center j-center">￥<span class="font-40">{{item.price}}</span></view>
 					</view>
@@ -144,8 +151,8 @@
 			<view class="twoBtn position-relative text-white text-center">
 				<view class="position-absoluteXY"><image src="../../static/images/vip-icon14.png" mode=""></image></view>
 				<view class="cont d-flex a-center j-sb font-weight">
-					<view class="btn font-40" style="width: 440rpx;">￥69</view>
-					<view class="btn font-30" style="width: 250rpx;">确认支付</view>
+					<view class="btn font-40" style="width: 440rpx;">￥{{cardData[vipCurr]?cardData[vipCurr].price:''}}</view>
+					<button class="btn font-30" style="width: 250rpx;background-color: none;" open-type="getUserInfo"  @getuserinfo="Utils.stopMultiClick(submit)">确认支付</button>
 				</view>
 			</view>
 		</view>
@@ -159,14 +166,14 @@
 						<view class="hei d-flex a-center main-text-color p-3 rounded10">
 							<view class="logo mr-2"><image src="../../static/images/vip-icon2.png" mode=""></image></view>
 							<view>
-								<view class="font-weight">优惠独享</view>
-								<view class="fs20">专享秒杀</view>
+								<view class="font-weight">{{item.title}}</view>
+								<view class="fs20">{{item.description}}</view>
 							</view>
 						</view>
 						
 						<view class="xqInfor font-26 mt-4">
-							<view>月卡、季卡、半年卡、年卡会员可享所有秒杀价商品</view>
-							<view>月卡、季卡、半年卡、年卡会员可享所有秒杀价商品月卡、季卡、半年卡、年卡会员可享所有秒杀价商品</view>
+							<view class="content ql-editor" style="padding:0;" v-html="item.content">
+							</view>
 						</view>
 					</view>
 				</swiper-item>
@@ -220,39 +227,168 @@
 				showView: false,
 				wx_info:{},
 				is_show:false,
-				productData:3,
+				
 				is_VipBuy:false,
 				vipCurr:0,
-				vipMoney:[
-					{iconUrl:'../../static/images/vip-icon7.png',name:'月卡',price:"69"},
-					{iconUrl:'../../static/images/vip-icon8.png',name:'季卡',price:"69"},
-					{iconUrl:'../../static/images/vip-icon9.png',name:'半年卡',price:"69"},
-					{iconUrl:'../../static/images/vip-icon10.png',name:'年卡',price:"69"}
-				],
+				
 				is_vipQy:false,
-				vipQyData:4,
+				
 				swiper: {
 					margin: "105rpx",
 					index: 0,
-					list: 3
-				}
+					list: []
+				},
+				searchItem:{
+					thirdapp_id:2,
+					type:6
+				},
+				mainData:[],
+				artData:[],
+				cardData:[],
+				Utils:this.$Utils,
+				isMember:'',
+				save:'',
+				userInfoData:{}
 			}
 		},
 		
 		onLoad(options) {
 			const self = this;
-			// self.$Utils.loadAll(['getMainData'], self);
+			uni.showLoading();
+			const callback = (res) => {
+				self.$Utils.loadAll(['getUserInfoData','getMainData','getArtData','getCardData'], self);
+			};
+			self.$Token.getProjectToken(callback, {
+				refreshToken: true
+			})
+			
 		},
+		
 		methods: {
+			
+			getUserInfoData() {
+				const self = this;		
+				const postData = {};
+				var nowTime = (new Date()).getTime() / 1000;
+				postData.tokenFuncName = 'getProjectToken';
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.userInfoData = res.info.data[0];
+						if(self.userInfoData.member_time>nowTime){
+							self.isMember = true;
+							self.save = self.userInfoData.save
+						}else{
+							self.isMember = false;
+							self.save = uni.getStorageSync('user_info').thirdApp.save
+						}
+					}
+					self.$Utils.finishFunc('getUserInfoData');
+				};
+				self.$apis.userInfoGet(postData, callback);
+			},
+			
+			submit(){
+				const self = this;
+				uni.setStorageSync('canClick', false);
+				var orderList = []
+				orderList.push({product_id:self.cardData[self.vipCurr].id,count:1})
+				const callback = (user, res) => {
+					self.addOrder(orderList)
+				};
+				self.$Utils.getAuthSetting(callback);
+			},
+			
+			addOrder(orderList) {
+				const self = this;	
+				const postData = {}; 
+				postData.orderList = self.$Utils.cloneForm(orderList);
+				postData.data = {
+					type:5
+					//level:1,
+					//price:self.totalPrice
+				};
+				postData.tokenFuncName = 'getProjectToken';
+				const callback = (res) => {
+					uni.setStorageSync('canClick', true);
+					if (res && res.solely_code == 100000) {
+						self.orderId = res.info.id;
+						self.goPay()
+					} else {		
+						uni.showToast({
+							title: res.msg,
+							duration: 2000
+						});
+					};		
+				};
+				self.$apis.addOrder(postData, callback);
+			},
+			
+			goPay() {
+				const self = this;	
+				const postData = {};
+				postData.wxPay = {
+					price:parseFloat(self.cardData[self.vipCurr].price).toFixed(2),
+				};
+				postData.tokenFuncName = 'getProjectToken',
+				postData.searchItem = {
+					id: self.orderId
+				};
+				postData.payAfter = [
+					{
+						tableName: 'UserInfo',
+						FuncName: 'update',
+						searchItem:{
+							user_no:uni.getStorageSync('user_info').user_no
+						},
+						data: {
+							behavior:0,
+							member:self.vipCurr+1,
+							member_time:(self.userInfoData.member_time==0?(new Date()).getTime() / 1000:self.userInfoData.member_time)+self.cardData[self.vipCurr].duration*86400
+						},
+					},
+				];
+				const callback = (res) => {
+					if (res.solely_code == 100000) {
+						uni.setStorageSync('canClick', true);
+						if (res.info) {
+							const payCallback = (payData) => {
+								console.log('payData', payData)
+								if (payData == 1) {
+									self.$Utils.showToast('开通成功！','none')
+									self.is_show = !self.is_show;
+									self.is_VipBuy = !self.is_VipBuy;
+									self.getUserInfoData()
+								} else {
+									uni.setStorageSync('canClick', true);
+									self.$Utils.showToast(res.msg,'none')
+								};
+							};
+							self.$Utils.realPay(res.info, payCallback);
+						} else {
+							self.$Utils.showToast('开通成功！','none')
+							self.is_show = !self.is_show;
+							self.is_VipBuy = !self.is_VipBuy
+							self.getUserInfoData()
+						};
+					} else {
+						uni.setStorageSync('canClick', true);
+						self.$Utils.showToast(res.msg,'none')
+					};
+				};
+				self.$apis.pay(postData, callback);
+			},
+			
 			vipChange(index){
 				const self = this;
 				self.vipCurr = index
 			},
+			
 			VipBuyShow(){
 				const self = this;
 					self.is_show = !self.is_show;
 					self.is_VipBuy = !self.is_VipBuy
 			},
+			
 			vipQyBoxShow(){
 				const self = this;
 					self.is_show = !self.is_show;
@@ -262,13 +398,78 @@
 			swiperChange: function(e) {
 				this.swiper.index = e.detail.current;
 			},
+			
+			getCardData() {
+				var self = this;
+				var postData = {};
+				postData.searchItem = {
+					thirdapp_id:2,
+					type:5
+				};
+				postData.order = {
+					listorder: 'desc'
+				};
+				var callback = function(res) {
+					if (res.info.data.length > 0 && res.info.data[0]) {
+						self.cardData.push.apply(self.cardData, res.info.data);
+					};
+					self.$Utils.finishFunc('getCardData');
+				};
+				self.$apis.productGet(postData, callback);
+			},
+			
 			getMainData() {
+				var self = this;
+				var postData = {};
+				//postData.paginate = self.$Utils.cloneForm(self.paginate);
+				postData.searchItem = self.$Utils.cloneForm(self.searchItem);
+				postData.order = {
+					listorder: 'desc'
+				};
+				var callback = function(res) {
+					if (res.info.data.length > 0 && res.info.data[0]) {
+						self.mainData.push.apply(self.mainData, res.info.data);
+						
+					};
+					self.$Utils.finishFunc('getMainData');
+				};
+				self.$apis.productGet(postData, callback);
+			},
+			
+			getArtData() {
 				const self = this;
-				console.log('852369')
 				const postData = {};
-				postData.tokenFuncName = 'getProjectToken';
-				self.$apis.orderGet(postData, callback);
-			}
+				postData.searchItem = {
+					thirdapp_id: 2,
+				};
+				postData.order = {
+					listorder: 'desc'
+				};
+				postData.getBefore= {
+					child:{
+						tableName:'Label',
+						middleKey:'menu_id',
+						key:'id',
+						searchItem:{
+							status:['in',1],
+							title:['in','会员权益']
+						},
+						condition:'in'
+					}
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						const regex = new RegExp('<img', 'gi');
+						for (var i = 0; i < res.info.data.length; i++) {
+							
+							res.info.data[i].content = res.info.data[i].content.replace(regex, `<img style="max-width: 100%;"`);
+						};
+						self.swiper.list = res.info.data
+					}
+					self.$Utils.finishFunc('getArtData');
+				};
+				self.$apis.articleGet(postData, callback);
+			},
 		}
 	};
 </script>
@@ -312,5 +513,8 @@
 	.swiper {height: 650rpx;margin: 0 20rpx;}
 	.swiper .list {width: 100%;height: 100%;display: block;transform: scale(0.85);transition: transform 0.3s ease-in-out 0s;border-radius: 4px;padding: 30rpx;box-sizing: border-box;background-color: #fff;}
 	.swiper .list.le-active {transform: scale(1);}
+	button{
+		background: none;
+	}
 </style>
 

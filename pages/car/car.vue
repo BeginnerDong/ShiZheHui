@@ -3,7 +3,7 @@
 		<view class="border-bottom position-fixed left-0 right-0 top0"></view>
 		<view class="mx-3">
 			<view class="py-3 d-flex j-sb a-center">
-				<view>全部宝贝(3)</view>
+				<view>全部宝贝({{mainData.length?mainData.length:'0'}})</view>
 				<view class="fs13"  v-show="!is_allDelt" @click="allDeltShow">管理</view>
 				<view class="fs13"  v-show="is_allDelt" @click="allDeltShow">完成</view>
 			</view>
@@ -11,16 +11,18 @@
 			<view class="proRow">
 			 	<view class="item d-flex j-sb a-center" v-for="(item,index) in mainData" :key="index">
 					<view class="item_selBtn flex">
-						<view><image class="seltIcon" src="../../static/images/shopping-icon.png" v-if="item.isSelect" @click="choose(index)"></image>
-						<image class="seltIcon" src="../../static/images/shopping-icon1.png" v-if="!item.isSelect" @click="choose(index)"></image></view>
+						<view><image class="seltIcon" src="../../static/images/shopping-icon.png" v-if="item.isSelect" 
+						@click="choose(index)"></image>
+						<image class="seltIcon" src="../../static/images/shopping-icon1.png" v-if="!item.isSelect" 
+						@click="choose(index)"></image></view>
 						
 					</view>
 					<view class="R_cont d-flex j-sb a-center">
-						<view class="pic"><image src="../../static/images/shopping-icon4.png" mode=""></image></view>
+						<view class="pic"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
 						<view class="infor">
-							<view class="tit avoidOverflow2">墨西哥牛油果8枚单果200g左右</view>
+							<view class="tit avoidOverflow2">{{item.title}}</view>
 							<view class="d-flex font-24 color6 mt">
-								<view class="specsBtn mr-1">精装品5斤</view>
+								<view class="specsBtn mr-1">{{item.sku&&item.sku[item.skuIndex]?item.sku[item.skuIndex].title:''}}</view>
 							</view>
 							<view class=" B-price">
 								<view class="d-flex j-end">
@@ -31,10 +33,10 @@
 									</view>
 								</view>
 								<view class="d-flex  a-center">
-									<view class="price font-30 font-weight mr-2">{{item.price}}</view>
+									<view class="price font-30 font-weight mr-2">{{item.sku&&item.sku[item.skuIndex]?item.sku[item.skuIndex].price:''}}</view>
 									<view class="d-flex a-center">
 										<view class="font-24">会员</view>
-										<view class="VipPrice"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥69</view>
+										<view class="VipPrice"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥{{item.sku&&item.sku[item.skuIndex]?item.sku[item.skuIndex].member_price:''}}</view>
 									</view>
 								</view>
 								
@@ -47,7 +49,7 @@
 		</view>
 		
 		<!-- 无数据 -->
-		<view class="nodata"><image src="../../static/images/nodata.png" mode=""></image></view>
+		<view class="nodata" v-if="mainData.length==0"><image src="../../static/images/nodata.png" mode=""></image></view>
 		
 		
 		<!-- 底部结算 -->
@@ -61,7 +63,7 @@
 			</view>
 			<view class="d-flex j-end a-center" v-show="!is_allDelt">
 				<view class="font-24 mr-3 d-flex a-center">合计<view class="price font-32 font-weight">{{totalPrice}}</view></view>
-				<view class="payBtn font-30 text-white main-bg-color"  @click="Router.navigateTo({route:{path:'/pages/orderConfim/orderConfim'}})">立即购买</view>
+				<view class="payBtn font-30 text-white main-bg-color" @click="pay">立即购买</view>
 			</view>
 			<view class="alldeltBtn border-primary main-text-color main-border-color text-center border rounded50 mr-3" @click="deleteAll()" v-show="is_allDelt">删除</view>
 		</view>
@@ -75,7 +77,7 @@
 				</view>
 				<view class="text">首页</view>
 			</view>
-			<view class="navbar_item" @click="Router.redirectTo({route:{path:'/pages//'}})">
+			<view class="navbar_item" @click="Router.redirectTo({route:{path:'/pages/classify/classify'}})">
 				<view class="nav_img">
 					<image src="../../static/images/nabar2.png" />
 				</view>
@@ -115,24 +117,94 @@
 				is_show:false,
 				count:1,
 				mainData:[
-					{isSelect:true,price:'88',count:'1'},
-					{isSelect:false,price:'88',count:'1'}
+					
 				],
 				is_allDelt:false,
-				isChooseAll:false,
-				totalPrice:"88"
+				totalPrice:0,
+				isChooseAll:true
 			}
 		},
 		
-		onLoad(options) {
+		onLoad() {
 			const self = this;
-			// self.$Utils.loadAll(['getMainData'], self);
+			
 		},
+		
+		onShow() {
+			const self = this;
+			self.mainData = self.$Utils.getStorageArray('cartData');
+			console.log('self.mainData',self.mainData)
+			self.checkChooseAll();
+			self.$Utils.loadAll(['getUserInfoData'], self);
+			
+		},
+		
 		methods: {
+			
+			getUserInfoData() {
+				const self = this;		
+				const postData = {};
+				postData.tokenFuncName = 'getProjectToken';
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.userInfoData = res.info.data[0]
+						self.countTotalPrice();
+					}
+					self.$Utils.finishFunc('getUserInfoData');
+				};
+				self.$apis.userInfoGet(postData, callback);
+			},
+			
+			pay(e) {
+				const self = this;
+				const orderList = [
+				];
+				for (var i = 0; i < self.mainData.length; i++) {
+					if (self.mainData[i].isSelect) {
+						orderList.push(
+							{sku_id:self.mainData[i].sku[self.mainData[i].skuIndex].id,count:self.mainData[i].count,
+							product:self.mainData[i],skuIndex:self.mainData[i].skuIndex},
+						);
+					};
+				};
+				if (orderList.length == 0) {
+					self.$Utils.showToast('未选择商品', 'none', 1000);
+					return;
+				};
+				uni.setStorageSync('payPro', orderList);
+				self.$Router.navigateTo({
+					route: {
+						path: '/pages/orderConfim/orderConfim'
+					}
+				})
+			},
+			
+			checkChooseAll() {
+				const self = this;
+				var isChooseAll = true;
+				for (var i = 0; i < self.mainData.length; i++) {
+					if (!self.mainData[i].isSelect) {
+						isChooseAll = false;
+					};
+				};
+				self.isChooseAll = isChooseAll;
+			},
+			
+			chooseAll() {
+				const self = this;
+				self.isChooseAll = !self.isChooseAll;
+				for (var i = 0; i < self.mainData.length; i++) {
+					self.mainData[i].isSelect = self.isChooseAll;
+					self.$Utils.setStorageArray('cartData', self.mainData[i], 'id', 999);
+				};
+				self.countTotalPrice();
+			},
+			
 			allDeltShow(){
 				const self = this;
 				self.is_allDelt = !self.is_allDelt
 			},
+			
 			counter(index,type) {
 				const self = this;
 				if (type == '+') {
@@ -145,6 +217,7 @@
 				self.$Utils.setStorageArray('cartData', self.mainData[index], 'id', 999);
 				self.countTotalPrice();
 			},
+			
 			deleteAll() {
 				const self = this;
 				uni.showModal({
@@ -167,26 +240,9 @@
 					},
 				});
 			},
-			checkChooseAll() {
-				const self = this;
-				var isChooseAll = true;
-				for (var i = 0; i < self.mainData.length; i++) {
-					if (!self.mainData[i].isSelect) {
-						isChooseAll = false;
-					};
-				};
-				self.isChooseAll = isChooseAll;
-			},
 			
-			chooseAll() {
-				const self = this;
-				self.isChooseAll = !self.isChooseAll;
-				for (var i = 0; i < self.mainData.length; i++) {
-					self.mainData[i].isSelect = self.isChooseAll;
-					self.$Utils.setStorageArray('cartData', self.mainData[i], 'id', 999);
-				};
-				self.countTotalPrice();
-			},
+			
+			
 			choose(index) {
 				const self = this;
 				
@@ -204,21 +260,20 @@
 			countTotalPrice() {
 				const self = this;
 				self.totalPrice = 0;
-				
+				var nowTime = (new Date()).getTime() / 1000;
 				for (var i = 0; i < self.mainData.length; i++) {
 					if (self.mainData[i].isSelect) {
-						self.totalPrice += self.mainData[i].price * self.mainData[i].count;
+						if(self.userInfoData.member_time>nowTime){
+							self.totalPrice += self.mainData[i].sku[self.mainData[i].skuIndex].member_price * self.mainData[i].count;
+						}else{
+							self.totalPrice += self.mainData[i].sku[self.mainData[i].skuIndex].price * self.mainData[i].count;
+						}
 					};
 				};
 				console.log(self.totalPrice)
 			},
-			getMainData() {
-				const self = this;
-				console.log('852369')
-				const postData = {};
-				postData.tokenFuncName = 'getProjectToken';
-				self.$apis.orderGet(postData, callback);
-			}
+			
+			
 		}
 	};
 </script>

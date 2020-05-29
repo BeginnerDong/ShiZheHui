@@ -4,51 +4,57 @@
 		<view class="d-flex j-sb a-start">
 			<view class="text-center">
 				<scroll-view class="leftNav scroll-row" scroll-y>
-					<view class="tt" :class="curr==index?'on':''" v-for="(item,index) in navData" :key="index" @click="changeCurr(index)">{{item}}</view>
+					<view class="tt" :class="curr==-1?'on':''" 
+					@click="changeCurr(-1)">推荐品牌</view>
+					<view class="tt" :class="curr==index?'on':''" v-for="(item,index) in labelData" :key="index" 
+					@click="changeCurr(index)">{{item.title}}</view>
 				</scroll-view>
 			</view>
 			
 			
 			<!-- 今日拼团 -->
-			<view class="rightCont pr-3 pt-3">
+			<view class="rightCont pr-3 pt-3 w-100">
 				<!-- 类别 -->
-				<view class="font-28 font-weight mb-2">类别</view>
-				<view class="category font-26 pb-2 text-center d-flex a-start flex-wrap">
-					<view class="item mb-2" v-for="(item,index) in categoryData" :key="index" @click="Router.navigateTo({route:{path:'/pages/productList/productList'}})">
-						<view class="pic rounded50 overflow-h"><image src="../../static/images/classificationl-img.png" mode=""></image></view>
-						<view class="avoidOverflow pt-1">彩妆套装套装</view>
+				<view class="font-28 font-weight mb-2" v-if="curr!=-1&&labelTwoData.length>0">类别</view>
+				<view class="category font-26 pb-2 text-center d-flex a-start flex-wrap" v-if="curr!=-1&&labelTwoData.length>0">
+					<view class="item mb-2" v-for="(item,index) in labelTwoData" :key="index" 
+					@click="Router.navigateTo({route:{path:'/pages/productList/productList'}})">
+						<view class="pic rounded50 overflow-h"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode="">
+						</image></view>
+						<view class="avoidOverflow pt-1">{{item.title}}</view>
 					</view>
 				</view>
 				
 				<!-- 热门品牌 -->
 				<view class="font-28 font-weight mb-2">热门品牌</view>
 				<view class="category font-24 pb-1 text-center d-flex a-start flex-wrap">
-					<view class="item mb-2" v-for="(item,index) in categoryData" :key="index">
-						<view class="pic overflow-h"><image src="../../static/images/classificationl-img2.png" mode=""></image></view>
-						<view class="avoidOverflow pt-1">香奈儿/CHANEL香奈儿</view>
+					<view class="item mb-2" v-for="(item,index) in brandData" :key="index">
+						<view class="pic overflow-h"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
+						<view class="avoidOverflow pt-1">{{item.title}}</view>
 					</view>
 				</view>
 				
 				<!-- 商品推荐 -->
 				<view class="font-28 font-weight mb-2">商品推荐</view>
 				<view class="HotProduct d-flex j-sb flex-wrap">
-					<view class="item mb-3" v-for="(item,index) in productData" :key="index" @click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail'}})">
-						<view class="pic rounded10 overflow-h"><image src="../../static/images/home-img2.png" mode=""></image></view>
+					<view class="item mb-3" v-for="(item,index) in mainData" :key="index" 
+					@click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail'}})">
+						<view class="pic rounded10 overflow-h"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
 						<view class="infor">
 							<view class="tit font-26 d-flex a-center">
-								<view class="avoidOverflow2">墨西哥牛油果8枚单果200g左右</view>
+								<view class="avoidOverflow2">{{item.title}}</view>
 							</view>
 							<view class="d-flex a-center mt-2">
-								<view class="price font-30 font-weight mr-1">88</view>
+								<view class="price font-30 font-weight mr-1">{{item.price}}</view>
 								<view class="font-24">会员</view>
-								<view class="VipPrice font-28"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥69</view>
+								<view class="VipPrice font-28"><image class="arrow" src="../../static/images/home-icon6.png" mode="">
+								</image>￥{{item.member_price}}</view>
 							</view>
 						</view>
 					</view>
 				</view>
-				
 				<!-- 无数据 -->
-				<view class="nodata"><image src="../../static/images/nodata.png" mode=""></image></view>
+				<view class="nodata" v-if="mainData.length==0"><image src="../../static/images/nodata.png" mode=""></image></view>
 			</view>
 			
 		</view>
@@ -98,29 +104,165 @@
 				Router:this.$Router,
 				is_show: false,
 				wx_info:{},
-				is_show:false,
-				curr:0,
-				navData:['推荐品牌','户外运动','美妆个护','零食饮品','手机电脑'],
+				curr:-1,
 				categoryData:9,
-				productData:4
+				productData:4,
+				labelData:[],
+				brandData:[],
+				searchItem:{
+					thirdapp_id:2,
+					type:1
+				},
+				mainData:[],
+				labelTwoData:[],
+				idArray:[]
 			}
 		},
+		
 		onLoad() {
 			const self = this;
-			// self.$Utils.loadAll(['getMainData'], self);
+			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
+			self.$Utils.loadAll(['getLabelData','getBrandData','getMainData'], self);
 		},
+		
 		methods: {
+			
 			changeCurr(index){
 				const self = this;
-				self.curr = index
+				self.mainData = [];
+				self.labelTwoData = [];
+				
+				if(self.curr!=index){
+					self.curr = index
+					if(index!=-1){
+						self.getLabelTwoData()
+					}
+				}
 			},
-			getMainData() {
+			
+			getLabelTwoData() {
 				const self = this;
-				console.log('852369')
 				const postData = {};
-				postData.tokenFuncName = 'getProjectToken';
-				self.$apis.orderGet(postData, callback);
-			}
+				postData.searchItem = {
+					thirdapp_id: 2,
+					type:3,
+					parentid:self.labelData[self.curr].id
+				};
+				postData.order = {
+					listorder: 'desc'
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.labelTwoData.push.apply(self.labelTwoData, res.info.data);
+						for (var i = 0; i < self.labelTwoData.length; i++) {
+							self.idArray.push(self.labelTwoData[i].id)
+						}
+						self.searchItem.category_id = ['in',self.idArray]
+						self.getMainData(true)
+					}
+				};
+				self.$apis.labelGet(postData, callback);
+			},
+			
+			getBrandData() {
+				const self = this;
+				const postData = {};
+				postData.searchItem = {
+					thirdapp_id: 2,
+				};
+				postData.order = {
+					listorder: 'desc'
+				};
+				postData.getBefore= {
+					child:{
+						tableName:'Label',
+						middleKey:'parentid',
+						key:'id',
+						searchItem:{
+							status:['in',1],
+							title:['in','热门品牌']
+						},
+						condition:'in'
+					}
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.brandData.push.apply(self.brandData, res.info.data);
+						
+					}
+					self.$Utils.finishFunc('getBrandData');
+				};
+				self.$apis.labelGet(postData, callback);
+			},
+			
+			getLabelData() {
+				const self = this;
+				const postData = {};
+				postData.searchItem = {
+					thirdapp_id: 2,
+					type:3,
+				};
+				postData.order = {
+					listorder: 'desc'
+				};
+				postData.getBefore= {
+					child:{
+						tableName:'Label',
+						middleKey:'parentid',
+						key:'id',
+						searchItem:{
+							title:['in',['普通商品']]
+						},
+						condition:'in'
+					}
+				};
+				postData.getAfter= {
+					child:{
+						tableName:'Label',
+						middleKey:'id',
+						key:'parentid',
+						searchItem:{
+							status:1
+						},
+						condition:'='
+					}
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.labelData.push.apply(self.labelData, res.info.data);
+						
+					}
+					self.$Utils.finishFunc('getLabelData');
+				};
+				self.$apis.labelGet(postData, callback);
+			},
+			
+			getMainData(isNew) {
+				var self = this;
+				if (isNew) {
+					self.mainData = [];
+					self.paginate = {
+						count: 0,
+						currentPage: 1,
+						pagesize: 10,
+						is_page: true,
+					}
+				};
+				var postData = {};
+				postData.paginate = self.$Utils.cloneForm(self.paginate);
+				postData.searchItem = self.$Utils.cloneForm(self.searchItem);
+				postData.order = {
+					sale_count: 'desc'
+				};
+				var callback = function(res) {
+					if (res.info.data.length > 0 && res.info.data[0]) {
+						self.mainData.push.apply(self.mainData, res.info.data);
+						
+					};
+					self.$Utils.finishFunc('getMainData');
+				};
+				self.$apis.productGet(postData, callback);
+			},
 		}
 	};
 </script>
@@ -130,7 +272,7 @@
 	@import "../../assets/style/productList.css";
 	
 	
-	.leftNav{width: 180rpx;background-color: #F5F5F5;position: fixed;left:0;top: 88px;bottom: 0;}
+	.leftNav{width: 180rpx;background-color: #F5F5F5;position: fixed;left:0;top: 0;bottom: 0;}
 	.leftNav .tt{width: 100%;height: 100rpx;line-height: 98rpx;border-bottom: 1px solid #fff;}
 	.leftNav .tt:last-child{margin-right: 0;}
 	.leftNav .tt.on{background-color: #fff;font-weight: bold;position: relative;}

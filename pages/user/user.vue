@@ -4,13 +4,17 @@
 		<view class="userHead  main-bg-color">
 			<view class="infor mx-3">
 				<view class="d-flex a-center mt-4">
-					<view><image class="photo" src="../../static/images/about-img.png" mode=""></image></view>
+					<view class="photo" style="overflow: hidden;"><open-data type="userAvatarUrl"></open-data></view>
 					<view style="width: 70%;">
-						<view class="font-30 font-weight">哆啦A梦</view>
+						<view class="font-30 font-weight"><open-data type="userNickName"></open-data></view>
 						<view class="d-flex mt-1">
 							<view class="d-flex a-center font-24 rounded50" style="min-width: 150rpx;background-color: rgba(255,255,255,0.5);padding: 0rpx 6rpx; line-height: 40rpx;">
 								<image style="width: 30rpx;height: 26rpx;" src="../../static/images/about-icon.png" mode=""></image>
-								<view class="ml">普通会员</view>
+								<view class="ml" v-if="userInfoData.member==1&&userInfoData.member_time>now">月卡会员</view>
+								<view class="ml" v-if="userInfoData.member==2&&userInfoData.member_time>now">季卡会员</view>
+								<view class="ml" v-if="userInfoData.member==3&&userInfoData.member_time>now">半年卡会员</view>
+								<view class="ml" v-if="userInfoData.member==4&&userInfoData.member_time>now">年卡会员</view>
+								<view class="ml" v-if="userInfoData.member_time<now">普通用户</view>
 							</view>
 						</view>
 					</view>
@@ -18,12 +22,13 @@
 			</view>
 		</view>
 		
-		<view class="openVip rounded10 overflow-h px-3 py-2 mx-3 d-flex a-center j-sb" style="background-image: linear-gradient(to right,#534e4e,#191516);margin-top: -50rpx;">
+		<view class="openVip rounded10 overflow-h px-3 py-2 mx-3 d-flex a-center j-sb" v-if="userInfoData.member_time<now"
+		style="background-image: linear-gradient(to right,#534e4e,#191516);margin-top: -50rpx;">
 			<view style="width: 70%;">
 				<view class="font-26 d-flex a-center" style="color: #b89673;"><image style="width: 26rpx;height: 24rpx;margin-right: 6rpx;" src="../../static/images/about-icon1.png" mode=""></image>开通会员享全场成本价</view>
 				<view class="font-22 mt-1" style="color: #c6a787;">开通试折惠会员享4大权益</view>
 			</view>
-			<view class="openBtn text-center text-white font-30 rounded50" @click="Router.navigateTo({route:{path:'/pages/VIP/VIP'}})">立即开通</view>
+			<view class="openBtn text-center text-white font-30 rounded50" @click="Router.redirectTo({route:{path:'/pages/VIP/VIP'}})">立即开通</view>
 		</view>
 		
 		<view class="mx-3">
@@ -34,31 +39,31 @@
 					<view class="more d-flex j-end a-center color9" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder'}})">查看全部<image class="arrowR" src="../../static/images/home-icon7.png" mode=""></image></view>
 				</view>
 				<view class="menu d-flex j-sb a-center color6 py-3 text-center">
-					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder'}})">
+					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder?num==1'}})">
 						<view class="icon">
 							<image src="../../static/images/about-icon2.png"></image>
 						</view>
 						<view>全部订单</view>
 					</view>
-					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder'}})">
+					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder?num==2'}})">
 						<view class="icon">
 							<image src="../../static/images/about-icon3.png"></image>
 						</view>
 						<view>待发货</view>
 					</view>
-					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder'}})">
+					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder?num==3'}})">
 						<view class="icon">
 							<image src="../../static/images/about-icon4.png"></image>
 						</view>
 						<view>配送中</view>
 					</view>
-					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder'}})">
+					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder?num==4'}})">
 						<view class="icon">
 							<image src="../../static/images/about-icon5.png"></image>
 						</view>
 						<view>已收货</view>
 					</view>
-					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder'}})">
+					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder?num==5'}})">
 						<view class="icon">
 							<image src="../../static/images/about-icon6.png"></image>
 						</view>
@@ -109,17 +114,17 @@
 						</view>
 						<view>投诉/建议</view>
 					</view>
-					<view class="item">
+					<button class="item" open-type="contact">
 						<view class="icon">
 							<image src="../../static/images/about-icon13.png"></image>
 						</view>
-						<view>客服</view>
-					</view>
+						<view class="color6">客服</view>
+					</button>
 				</view>
 			</view>
 			
 			<!-- 我的活动 -->
-			<view class="userBox2 rounded10 bg-white font-24 px-3">
+			<view class="userBox2 rounded10 bg-white font-24 px-3" @click="showToast">
 				<view class="d-flex a-center py-3 border-bottom">
 					<view class="font-30 font-weight">我的活动</view>
 				</view>
@@ -189,18 +194,37 @@
 		data() {
 			return {
 				Router:this.$Router,
-				showView: false,
-				score:'',
-				wx_info:{}
+				now:'',
+				userInfoData:{}
 			}
 		},
 		onLoad() {
 			const self = this;
-			//self.$Utils.loadAll(['getMainData'], self);
+			self.$Utils.loadAll(['getUserInfoData'], self);
+			self.now = (new Date()).getTime() / 1000;
 		},
+		
 		methods: {
-
-
+			
+			showToast(){
+				const self = this;
+				self.$Utils.showToast('功能开发中','none')
+			},
+			
+			getUserInfoData() {
+				const self = this;		
+				const postData = {};
+				var nowTime = (new Date()).getTime() / 1000;
+				postData.tokenFuncName = 'getProjectToken';
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.userInfoData = res.info.data[0];
+						
+					}
+					self.$Utils.finishFunc('getUserInfoData');
+				};
+				self.$apis.userInfoGet(postData, callback);
+			},
 		},
 	};
 </script>
@@ -225,5 +249,19 @@
 	.userBox2.sevice{height:390rpx ;overflow: hidden;}
 	.userBox2.sevice .item{width: 25%; flex: initial; margin-bottom: 34rpx;}
 	.userBox2.sevice .item .icon{margin-bottom: 16rpx;}
-	
+	button{
+		background: none;
+		line-height: 1;
+		margin-left: 0;
+		margin-right: 0;
+		font-size: 12px;
+		border-radius: 0;
+	}	
+	button::after{
+		border: none;
+	}
+	.button-hover {
+		color: #000000;
+		background: none;
+	}
 </style>

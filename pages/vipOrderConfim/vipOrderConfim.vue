@@ -62,9 +62,9 @@
 				<view class="pic"><image :src="item.product&&item.product.mainImg&&item.product.mainImg[0]?item.product.mainImg[0].url:''" mode=""></image></view>
 				<view class="infor">
 					<view class="tit avoidOverflow">{{item.product?item.product.title:''}}</view>
-					<view class="d-flex font-24 color6 mt">
+					<!-- <view class="d-flex font-24 color6 mt">
 						<view class="specsBtn mr-1">{{item.product&&item.product.sku&&item.product.sku[item.skuIndex]?item.product.sku[item.skuIndex].title:''}}</view>
-					</view>
+					</view> -->
 					<view class="B-price">
 						<view class="d-flex j-end">
 							<view class="numBox d-flex">
@@ -75,11 +75,11 @@
 						</view>
 						
 						<view class="d-flex  a-center">
-							<view class="price font-30 font-weight mr-2">{{item.product&&item.product.sku&&item.product.sku[item.skuIndex]?item.product.sku[item.skuIndex].price:''}}</view>
-							<view class="d-flex a-center">
+							<view class="price font-30 font-weight mr-2">{{item.product?item.product.price:''}}</view>
+							<!-- <view class="d-flex a-center">
 								<view class="font-24">会员</view>
 								<view class="VipPrice font-30"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥{{item.product&&item.product.sku&&item.product.sku[item.skuIndex]?item.product.sku[item.skuIndex].member_price:''}}</view>
-							</view>
+							</view> -->
 						</view>
 					</view>
 				</view>
@@ -233,13 +233,8 @@
 				var nowTime = (new Date()).getTime() / 1000;
 				self.totalPrice = 0;
 				for (var i = 0; i < self.mainData.length; i++) {
-					if(self.userInfoData.member_time>nowTime){
-						self.totalPrice += self.mainData[i].product.sku[self.mainData[i].skuIndex].member_price*self.mainData[i].count
-					}else{
-						self.totalPrice += self.mainData[i].product.sku[self.mainData[i].skuIndex].price*self.mainData[i].count
-						
-					}
-				}
+					self.totalPrice += self.mainData[i].product.price*self.mainData[i].count
+				};
 				
 				self.totalPrice = parseFloat(self.totalPrice).toFixed(2)
 				//console.log('wxPay',wxPay)
@@ -248,7 +243,9 @@
 						price: self.totalPrice,
 					};
 				} else {
-					  delete self.pay.wxPay;	 
+					self.pay.score = {
+						price: self.totalPrice,
+					}; 
 				};
 				console.log(self.pay)
 			},
@@ -292,7 +289,7 @@
 				};
 				var orderList = []
 				for (var i = 0; i < self.mainData.length; i++) {
-					orderList.push({sku_id:self.mainData[i].sku_id,count:self.mainData[i].count,data: data,
+					orderList.push({product_id:self.mainData[i].product_id,count:self.mainData[i].count,data: data,
 					snap_address: self.addressData})
 				}
 				const callback = (user, res) => {
@@ -315,9 +312,9 @@
 					level:1,
 					snap_address:self.addressData,
 					//price:self.totalPrice
-					//type:1
+					type:6,
+					member:self.mainData[0].product.member
 				};
-				postData.type = 1;
 				postData.parent = 1;
 				postData.tokenFuncName = 'getProjectToken';
 				if(self.curr==2){
@@ -329,14 +326,7 @@
 					uni.setStorageSync('canClick', true);
 					if (res && res.solely_code == 100000) {
 						self.orderId = res.info.id;
-						var array = self.$Utils.getStorageArray('cartData');
-						for (var i = 0; i < orderList.length; i++) {
-							for (var j = 0; j < array.length; j++) {
-								if(orderList[i].sku_id == array[j].sku[array[j].skuIndex].id){
-									self.$Utils.delStorageArray('cartData', array[j], 'id');
-								}
-							}
-						};
+						
 						self.goPay()
 					} else {		
 						uni.showToast({
@@ -355,6 +345,20 @@
 				postData.searchItem = {
 					id: self.orderId
 				};
+				if(self.mainData[0].product.member!=0){
+					postData.payAfter = [
+						{
+							tableName: 'UserInfo',
+							FuncName: 'update',
+							searchItem:{
+								user_no:uni.getStorageSync('user_info').user_no
+							},
+							data: {
+								behavior:1,
+							},
+						},
+					];
+				};
 				const callback = (res) => {
 					if (res.solely_code == 100000) {
 						uni.setStorageSync('canClick', true);
@@ -363,41 +367,21 @@
 							const payCallback = (payData) => {
 								console.log('payData', payData)
 								if (payData == 1) {
-									uni.showToast({
-										title: '支付成功',
-										duration: 1000,
-										success: function() {
-											
-										}
-									});
-									
+									self.$Utils.showToast('支付成功！','none')
 									setTimeout(function() {
 										self.$Router.redirectTo({route:{path:'/pages/userOrder/userOrder'}})
 									}, 1000);
-									
-									
 								} else {
 									uni.setStorageSync('canClick', true);
-									uni.showToast({
-										title: '支付失败',
-										duration: 2000
-									});
+									self.$Utils.showToast(res.msg,'none')
 								};
 							};
 							self.$Utils.realPay(res.info, payCallback);
 						} else {
-							
-							uni.showToast({
-								title: '支付成功',
-								duration: 1000,
-								success: function() {
-									
-								}
-							});
+							self.$Utils.showToast('支付成功','none')
 							setTimeout(function() {
 								self.$Router.redirectTo({route:{path:'/pages/userOrder/userOrder'}})
 							}, 1000);
-							
 						};
 					} else {
 						uni.setStorageSync('canClick', true);

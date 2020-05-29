@@ -10,18 +10,12 @@
 				</block>
 			</swiper>
 		</view>
-		<view class="pl-3 py-2 main-bg-color d-flex a-center j-sb detail-priceBox text-white">
+		<view class="pl-3 py-2 main-bg-color d-flex a-center j-sb detail-priceBox text-white" style="height: 100rpx;">
 			<view style="width: 85%;">
 				<view class="d-flex a-center">
 					<view class="price font-30 font-weight mr-2">{{mainData.price?mainData.price:''}}</view>
-					<view class="font-24">会员</view>
-					<view class="VipPrice font-30 font-weight"><image class="arrow" src="../../static/images/details-icon.png" mode="">
-					</image>￥{{mainData.member_price?mainData.member_price:''}}</view>
 				</view>
-				<view class="d-flex a-center font-22 mt-1">
-					<view>库存：{{mainData.sku[specsCurr]?mainData.sku[specsCurr].stock:'0'}}</view>
-					<view class="ml-5">销量：{{mainData.sale_count?mainData.sale_count:'0'}}</view>
-				</view>
+				
 			</view>
 			<view class="shareBtn d-flex j-center a-center font-24"><image class="shareIcon" src="../../static/images/details-icon3.png" mode=""></image><view class="ml-1">分享</view></view>
 		</view>
@@ -30,16 +24,7 @@
 			<view class="font-26 color9">{{mainData.description}}</view>
 		</view>
 		
-		<view class="f5Bj-H20"></view>
-		<view class="mx-3 py-3">
-			<view class="d-flex j-sb a-center" @click="spaceShow">
-				<view class="d-flex a-center">
-					<view class="font-26 mr-3 color6">规格选择</view>
-					<view class="d-flex a-center flex-wrap" style="width: 466rpx;"><view class="mr-1">已选：{{mainData.sku[specsCurr]?mainData.sku[specsCurr].title:''}}</view></view>
-				</view>
-				<view style="width: 44rpx;height: 8rpx;"><image src="../../static/images/details-icon1.png" mode=""></image></view>
-			</view>
-		</view>
+		
 		<view class="f5Bj-H20"></view>
 		<view class="px-3">
 			<view class="tooling_indNav color6 my-3 mx-4">
@@ -61,14 +46,14 @@
 						<view class="item" v-for="(item,index) in messageData" :key="index">
 							<view class="d-flex j-sb a-center pb-1 font-24">
 								<view class="d-flex a-center">
-									<view class="photo mr-1"><image :src="item.headImg&&item.headImg[0]&&item.headImg[0].url!=''?item.headImg[0].url:''" mode=""></image></view>
+									<view class="photo mr-1"><image :src="item.mainImg&&item.mainImg[0]&&item.mainImg[0].url!=''?item.mainImg[0].url:''" mode=""></image></view>
 									<view class="name color6">{{item.title!=''?item.title:'用户'}}</view>		
 								</view>
 								<view class="time color9">{{item.create_time}}</view>
 							</view>
 							<view class="text font-26 pt-1">{{item.description}}</view>
 							<view class="picLis d-flex a-start flex-wrap" >
-								<view class="pic" v-for="(c_item,c_index) in item.mainImg">
+								<view class="pic" v-for="(c_item,c_index) in item.bannerImg">
 									<image :src="item.url" mode=""></image>
 								</view>
 							</view>
@@ -88,43 +73,10 @@
 				</view>
 			</view>
 			<view class=" d-flex text-white font-30 text-center">
-				<view class="payBtn main-bgTwo" style="width: 280rpx;" @click="spaceShow">加入购物车</view>
-				<view class="payBtn main-bg-color" style="width: 280rpx;" @click="spaceShow">立即购买</view>
+				<view class="payBtn main-bg-color" style="width: 560rpx;" @click="goBuy">立即购买</view>
 			</view>
 		</view>
 		
-		<!-- 规格选择 -->
-		<view class="black-bj" v-show="is_show"></view>
-		<view class="spaceShow bg-white" v-show="is_spaceShow">
-			<view class="closebtn" @click="spaceShow">×</view>
-			<view class="d-flex">
-				<view class="pic rounded10 overflow-h mr-3"><image :src="mainData.sku[specsCurr]&&mainData.sku[specsCurr].mainImg&&mainData.sku[specsCurr].mainImg[0]
-					?mainData.sku[specsCurr].mainImg[0].url:''" mode=""></image></view>
-				<view class="infor">
-					<view class="d-flex a-center mt-5 pt-2 mb-3">
-						<view class="price font-40 font-weight mr-2">{{mainData.sku[specsCurr]?mainData.sku[specsCurr].price:''}}</view>
-						<view class="font-24">会员</view>
-						<view class="VipPrice font-30"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥{{mainData.sku[specsCurr]?mainData.sku[specsCurr].member_price:''}}</view>
-					</view>
-					<view class="font-26">库存：{{mainData.sku[specsCurr]?mainData.sku[specsCurr].stock:'0'}}</view>
-				</view>
-			</view>
-			<view class="mt-3">
-				<view class="font-26">规格</view>
-				<view class="specsLable d-flex font-26 color6">
-					<view class="tt" :class="specsCurr==index?'on':''" 
-					v-for="(item,index) in mainData.sku" :key="index" @click="specsChange(index)">{{item.title}}</view>
-				</view>
-			</view>
-			<view class="xqbotomBar px-3 mb-3" style="box-shadow:initial">
-				<view class="bottom-btnCont d-flex rounded50 overflow-h text-white font-30" style="width: 100%">
-					<view class="w-50 text-center main-bgTwo mr" @click="addCar">加入购物车</view>
-					<view class="w-50 text-center main-bg-color ml" 
-					@click="goBuy">立即购买</view>
-				</view>
-			</view>
-			
-		</view>
 		
 		
 	</view>
@@ -157,7 +109,10 @@
 		onLoad(options) {
 			const self = this;
 			self.id = options.id;
-			self.$Utils.loadAll(['getMainData'], self);
+			if(options.type){
+				self.type = options.type
+			};
+			self.$Utils.loadAll(['getMainData','getUserInfoData'], self);
 		},
 		
 		onShow() {
@@ -167,23 +122,41 @@
 		},
 		
 		methods: {
+			
+			getUserInfoData() {
+				const self = this;		
+				const postData = {};
+				var nowTime = (new Date()).getTime() / 1000;
+				postData.tokenFuncName = 'getProjectToken';
+				postData.getAfter = {
+					order:{
+						tableName:'Order',
+						middleKey:'user_no',
+						key:'user_no',
+						searchItem:{
+							type:6,
+							pay_status:1,
+							
+						},
+						condition:'='
+					}
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.userInfoData = res.info.data[0];
+					}
+					self.$Utils.finishFunc('getUserInfoData');
+				};
+				self.$apis.userInfoGet(postData, callback);
+			},
+			
 			currChange(curr){
 				const self = this;
 				if(curr!=self.curr){
 					self.curr = curr
 				}
 			},
-			
-			specsChange(index){
-				const self = this;
-				self.specsCurr = index
-			},
-			
-			spaceShow(){
-				const self = this;
-				self.is_show = !self.is_show;
-				self.is_spaceShow = !self.is_spaceShow 
-			},
+
 			
 			getMainData() {
 				const self = this;
@@ -192,17 +165,6 @@
 				postData.searchItem = {
 					thirdapp_id: 2,
 					id: self.id
-				};
-				postData.getAfter = {
-					sku: {
-						tableName: 'Sku',
-						middleKey: 'product_no',
-						key: 'product_no',
-						condition: '=',
-						searchItem: {
-							status: 1
-						}
-					},
 				};
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
@@ -245,66 +207,47 @@
 			
 			goBuy() {
 				const self = this;
-				if(self.mainData.sku[self.specsCurr].stock==0){
+				
+				if(self.userInfoData.member==0){
+					uni.setStorageSync('canClick',true);
+					self.$Utils.showToast('您还不是会员身份，无权限领取', 'none');
+					return
+				};
+				if(self.type&&self.type=='new'&&self.userInfoData.order.length>0){
+					uni.setStorageSync('canClick',true);
+					self.$Utils.showToast('您已领取过新会员福利', 'none');
+					return
+				};
+				if(!self.type&&self.userInfoData.member!=0&&self.userInfoData.member!=self.mainData.member){
+					uni.setStorageSync('canClick',true);
+					self.$Utils.showToast('会员身份不符', 'none');
+					return
+				};
+				if(!self.type&&self.userInfoData.member!=0&&self.userInfoData.member==self.mainData.member&&self.userInfoData.behavior==1){
+					uni.setStorageSync('canClick',true);
+					self.$Utils.showToast('您已领取过该福利', 'none');
+					return
+				};
+				if(self.mainData.stock==0){
 					uni.setStorageSync('canClick',true);
 					self.$Utils.showToast('库存不足！', 'none');
 					return
 				};
 				uni.setStorageSync('canClick', false);
-				self.orderList.push({
-					sku_id: self.mainData.sku[self.specsCurr].id,
-					count: 1,
-					type: self.mainData.type,
-					product: self.mainData,
-					skuIndex: self.specsCurr
-				}, );
+				self.orderList.push(
+					{product_id:self.mainData.id,count:1,
+					type:1,product:self.mainData},
+				);
 				uni.setStorageSync('payPro', self.orderList);
 				self.Router.navigateTo({
 					route: {
-						path: '/pages/orderConfim/orderConfim'
+						path: '/pages/vipOrderConfim/vipOrderConfim'
 					}
 				})
 				uni.setStorageSync('canClick', true);
 			},
 			
-			addCar() {
-				const self = this;
-				if(self.mainData.sku[self.specsCurr].stock==0){
-					uni.setStorageSync('canClick',true);
-					self.$Utils.showToast('库存不足！', 'none');
-					return
-				};
-				var obj = self.mainData;
-				self.mainData.skuIndex = self.specsCurr;
-				var array = self.$Utils.getStorageArray('cartData');
-				for (var i = 0; i < array.length; i++) {
-					if (array[i].sku[array[i].skuIndex].id == self.mainData.sku[self.specsCurr].id) {
-						var target = array[i]
-					}
-				}
-				if (target) {
-					target.count = target.count + 1
-				} else {
-					var target = self.mainData;
-					target.count = 1;
-					target.isSelect = true;
-				}
-				self.$Utils.setStorageArray('cartData', target, 'id', 999);
-				uni.showModal({
-					title: '提示',
-					content: '所选规格已成功加入购物车',
-					showCancel: true,
-					cancelText: '取消',
-					confirmText: '去购物车',
-					success: res => {
-						if (res.confirm) {
-							self.Router.redirectTo({route:{path:'/pages/car/car'}})
-						} else if (res.cancel) {
-							console.log('用户点击取消');
-						}
-					},
-				});
-			},
+
 		}
 	};
 </script>

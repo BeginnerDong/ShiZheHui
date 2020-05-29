@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view v-if="showAll">
 		
 		<view class="border-bottom position-fixed left-0 right-0 top0"></view>
 		
@@ -11,16 +11,16 @@
 		<view class="loginCont">
 			<view class="item px-3 d-flex a-center border rounded10">
 				<view class="input">
-					<input type="text" value="" placeholder="账号" placeholder-class="placeholder">
+					<input type="text" v-model="submitData.login_name" placeholder="账号" placeholder-class="placeholder">
 				</view>
 			</view>
 			<view class="item px-3 d-flex a-center mt-4 border rounded10">
 				<view class="input">
-					<input type="password" value="" placeholder="密码" placeholder-class="placeholder">
+					<input type="password" v-model="submitData.password" placeholder="密码" placeholder-class="placeholder">
 				</view>
 			</view>
 			
-			<view class="item submitbtn" style="padding: 0;border: 0;margin-top: 100rpx;" @click="Router.navigateTo({route:{path:'/pages/storeOrder/storeOrder'}})">
+			<view class="item submitbtn" style="padding: 0;border: 0;margin-top: 100rpx;"  @click="submit">
 				<button class="Wbtn" type="submint">登录</button>
 			</view>
 		</view>
@@ -36,26 +36,53 @@
 		data() {
 			return {
 				Router:this.$Router,
-				is_show: false,
-				wx_info:{}
+				submitData:{
+					login_name:'',
+					password:''
+				},
+				showAll:false
 			}
 		},
+		
 		onLoad() {
 			const self = this;
-			
+			uni.hideLoading();
+			if (uni.getStorageSync('merchantToken')) {
+				uni.redirectTo({
+					url: '/pages/storeOrder/storeOrder'
+				})
+			}else{
+				self.showAll = true
+			}
 			// self.$Utils.loadAll(['getMainData'], self);
 		},
+		
 		methods: {
-			navigateBack(){
-				uni.navigateBack()
-			},
-			getMainData() {
+			
+			submit() {
 				const self = this;
-				console.log('852369')
-				const postData = {};
-				postData.tokenFuncName = 'getProjectToken';
-				self.$apis.orderGet(postData, callback);
-			}
+				const postData = {
+					login_name: self.submitData.login_name,
+					password:self.submitData.password
+				};
+				if (self.$Utils.checkComplete(self.submitData)) {
+					const callback = (res) => {
+						if (res.solely_code == 100000) {
+							console.log(res);
+							uni.setStorageSync('merchantToken', res.token);
+							uni.setStorageSync('merchantInfo', res.info);
+							setTimeout(function() {
+								self.Router.reLaunch({route:{path:'/pages/storeOrder/storeOrder'}})
+							}, 1000);
+						} else {
+							self.$Utils.showToast(res.msg,'none')
+						}
+					}
+					self.$apis.shopLogin(postData, callback);
+				} else {
+					self.$Utils.showToast('请补全登录信息', 'none')
+				};
+			},
 		}
 	};
 </script>
