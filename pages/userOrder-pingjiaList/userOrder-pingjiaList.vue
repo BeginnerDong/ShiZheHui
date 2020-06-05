@@ -59,6 +59,15 @@
 			self.$Utils.loadAll(['getMainData'], self);
 		},
 		
+		onReachBottom() {
+			console.log('onReachBottom')
+			const self = this;
+			if (!self.isLoadAll && uni.getStorageSync('loadAllArray')) {
+				self.paginate.currentPage++;
+				self.getMainData()
+			};
+		},
+		
 		methods: {
 			
 			getMainData() {

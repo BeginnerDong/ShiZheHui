@@ -232,6 +232,7 @@
 				const self = this;
 				var nowTime = (new Date()).getTime() / 1000;
 				self.totalPrice = 0;
+				self.oldPrice = 0;
 				for (var i = 0; i < self.mainData.length; i++) {
 					if(self.userInfoData.member_time>nowTime){
 						self.totalPrice += self.mainData[i].product.sku[self.mainData[i].skuIndex].member_price*self.mainData[i].count
@@ -239,10 +240,18 @@
 						self.totalPrice += self.mainData[i].product.sku[self.mainData[i].skuIndex].price*self.mainData[i].count
 						
 					}
-				}
+				};
 				
 				self.totalPrice = parseFloat(self.totalPrice).toFixed(2)
-				//console.log('wxPay',wxPay)
+				if(self.userInfoData.member_time>nowTime){
+					for (var i = 0; i < self.mainData.length; i++) {
+						self.oldPrice += self.mainData[i].product.sku[self.mainData[i].skuIndex].price*self.mainData[i].count
+					};
+					
+					self.save = parseFloat(parseFloat(self.oldPrice)-self.totalPrice).toFixed(2)
+				};
+				
+				console.log('self.save',self.save)
 				if (self.totalPrice > 0) {
 					self.pay.wxPay = {
 						price: self.totalPrice,
@@ -269,10 +278,24 @@
 				const self = this;
 				uni.setStorageSync('canClick', false);
 				if(self.curr==2){
+					if(JSON.stringify(self.shopData) == '{}'){
+						uni.setStorageSync('canClick', true);
+						self.$Utils.showToast('请选择自提门店','none')
+						return
+					};
 					if(self.orderInfo.name==''||self.orderInfo.phone==''){
+						
 						uni.setStorageSync('canClick', true);
 						self.$Utils.showToast('请填写收货人信息','none')
 						return
+					}else{
+						if(self.orderInfo.phone!=''){
+							if (self.orderInfo.phone.trim().length != 11 || !/^1[3|4|5|6|7|8|9]\d{9}$/.test(self.orderInfo.phone)) {
+								uni.setStorageSync('canClick', true);
+								self.$Utils.showToast('请输入正确的手机号', 'none', 1000)
+								return;
+							}
+						};
 					}
 				}else{
 					if(JSON.stringify(self.addressData) == '{}'){
@@ -292,7 +315,7 @@
 				};
 				var orderList = []
 				for (var i = 0; i < self.mainData.length; i++) {
-					orderList.push({sku_id:self.mainData[i].sku_id,count:self.mainData[i].count,data: data,
+					orderList.push({sku_id:self.mainData[i].sku_id,count:self.mainData[i].count,type:self.mainData[i].product.type,data: data,
 					snap_address: self.addressData})
 				}
 				const callback = (user, res) => {
@@ -315,7 +338,7 @@
 					level:1,
 					snap_address:self.addressData,
 					//price:self.totalPrice
-					//type:1
+					type:1
 				};
 				postData.type = 1;
 				postData.parent = 1;
@@ -337,6 +360,7 @@
 								}
 							}
 						};
+						
 						self.goPay()
 					} else {		
 						uni.showToast({
@@ -354,6 +378,20 @@
 				postData.tokenFuncName = 'getProjectToken',
 				postData.searchItem = {
 					id: self.orderId
+				};
+				if(self.save){
+					postData.payAfter = [
+						{
+							tableName: 'UserInfo',
+							FuncName: 'update',
+							searchItem:{
+								user_no:uni.getStorageSync('user_info').user_no
+							},
+							data: {
+								save:parseFloat(self.userInfoData.save)+self.save
+							},
+						},
+					];
 				};
 				const callback = (res) => {
 					if (res.solely_code == 100000) {

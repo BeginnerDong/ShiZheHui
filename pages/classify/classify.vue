@@ -17,8 +17,8 @@
 				<!-- 类别 -->
 				<view class="font-28 font-weight mb-2" v-if="curr!=-1&&labelTwoData.length>0">类别</view>
 				<view class="category font-26 pb-2 text-center d-flex a-start flex-wrap" v-if="curr!=-1&&labelTwoData.length>0">
-					<view class="item mb-2" v-for="(item,index) in labelTwoData" :key="index" 
-					@click="Router.navigateTo({route:{path:'/pages/productList/productList'}})">
+					<view class="item mb-2" v-for="(item,index) in labelTwoData" :key="index" :data-id="item.id"
+					@click="Router.navigateTo({route:{path:'/pages/productList/productList?id='+$event.currentTarget.dataset.id}})">
 						<view class="pic rounded50 overflow-h"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode="">
 						</image></view>
 						<view class="avoidOverflow pt-1">{{item.title}}</view>
@@ -37,8 +37,8 @@
 				<!-- 商品推荐 -->
 				<view class="font-28 font-weight mb-2">商品推荐</view>
 				<view class="HotProduct d-flex j-sb flex-wrap">
-					<view class="item mb-3" v-for="(item,index) in mainData" :key="index" 
-					@click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail'}})">
+					<view class="item mb-3" v-for="(item,index) in mainData" :key="index" :data-id="item.id"
+				@click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail?id='+$event.currentTarget.dataset.id}})">
 						<view class="pic rounded10 overflow-h"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
 						<view class="infor">
 							<view class="tit font-26 d-flex a-center">
@@ -58,7 +58,7 @@
 			</view>
 			
 		</view>
-		
+		<view style="width: 100%;height: 110rpx;"></view>
 		<!--底部tab键-->
 		<view class="navbar">
 			<view class="navbar_item" @click="Router.redirectTo({route:{path:'/pages/index/index'}})">
@@ -119,10 +119,14 @@
 			}
 		},
 		
-		onLoad() {
+		onLoad(options) {
 			const self = this;
+			console.log(options)
 			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
-			self.$Utils.loadAll(['getLabelData','getBrandData','getMainData'], self);
+			if(options.index){
+				self.index = options.index;
+			};
+			self.$Utils.loadAll(['getLabelData','getBrandData'], self);
 		},
 		
 		methods: {
@@ -131,11 +135,18 @@
 				const self = this;
 				self.mainData = [];
 				self.labelTwoData = [];
-				
+				self.idArray = [];
+				console.log('index',index)
+				console.log('self.curr',self.curr)
 				if(self.curr!=index){
+					console.log('123',323)
 					self.curr = index
 					if(index!=-1){
+						console.log('12',323)
 						self.getLabelTwoData()
+					}else{
+						delete self.searchItem.category_id;
+						self.getMainData(true)
 					}
 				}
 			},
@@ -224,13 +235,22 @@
 						searchItem:{
 							status:1
 						},
-						condition:'='
+						condition:'=',
+						order:{
+							listorder:'desc'
+						}
 					}
 				};
+				
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
 						self.labelData.push.apply(self.labelData, res.info.data);
-						
+						if(self.index){
+							//self.curr = self.index;
+							self.changeCurr(self.index)
+						}else{
+							self.getMainData()
+						};
 					}
 					self.$Utils.finishFunc('getLabelData');
 				};

@@ -6,31 +6,34 @@
 				<view class="item mt-3 bg-white"  v-for="(item,index) in mainData" :key="index">
 					<view>
 						<view class="font-24 d-flex j-sb a-center mb-2">
-							<view class="color9">交易时间：2020-01-18</view>
+							<view class="color9">交易时间：{{item.create_time}}</view>
 							<view class="red">已评价</view>
 						</view>
 						<view class="d-flex a-center j-sb">
 							<view class="pic">
-								<image src="../../static/images/shopping-icon4.png" mode=""></image>
+								<image :src="item.orderItem&&item.orderItem[0]&&item.orderItem[0].snap_product&&item.orderItem[0].snap_product.product&&
+									item.orderItem[0].snap_product.product.mainImg&&item.orderItem[0].snap_product.product.mainImg[0]?item.orderItem[0].snap_product.product.mainImg[0].url:''" mode=""></image>
 							</view>
 							<view class="infor">
-								<view class="tit avoidOverflow">墨西哥牛油果8枚单果200g左右</view>
+								<view class="tit avoidOverflow">{{item.orderItem&&item.orderItem[0]&&item.orderItem[0].snap_product
+									&&item.orderItem[0].snap_product&&item.orderItem[0].snap_product.product?item.orderItem[0].snap_product.product.title:''}}</view>
 								<view class="d-flex font-24 color6 mt-1">
-									<view class="specsBtn mr-1">精装品5斤</view>
+									<view class="specsBtn mr-1">{{item.orderItem&&item.orderItem[0]&&item.orderItem[0].snap_product
+									&&item.orderItem[0].snap_product?item.orderItem[0].snap_product.title:''}}</view>
 								</view>
 								<view class="B-price d-flex a-center j-sb">
 									<view class="d-flex a-center">
-										<view class="price font-30 font-weight mr-2">88</view>
-										<view class="font-24">会员</view>
-										<view class="VipPrice font-30"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥69</view>
+										<view class="price font-30 font-weight mr-2">{{item.unit_price?item.unit_price:''}}</view>
+										<!-- <view class="font-24">会员</view>
+										<view class="VipPrice font-30"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥69</view> -->
 									</view>
-									<view class="font-26">×1</view>
+									<view class="font-26">×{{item.count?item.count:''}}</view>
 								</view>
 							</view>
 						</view>
 					</view>
 					<view class="f5Text f5bj rounded10 p-2 font-26 color6 mt-2">
-						<view>很反感娄山关路是个凡人的洛杉矶经历过购房即可看到据国家风口浪尖加工费考虑到国家反馈的结果了</view>
+						<view>{{item.message&&item.message[0]?item.message[0].description:''}}</view>
 					</view>
 				</view>
 			</view>
@@ -47,14 +50,76 @@
 				showView: false,
 				score:'',
 				wx_info:{},
-				mainData:3
+				mainData:[],
+				searchItem:{
+					isremark:1,
+					level:0
+				}
 			}
 		},
+		
 		onLoad() {
 			const self = this;
-			//self.$Utils.loadAll(['getMainData'], self);
+			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
+			self.$Utils.loadAll(['getMainData'], self);
 		},
+		
+		onReachBottom() {
+			console.log('onReachBottom')
+			const self = this;
+			if (!self.isLoadAll && uni.getStorageSync('loadAllArray')) {
+				self.paginate.currentPage++;
+				self.getMainData()
+			};
+		},
+		
 		methods: {
+			
+			getMainData(isNew) {
+				const self = this;
+				if (isNew) {
+					self.mainData = [];
+					self.paginate = {
+						count: 0,
+						currentPage: 1,
+						is_page: true,
+						pagesize: 10
+					}
+				};
+				const postData = {};
+				postData.tokenFuncName = 'getProjectToken';
+				postData.paginate = self.$Utils.cloneForm(self.paginate);
+				postData.searchItem = self.$Utils.cloneForm(self.searchItem);
+				postData.searchItem.user_no = uni.getStorageSync('user_info').user_no;
+				postData.getAfter= {
+					message:{
+						tableName:'Message',
+						middleKey:'order_no',
+						key:'order_no',
+						searchItem:{
+							status:1
+						},
+						condition:'=',
+					},
+					orderItem:{
+						tableName:'OrderItem',
+						middleKey:'order_no',
+						key:'order_no',
+						searchItem:{
+							status:1
+						},
+						condition:'=',
+					}
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.mainData.push.apply(self.mainData, res.info.data);
+					}
+					console.log('self.mainData', self.mainData)
+					self.$Utils.finishFunc('getMainData');
+				};
+				self.$apis.orderGet(postData, callback);
+			},
 		}
 	};
 </script>

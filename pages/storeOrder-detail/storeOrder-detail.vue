@@ -9,16 +9,23 @@
 						<view class="red">{{mainData.transport_status==0?'待核销':'已核销'}}</view>
 					</view>
 					<view class="d-flex a-center j-sb">
-						<view class="pic">
+						<view class="pic" v-if="mainData.type==1">
 							<image :src="mainData.orderItem&&mainData.orderItem[0]&&mainData.orderItem[0].snap_product&&mainData.orderItem[0].snap_product.product&&
 						mainData.orderItem[0].snap_product.product.mainImg&&mainData.orderItem[0].snap_product.product.mainImg[0]?mainData.orderItem[0].snap_product.product.mainImg[0].url:''" mode=""></image>
 						</view>
+						<view class="pic" v-if="mainData.type==6">
+							<image :src="mainData.orderItem&&mainData.orderItem[0]&&mainData.orderItem[0].snap_product&&mainData.orderItem[0].snap_product.product&&
+						mainData.orderItem[0].snap_product.mainImg&&mainData.orderItem[0].snap_product.mainImg[0]?mainData.orderItem[0].snap_product.mainImg[0].url:''" mode=""></image>
+						</view>
 						<view class="infor">
-							<view class="tit avoidOverflow">{{mainData.orderItem&&mainData.orderItem[0]&&mainData.orderItem[0].snap_product
-						&&mainData.orderItem[0].snap_product&&mainData.orderItem[0].snap_product.product?mainData.orderItem[0].snap_product.product.title:''}}</view>
+							<view class="tit avoidOverflow"  v-if="mainData.type==1">{{mainData.orderItem&&mainData.orderItem[0]&&mainData.orderItem[0].snap_product
+							&&mainData.orderItem[0].snap_product&&mainData.orderItem[0].snap_product.product?mainData.orderItem[0].snap_product.product.title:''}}</view>
+							<view class="tit avoidOverflow"  v-if="mainData.type==6">{{mainData.orderItem&&mainData.orderItem[0]&&mainData.orderItem[0].snap_product
+							&&mainData.orderItem[0].snap_product?mainData.orderItem[0].snap_product.title:''}}</view>
 							<view class="d-flex font-24 color6 mt-1">
 								<view class="specsBtn mr-1">{{mainData.orderItem&&mainData.orderItem[0]&&mainData.orderItem[0].snap_product
-						&&mainData.orderItem[0].snap_product?mainData.orderItem[0].snap_product.title:''}}</view>
+							&&mainData.orderItem[0].snap_product?mainData.orderItem[0].snap_product.title:''}}</view>
+							
 							</view>
 							<view class="B-price d-flex a-center j-sb">
 								<view class="d-flex a-center">

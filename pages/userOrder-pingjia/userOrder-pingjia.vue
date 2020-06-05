@@ -9,14 +9,20 @@
 							<view class="red">已收货</view>
 						</view>
 						<view class="d-flex a-center j-sb">
-							<view class="pic">
+							<view class="pic" v-if="mainData.type==1">
 								<image :src="mainData.orderItem&&mainData.orderItem[0]&&mainData.orderItem[0].snap_product
 							&&mainData.orderItem[0].snap_product.product.mainImg&&mainData.orderItem[0].snap_product.product.mainImg[0]?mainData.orderItem[0].snap_product.product.mainImg[0].url:''" mode=""></image>
 							</view>
+							<view class="pic" v-if="mainData.type==6">
+								<image :src="mainData.orderItem&&mainData.orderItem[0]&&mainData.orderItem[0].snap_product
+							&&mainData.orderItem[0].snap_product.mainImg&&mainData.orderItem[0].snap_product.mainImg[0]?mainData.orderItem[0].snap_product.mainImg[0].url:''" mode=""></image>
+							</view>
 							<view class="infor">
-								<view class="tit avoidOverflow">{{mainData.orderItem&&mainData.orderItem[0]&&mainData.orderItem[0].snap_product
+								<view class="tit avoidOverflow" v-if="mainData.type==1">{{mainData.orderItem&&mainData.orderItem[0]&&mainData.orderItem[0].snap_product
 							?mainData.orderItem[0].snap_product.product.title:''}}</view>
-								<view class="d-flex font-24 color6 mt-1">
+							<view class="tit avoidOverflow" v-if="mainData.type==6">{{mainData.orderItem&&mainData.orderItem[0]&&mainData.orderItem[0].snap_product
+							?mainData.orderItem[0].snap_product.title:''}}</view>
+								<view class="d-flex font-24 color6 mt-1" v-if="mainData.type==1">
 									<view class="specsBtn mr-1">{{mainData.title}}</view>
 								</view>
 								<view class="B-price d-flex a-center j-sb">
@@ -156,7 +162,7 @@
 						self.mainData = res.info.data[0];
 						self.submitData.order_no = self.mainData.order_no;
 						//self.submitData.passage1 = self.mainData.parent_no;
-						self.submitData.product_no = self.mainData.orderItem[0].snap_product.product.product_no
+						self.submitData.product_no = self.mainData.type==1?self.mainData.orderItem[0].snap_product.product.product_no:self.mainData.orderItem[0].snap_product.product_no
 					};
 					console.log('self.mainData', self.mainData)
 					self.$Utils.finishFunc('getMainData');
@@ -170,6 +176,7 @@
 				var newObject = self.$Utils.cloneForm(self.submitData);
 				delete newObject.headImg ;
 				delete newObject.title;
+				delete newObject.mainImg;
 				const pass = self.$Utils.checkComplete(newObject);
 				console.log('pass', pass);
 				console.log('self.submitData', self.submitData)

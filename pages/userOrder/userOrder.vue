@@ -31,21 +31,27 @@
 					<view class="priList">
 						<view class="font-24 d-flex j-sb a-center mb-2">
 							<view class="color9">交易时间：{{item.create_time}}</view>
-							<view class="red" v-if="item.transport_status==0">待发货</view>
-							<view class="red" v-if="item.transport_status==1">配送中</view>
-							<view class="red" v-if="item.transport_status==2">已收货</view>
+							<view class="red" v-if="item.transport_status==0&&item.isremark==0">待发货</view>
+							<view class="red" v-if="item.transport_status==1&&item.isremark==0">配送中</view>
+							<view class="red" v-if="item.transport_status==2&&item.isremark==0">已收货</view>
 							<view class="red" v-if="item.isremark==1">已评价</view>
 						</view>
-						<view class="d-flex a-center j-sb"  v-for="(c_item,c_index) in item.child" :key="index">
-							<view class="pic">
+						<view class="d-flex a-center j-sb mb-2"  v-for="(c_item,c_index) in item.child" :key="index">
+							<view class="pic" v-if="item.type==1">
 								<image :src="c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product&&c_item.orderItem[0].snap_product.product&&
 								c_item.orderItem[0].snap_product.product.mainImg&&c_item.orderItem[0].snap_product.product.mainImg[0]?c_item.orderItem[0].snap_product.product.mainImg[0].url:''" mode=""></image>
 							</view>
+							<view class="pic" v-if="item.type==6">
+								<image :src="c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product&&c_item.orderItem[0].snap_product&&
+								c_item.orderItem[0].snap_product.mainImg&&c_item.orderItem[0].snap_product.mainImg[0]?c_item.orderItem[0].snap_product.mainImg[0].url:''" mode=""></image>
+							</view>
 							<view class="infor">
-								<view class="tit avoidOverflow">{{c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product
+								<view class="tit avoidOverflow"  v-if="item.type==1">{{c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product
 								&&c_item.orderItem[0].snap_product&&c_item.orderItem[0].snap_product.product?c_item.orderItem[0].snap_product.product.title:''}}</view>
+								<view class="tit avoidOverflow"  v-if="item.type==6">{{c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product
+								&&c_item.orderItem[0].snap_product?c_item.orderItem[0].snap_product.title:''}}</view>
 								<view class="d-flex font-24 color6 mt-1">
-									<view class="specsBtn mr-1">{{c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product
+									<view class="specsBtn mr-1"  v-if="item.type==1">{{c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product
 								&&c_item.orderItem[0].snap_product?c_item.orderItem[0].snap_product.title:''}}</view>
 								</view>
 								<view class="B-price d-flex a-center j-sb">
@@ -63,9 +69,13 @@
 					@click="orderUpdate(index)">
 						<view class="Bbtn red">确认收货</view>
 					</view>
-					<view class="underBtn d-flex j-end a-center py-3"  v-if="item.pay_status==1&&item.transport_status==2&&item.isremark==0">
+					<view class="underBtn d-flex j-end a-center py-3"  v-if="item.pay_status==1&&item.transport_status==2&&item.isremark==0&&item.type==1">
 						<view class="Bbtn red" 
 						:data-id="item.id" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaList/userOrder-pingjiaList?id='+$event.currentTarget.dataset.id}})">去评价</view>
+					</view>
+					<view class="underBtn d-flex j-end a-center py-3"  v-if="item.pay_status==1&&item.transport_status==2&&item.isremark==0&&item.type==6">
+						<view class="Bbtn red" 
+						:data-id="item.child[0].id" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjia/userOrder-pingjia?id='+$event.currentTarget.dataset.id}})">去评价</view>
 					</view>
 					<view class="underBtn d-flex j-end a-center py-3"  v-if="item.pay_status==1&&item.transport_status==2&&item.isremark==1">
 						<view class="Bbtn red" :data-id="item.id"
@@ -79,21 +89,27 @@
 					<view class="priList">
 						<view class="font-24 d-flex j-sb a-center mb-2">
 							<view class="color9">交易时间：{{item.create_time}}</view>
-							<view class="red" v-if="item.transport_status==0">待取货</view>
-							<view class="red" v-if="item.transport_status==2">已核销</view>
+							<view class="red" v-if="item.transport_status==0&&item.isremark==0">待取货</view>
+							<view class="red" v-if="item.transport_status==2&&item.isremark==0">已核销</view>
 							<view class="red" v-if="item.isremark==1">已评价</view>
 						</view>
-						<view v-for="(c_item,c_index) in item.child" :key="index">
+						<view class="mb-2" v-for="(c_item,c_index) in item.child" :key="index">
 							<view class="d-flex a-center j-sb">
-								<view class="pic">
+								<view class="pic" v-if="item.type==1">
 									<image :src="c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product&&c_item.orderItem[0].snap_product.product&&
 									c_item.orderItem[0].snap_product.product.mainImg&&c_item.orderItem[0].snap_product.product.mainImg[0]?c_item.orderItem[0].snap_product.product.mainImg[0].url:''" mode=""></image>
 								</view>
+								<view class="pic" v-if="item.type==6">
+									<image :src="c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product&&c_item.orderItem[0].snap_product&&
+									c_item.orderItem[0].snap_product.mainImg&&c_item.orderItem[0].snap_product.mainImg[0]?c_item.orderItem[0].snap_product.mainImg[0].url:''" mode=""></image>
+								</view>
 								<view class="infor">
-									<view class="tit avoidOverflow">{{c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product
+									<view class="tit avoidOverflow"  v-if="item.type==1">{{c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product
 									&&c_item.orderItem[0].snap_product&&c_item.orderItem[0].snap_product.product?c_item.orderItem[0].snap_product.product.title:''}}</view>
+									<view class="tit avoidOverflow"  v-if="item.type==6">{{c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product
+									&&c_item.orderItem[0].snap_product?c_item.orderItem[0].snap_product.title:''}}</view>
 									<view class="d-flex font-24 color6 mt-1">
-										<view class="specsBtn mr-1">{{c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product
+										<view class="specsBtn mr-1"  v-if="item.type==1">{{c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product
 									&&c_item.orderItem[0].snap_product?c_item.orderItem[0].snap_product.title:''}}</view>
 									</view>
 									<view class="B-price d-flex a-center j-sb">
@@ -119,8 +135,8 @@
 						:data-id="item.id" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaList/userOrder-pingjiaList?id='+$event.currentTarget.dataset.id}})">去评价</view>
 					</view>
 					<view class="underBtn d-flex j-end a-center py-3"  v-if="item.pay_status==1&&item.transport_status==2&&item.isremark==1">
-						<view class="Bbtn red" :data-id="item.id"
-						 @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaok/userOrder-pingjiaok?id='+$event.currentTarget.dataset.id}})">查看评论</view>
+						<view class="Bbtn red" :data-no="item.order_no"
+						 @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaok/userOrder-pingjiaok?no='+$event.currentTarget.dataset.no}})">查看评论</view>
 					</view>
 				</view>
 			</view>
@@ -177,6 +193,7 @@
 		onShow() {
 			const self = this;
 			if(self.num){
+				console.log(222)
 				self.changeStateOne(self.num)
 			}else{
 				self.getMainData(true)

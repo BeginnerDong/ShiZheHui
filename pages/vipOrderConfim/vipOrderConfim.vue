@@ -289,9 +289,9 @@
 				};
 				var orderList = []
 				for (var i = 0; i < self.mainData.length; i++) {
-					orderList.push({product_id:self.mainData[i].product_id,count:self.mainData[i].count,data: data,
+					orderList.push({product_id:self.mainData[i].product_id,count:self.mainData[i].count,type:self.mainData[i].product.type,data: data,
 					snap_address: self.addressData})
-				}
+				};
 				const callback = (user, res) => {
 					self.addOrder(orderList)
 				};

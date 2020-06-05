@@ -23,7 +23,8 @@
 					<view class="ml-5">销量：{{mainData.sale_count?mainData.sale_count:'0'}}</view>
 				</view>
 			</view>
-			<view class="shareBtn d-flex j-center a-center font-24"><image class="shareIcon" src="../../static/images/details-icon3.png" mode=""></image><view class="ml-1">分享</view></view>
+			<button open-type="share" class="shareBtn d-flex j-center a-center font-24">
+				<image class="shareIcon" src="../../static/images/details-icon3.png" mode=""></image><view class="ml-1">分享</view></button>
 		</view>
 		<view class="mx-3 py-3">
 			<view class="font-32 font-weight pb-2">{{mainData.title}}</view>
@@ -69,7 +70,7 @@
 							<view class="text font-26 pt-1">{{item.description}}</view>
 							<view class="picLis d-flex a-start flex-wrap" >
 								<view class="pic" v-for="(c_item,c_index) in item.mainImg">
-									<image :src="item.url" mode=""></image>
+									<image :src="c_item.url" mode=""></image>
 								</view>
 							</view>
 						</view>
@@ -82,7 +83,7 @@
 		
 		<view class="xqbotomBar center pl-3">
 			<view class="d-flex fs12">
-				<view class="ite flexColumn" @click="navigateBack">
+				<view class="ite flexColumn" @click="Router.back(1)">
 					<view class="icon"><image src="../../static/images/details-icon4.png" mode=""></image></view>
 					<view class="mt-1">返回</view>
 				</view>
@@ -164,6 +165,41 @@
 			const self = this;
 			self.orderList = [];
 			uni.removeStorageSync('payPro');
+		},
+		
+		onShareAppMessage(ops) {
+			console.log(ops)
+			const self = this;
+			if (ops.from === 'button') {
+				return {
+					title: self.mainData.title,
+					path: '/pages/productDetail/productDetail?id=' + self.mainData.id, //点击分享的图片进到哪一个页面
+					imageUrl: self.mainData.mainImg[0].url ? self.mainData.mainImg[0].url : '',
+					success: function(res) {
+						// 转发成功
+						console.log("转发成功:" + JSON.stringify(res));
+					},
+					fail: function(res) {
+						// 转发失败
+						console.log("转发失败:" + JSON.stringify(res));
+					}
+				}
+			} else {
+				return {
+					title: self.mainData.title,
+					path: '/pages/productDetail/productDetail?id=' + self.mainData.id, //点击分享的图片进到哪一个页面
+					imageUrl: self.mainData.mainImg[0].url ? self.mainData.mainImg[0].url : '',
+					success: function(res) {
+						// 转发成功
+						console.log("转发成功:" + JSON.stringify(res));
+					},
+					fail: function(res) {
+						// 转发失败
+						console.log("转发失败:" + JSON.stringify(res));
+					}
+				}
+				console.log(ops.target)
+			}
 		},
 		
 		methods: {
@@ -276,20 +312,22 @@
 				};
 				var obj = self.mainData;
 				self.mainData.skuIndex = self.specsCurr;
+				self.mainData.skuId = self.mainData.sku[self.specsCurr].id;
 				var array = self.$Utils.getStorageArray('cartData');
 				for (var i = 0; i < array.length; i++) {
 					if (array[i].sku[array[i].skuIndex].id == self.mainData.sku[self.specsCurr].id) {
 						var target = array[i]
 					}
 				}
-				if (target) {
+				console.log('target',target)
+				if (target&&target!=undefined) {
 					target.count = target.count + 1
 				} else {
 					var target = self.mainData;
 					target.count = 1;
 					target.isSelect = true;
 				}
-				self.$Utils.setStorageArray('cartData', target, 'id', 999);
+				self.$Utils.setStorageArray('cartData', target, 'skuId', 999);
 				uni.showModal({
 					title: '提示',
 					content: '所选规格已成功加入购物车',
@@ -298,7 +336,7 @@
 					confirmText: '去购物车',
 					success: res => {
 						if (res.confirm) {
-							self.Router.redirectTo({route:{path:'/pages/car/car'}})
+							self.Router.reLaunch({route:{path:'/pages/car/car'}})
 						} else if (res.cancel) {
 							console.log('用户点击取消');
 						}

@@ -39,31 +39,31 @@
 					<view class="more d-flex j-end a-center color9" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder'}})">查看全部<image class="arrowR" src="../../static/images/home-icon7.png" mode=""></image></view>
 				</view>
 				<view class="menu d-flex j-sb a-center color6 py-3 text-center">
-					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder?num==1'}})">
+					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder'}})">
 						<view class="icon">
 							<image src="../../static/images/about-icon2.png"></image>
 						</view>
 						<view>全部订单</view>
 					</view>
-					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder?num==2'}})">
+					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder?num=2'}})">
 						<view class="icon">
 							<image src="../../static/images/about-icon3.png"></image>
 						</view>
 						<view>待发货</view>
 					</view>
-					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder?num==3'}})">
+					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder?num=3'}})">
 						<view class="icon">
 							<image src="../../static/images/about-icon4.png"></image>
 						</view>
 						<view>配送中</view>
 					</view>
-					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder?num==4'}})">
+					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder?num=4'}})">
 						<view class="icon">
 							<image src="../../static/images/about-icon5.png"></image>
 						</view>
 						<view>已收货</view>
 					</view>
-					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder?num==5'}})">
+					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder/userOrder?num=5'}})">
 						<view class="icon">
 							<image src="../../static/images/about-icon6.png"></image>
 						</view>
@@ -124,7 +124,7 @@
 			</view>
 			
 			<!-- 我的活动 -->
-			<view class="userBox2 rounded10 bg-white font-24 px-3" @click="showToast">
+			<!-- <view class="userBox2 rounded10 bg-white font-24 px-3" @click="showToast">
 				<view class="d-flex a-center py-3 border-bottom">
 					<view class="font-30 font-weight">我的活动</view>
 				</view>
@@ -148,7 +148,7 @@
 						<view>我的拼团</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 		</view>
 		
 		<!--底部tab键-->

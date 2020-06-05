@@ -17,7 +17,7 @@
 				</view>
 				
 			</view>
-			<view class="shareBtn d-flex j-center a-center font-24"><image class="shareIcon" src="../../static/images/details-icon3.png" mode=""></image><view class="ml-1">分享</view></view>
+			<!-- <view class="shareBtn d-flex j-center a-center font-24"><image class="shareIcon" src="../../static/images/details-icon3.png" mode=""></image><view class="ml-1">分享</view></view> -->
 		</view>
 		<view class="mx-3 py-3">
 			<view class="font-32 font-weight pb-2">{{mainData.title}}</view>
@@ -46,15 +46,15 @@
 						<view class="item" v-for="(item,index) in messageData" :key="index">
 							<view class="d-flex j-sb a-center pb-1 font-24">
 								<view class="d-flex a-center">
-									<view class="photo mr-1"><image :src="item.mainImg&&item.mainImg[0]&&item.mainImg[0].url!=''?item.mainImg[0].url:''" mode=""></image></view>
+									<view class="photo mr-1"><image :src="item.headImg&&item.headImg[0]&&item.headImg[0].url!=''?item.headImg[0].url:''" mode=""></image></view>
 									<view class="name color6">{{item.title!=''?item.title:'用户'}}</view>		
 								</view>
 								<view class="time color9">{{item.create_time}}</view>
 							</view>
 							<view class="text font-26 pt-1">{{item.description}}</view>
 							<view class="picLis d-flex a-start flex-wrap" >
-								<view class="pic" v-for="(c_item,c_index) in item.bannerImg">
-									<image :src="item.url" mode=""></image>
+								<view class="pic" v-for="(c_item,c_index) in item.mainImg">
+									<image :src="c_item.url" mode=""></image>
 								</view>
 							</view>
 						</view>
@@ -67,7 +67,7 @@
 		
 		<view class="xqbotomBar center pl-3">
 			<view class="d-flex fs12">
-				<view class="ite flexColumn" @click="navigateBack">
+				<view class="ite flexColumn" @click="Router.back(1)">
 					<view class="icon"><image src="../../static/images/details-icon4.png" mode=""></image></view>
 					<view class="mt-1">返回</view>
 				</view>
@@ -207,7 +207,7 @@
 			
 			goBuy() {
 				const self = this;
-				
+				console.log('self.type',self.type)
 				if(self.userInfoData.member==0){
 					uni.setStorageSync('canClick',true);
 					self.$Utils.showToast('您还不是会员身份，无权限领取', 'none');

@@ -23,16 +23,23 @@
 					</view>
 					<view class="priList pb-3">
 						<view class="d-flex a-center j-sb">
-							<view class="pic">
+							<view class="pic" v-if="item.type==1">
 								<image :src="item.orderItem&&item.orderItem[0]&&item.orderItem[0].snap_product&&item.orderItem[0].snap_product.product&&
 							item.orderItem[0].snap_product.product.mainImg&&item.orderItem[0].snap_product.product.mainImg[0]?item.orderItem[0].snap_product.product.mainImg[0].url:''" mode=""></image>
 							</view>
+							<view class="pic" v-if="item.type==6">
+								<image :src="item.orderItem&&item.orderItem[0]&&item.orderItem[0].snap_product&&item.orderItem[0].snap_product.product&&
+							item.orderItem[0].snap_product.mainImg&&item.orderItem[0].snap_product.mainImg[0]?item.orderItem[0].snap_product.mainImg[0].url:''" mode=""></image>
+							</view>
 							<view class="infor">
-								<view class="tit avoidOverflow">{{item.orderItem&&item.orderItem[0]&&item.orderItem[0].snap_product
-							&&item.orderItem[0].snap_product&&item.orderItem[0].snap_product.product?item.orderItem[0].snap_product.product.title:''}}</view>
+								<view class="tit avoidOverflow"  v-if="item.type==1">{{item.orderItem&&item.orderItem[0]&&item.orderItem[0].snap_product
+								&&item.orderItem[0].snap_product&&item.orderItem[0].snap_product.product?item.orderItem[0].snap_product.product.title:''}}</view>
+								<view class="tit avoidOverflow"  v-if="item.type==6">{{item.orderItem&&item.orderItem[0]&&item.orderItem[0].snap_product
+								&&item.orderItem[0].snap_product?item.orderItem[0].snap_product.title:''}}</view>
 								<view class="d-flex font-24 color6 mt-1">
-									<view class="specsBtn mr-1">{{item.orderItem&&item.orderItem[0]&&item.orderItem[0].snap_product
-							&&item.orderItem[0].snap_product?item.orderItem[0].snap_product.title:''}}</view>
+									<view class="specsBtn mr-1"  v-if="item.type==1">{{item.orderItem&&item.orderItem[0]&&item.orderItem[0].snap_product
+								&&item.orderItem[0].snap_product?item.orderItem[0].snap_product.title:''}}</view>
+								
 								</view>
 								<view class="B-price d-flex a-center j-sb">
 									<view class="d-flex a-center">
@@ -76,7 +83,7 @@
 				searchItem: {
 					pay_status: 1,
 					transport_type: 2,
-					type: 1,
+					//type: 1,
 					level:0,
 					user_type:0
 				},

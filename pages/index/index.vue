@@ -32,15 +32,15 @@
 		
 		<!-- 菜单 -->
 		<view class="indHome d-flex py-3 font-26">
-			<view class="item" v-for="(item,index) in labelData" :key="index"
-			  @click="Router.navigateTo({route:{path:'/pages/classify/classify'}})">
+			<view class="item" v-for="(item,index) in labelData" :key="index" :data-index="index"
+			  @click="Router.navigateTo({route:{path:'/pages/classify/classify?index='+$event.currentTarget.dataset.index}})">
 				<image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''"></image>
 				<view class="tit">{{item.title}}</view>
 			</view>
 
 		</view>
 		
-		<view class="mx-3 d-flex a-center zq-lable" @click="showToast">
+		<!-- <view class="mx-3 d-flex a-center zq-lable" @click="showToast">
 			<view class="item p-2 position-relative" style="background-image: linear-gradient(to right,#fff0e5,#ffe4d0);">
 				<view class="font-30 font-weight" style="color: #fe8934;" @click="Router.navigateTo({route:{path:'/pages/OneYuan/OneYuan'}})">一元夺宝</view>
 				<view class="font-20 color6">去看看</view>
@@ -56,11 +56,13 @@
 				<view class="font-20 color6">去看看</view>
 				<view class="icon"><image src="../../static/images/home-icon03.png" mode=""></image></view>
 			</view>
-		</view>
+		</view> -->
 		
 		<!-- GO -->
 		<view class="d-flex a-center j-center mt-3">
-			<view style="width: 706rpx;height: 198rpx;"  @click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail'}})"><image src="../../static/images/home-img1.png" mode=""></image></view>
+			<view style="width: 706rpx;height: 198rpx;" 
+			@click="Router.navigateTo({route:{path:'/pages/productDetail/productDetail?id='+noticeData.url}})">
+			<image :src="noticeData.mainImg&&noticeData.mainImg[0]?noticeData.mainImg[0].url:''" mode=""></image></view>
 		</view>
 		
 		<!-- 秒杀商品 -->
@@ -188,14 +190,15 @@
 					thirdapp_id:2,
 					type:1
 				},
-				mainData:[]
+				mainData:[],
+				noticeData:{}
 			}
 		},
 		
 		onLoad() {
 			const self = this;
 			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
-			self.$Utils.loadAll(['getUserData','getLabelData','getSliderData','getLocation','getMainData'], self);
+			self.$Utils.loadAll(['getUserData','getLabelData','getSliderData','getLocation','getMainData','getNoticeData'], self);
 		},
 		
 		onReachBottom() {
@@ -205,6 +208,41 @@
 				self.paginate.currentPage++;
 				self.getMainData()
 			};
+		},
+		
+		onShareAppMessage(ops) {
+			console.log(ops)
+			const self = this;
+			if (ops.from === 'button') {
+				return {
+					title: '格莱美试折惠',
+					path: '/pages/index/index', //点击分享的图片进到哪一个页面
+					///imageUrl: self.mainData.mainImg[0].url ? self.mainData.mainImg[0].url : '',
+					success: function(res) {
+						// 转发成功
+						console.log("转发成功:" + JSON.stringify(res));
+					},
+					fail: function(res) {
+						// 转发失败
+						console.log("转发失败:" + JSON.stringify(res));
+					}
+				}
+			} else {
+				return {
+					title: '格莱美试折惠',
+					path: '/pages/index/index', //点击分享的图片进到哪一个页面
+					///imageUrl: self.mainData.mainImg[0].url ? self.mainData.mainImg[0].url : '',
+					success: function(res) {
+						// 转发成功
+						console.log("转发成功:" + JSON.stringify(res));
+					},
+					fail: function(res) {
+						// 转发失败
+						console.log("转发失败:" + JSON.stringify(res));
+					}
+				}
+				console.log(ops.target)
+			}
 		},
 		
 		methods: {
@@ -257,7 +295,10 @@
 						searchItem:{
 							status:1
 						},
-						condition:'='
+						condition:'=',
+						order:{
+							listorder:'desc'
+						}
 					}
 				};
 				const callback = (res) => {
@@ -322,6 +363,22 @@
 				self.$apis.labelGet(postData, callback);
 			},
 			
+			getNoticeData() {
+				const self = this;
+				const postData = {};
+				postData.searchItem = {
+					thirdapp_id: 2,
+					title:"首页广告"
+				};
+				const callback = (res) => {
+					if (res.info.data.length > 0) {
+						self.noticeData = res.info.data[0]
+					}
+					self.$Utils.finishFunc('getNoticeData');
+				};
+				self.$apis.labelGet(postData, callback);
+			},
+			
 			getMainData(isNew) {
 				var self = this;
 				if (isNew) {
@@ -337,7 +394,18 @@
 				postData.paginate = self.$Utils.cloneForm(self.paginate);
 				postData.searchItem = self.$Utils.cloneForm(self.searchItem);
 				postData.order = {
-					sale_count: 'desc'
+					listorder: 'desc'
+				};
+				postData.getAfter = {
+					sku:{
+						tableName:'Sku',
+						middleKey:'product_no',
+						key:'product_no',
+						searchItem:{
+							status:1,
+						},
+						condition:'='
+					}
 				};
 				var callback = function(res) {
 					if (res.info.data.length > 0 && res.info.data[0]) {

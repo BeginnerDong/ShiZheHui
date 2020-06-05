@@ -195,7 +195,7 @@
 				self.isChooseAll = !self.isChooseAll;
 				for (var i = 0; i < self.mainData.length; i++) {
 					self.mainData[i].isSelect = self.isChooseAll;
-					self.$Utils.setStorageArray('cartData', self.mainData[i], 'id', 999);
+					self.$Utils.setStorageArray('cartData', self.mainData[i], 'skuId', 999);
 				};
 				self.countTotalPrice();
 			},
@@ -214,7 +214,7 @@
 						self.mainData[index].count--;
 					}
 				};
-				self.$Utils.setStorageArray('cartData', self.mainData[index], 'id', 999);
+				self.$Utils.setStorageArray('cartData', self.mainData[index], 'skuId', 999);
 				self.countTotalPrice();
 			},
 			
@@ -230,7 +230,7 @@
 						if (res.confirm) {
 							for (var i = 0; i < self.mainData.length; i++) {
 								if(self.mainData[i].isSelect){
-									self.$Utils.delStorageArray('cartData', self.mainData[i], 'id');
+									self.$Utils.delStorageArray('cartData', self.mainData[i], 'skuId');
 								}
 							};
 							self.mainData = self.$Utils.getStorageArray('cartData');
@@ -251,7 +251,7 @@
 				} else {
 					self.mainData[index].isSelect = true;
 				};
-				self.$Utils.setStorageArray('cartData', self.mainData[index], 'id', 999);
+				self.$Utils.setStorageArray('cartData', self.mainData[index], 'skuId', 999);
 				
 				self.checkChooseAll();
 				self.countTotalPrice();
@@ -270,6 +270,7 @@
 						}
 					};
 				};
+				self.totalPrice = parseFloat(self.totalPrice).toFixed(2);
 				console.log(self.totalPrice)
 			},
 			

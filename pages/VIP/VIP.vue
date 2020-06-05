@@ -13,13 +13,13 @@
 				<view class="cont position-relative main-text-color">
 					<view style="height: 176rpx;">
 						<view class="font-36 font-weight">会员卡/VIP</view>
-						<view class="mt-1 font-26">{{isMember&&isMember==true?'按您的消费计算':'按一年用户消费计算'}}，每年会节省￥{{save}}</view>
+						<view class="mt-1 font-26">{{isMember&&isMember==true?'按您的消费计算，已为您节省￥'+save+'元':'按一年用户消费计算，每年会节省￥'+yearSave+'元'}}</view>
 					</view>
 					
 					<view class="d-flex a-center j-sb">
 						<view class="font-26" style="width: 65%;color: #f27f97;" v-if="!isMember">试折惠，专业会员制电商平台</view>
 						<view class="font-26" style="width: 65%;color: #f27f97;" v-else>有效期至：{{Utils.timeto(userInfoData.member_time*1000,'ymd')}}</view>
-						<view class="btn text-white text-center font-28" @click="VipBuyShow">{{isMember&&isMember==true?'立即续费':'立即开通'}}</view>
+						<view class="btn text-white text-center font-28" v-if="!isMember" @click="VipBuyShow">{{isMember&&isMember==true?'立即续费':'立即开通'}}</view>
 					</view>
 				</view>
 			</view>
@@ -56,7 +56,7 @@
 				<view class="font-30 font-weight d-flex j-sb a-center">首充会员享受优惠</view>
 				<view class="d-flex pt-3">
 					<view class="item" v-for="(item,index) in mainData" v-if="item.member==0" :key="index" :data-id="item.id"
-					 @click="Router.navigateTo({route:{path:'/pages/vipProductDetail/vipProductDetail?id='+$event.currentTarget.dataset.id+'&type==new'}})">
+					 @click="Router.navigateTo({route:{path:'/pages/vipProductDetail/vipProductDetail?id='+$event.currentTarget.dataset.id+'&type=new'}})">
 						<view class="pic"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
 						<view class="tit font-24 avoidOverflow">{{item.title}}</view>
 						<view class="yuanJia mb-1">{{item.o_price}}</view>
@@ -248,7 +248,8 @@
 				Utils:this.$Utils,
 				isMember:'',
 				save:'',
-				userInfoData:{}
+				userInfoData:{},
+				yearSave:0
 			}
 		},
 		
@@ -256,6 +257,7 @@
 			const self = this;
 			uni.showLoading();
 			const callback = (res) => {
+				self.yearSave = uni.getStorageSync('user_info').thirdApp.save;
 				self.$Utils.loadAll(['getUserInfoData','getMainData','getArtData','getCardData'], self);
 			};
 			self.$Token.getProjectToken(callback, {
