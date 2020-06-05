@@ -9,40 +9,44 @@
 			</view>
 			
 			<view class="proRow">
-			 	<view class="item d-flex j-sb a-center" v-for="(item,index) in mainData" :key="index">
-					<view class="item_selBtn flex">
-						<view><image class="seltIcon" src="../../static/images/shopping-icon.png" v-if="item.isSelect" 
-						@click="choose(index)"></image>
-						<image class="seltIcon" src="../../static/images/shopping-icon1.png" v-if="!item.isSelect" 
-						@click="choose(index)"></image></view>
-						
-					</view>
-					<view class="R_cont d-flex j-sb a-center">
-						<view class="pic"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
-						<view class="infor">
-							<view class="tit avoidOverflow2">{{item.title}}</view>
-							<view class="d-flex font-24 color6 mt">
-								<view class="specsBtn mr-1">{{item.sku&&item.sku[item.skuIndex]?item.sku[item.skuIndex].title:''}}</view>
-							</view>
-							<view class=" B-price">
-								<view class="d-flex j-end">
-									<view class="numBox d-flex mb-1">
-										<view class="btn" @click="counter(index,'-')">-</view>
-										<view class="num">{{item.count}}</view>
-										<view class="btn pubBj white add" @click="counter(index,'+')">+</view>
-									</view>
+			 	<view class="bg-white rounded10 mb-3" v-for="(item,index) in mainData" :key="index">
+					<view class="item d-flex j-sb a-center">
+						<view class="item_selBtn flex">
+							<view><image class="seltIcon" src="../../static/images/shopping-icon.png" v-if="item.isSelect" 
+							@click="choose(index)"></image>
+							<image class="seltIcon" src="../../static/images/shopping-icon1.png" v-if="!item.isSelect" 
+							@click="choose(index)"></image></view>
+							
+						</view>
+						<view class="R_cont d-flex j-sb a-center">
+							<view class="pic"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
+							<view class="infor">
+								<view class="tit avoidOverflow2">{{item.title}}</view>
+								<view class="d-flex font-24 color6 mt">
+									<view class="specsBtn mr-1">{{item.sku&&item.sku[item.skuIndex]?item.sku[item.skuIndex].title:''}}</view>
 								</view>
-								<view class="d-flex  a-center">
-									<view class="price font-30 font-weight mr-2">{{item.sku&&item.sku[item.skuIndex]?item.sku[item.skuIndex].price:''}}</view>
-									<view class="d-flex a-center">
-										<view class="font-24">会员</view>
-										<view class="VipPrice"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥{{item.sku&&item.sku[item.skuIndex]?item.sku[item.skuIndex].member_price:''}}</view>
+								<view class=" B-price">
+									<view class="d-flex a-center pt-5">
+										<view class="price font-30 font-weight mr-2">{{item.sku&&item.sku[item.skuIndex]?item.sku[item.skuIndex].price:''}}</view>
+										<view class="d-flex a-center">
+											<view class="font-24">会员</view>
+											<view class="VipPrice"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥{{item.sku&&item.sku[item.skuIndex]?item.sku[item.skuIndex].member_price:''}}</view>
+										</view>
 									</view>
+									
 								</view>
-								
 							</view>
 						</view>
 					</view>
+					
+					<view class="d-flex j-end pb-3 mr-2">
+						<view class="numBox d-flex">
+							<view class="btn" @click="counter(index,'-')">-</view>
+							<view class="num">{{item.count}}</view>
+							<view class="btn pubBj white add" @click="counter(index,'+')">+</view>
+						</view>
+					</view>
+					
 				</view>
 			</view>
 			
@@ -288,7 +292,7 @@
 	
 	.proRow .item .pic{width: 180rpx;height: 180rpx;}
 	.proRow .item .infor{ width:66%;height: 180rpx;}
-	.proRow .item{margin-bottom: 30rpx; align-items: center;padding: 30rpx 20rpx;}
+	.proRow .item{align-items: center;padding: 30rpx 20rpx;}
 	.proRow .item .R_cont{width: 92%; align-items: flex-start;}
 	
 	/* 商城商品列表 */

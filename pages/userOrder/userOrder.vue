@@ -65,21 +65,26 @@
 							</view>
 						</view>
 					</view>
-					<view class="underBtn d-flex j-end a-center py-3" v-if="item.pay_status==1&&item.transport_status==1"
-					@click="orderUpdate(index)">
-						<view class="Bbtn red">确认收货</view>
-					</view>
-					<view class="underBtn d-flex j-end a-center py-3"  v-if="item.pay_status==1&&item.transport_status==2&&item.isremark==0&&item.type==1">
-						<view class="Bbtn red" 
-						:data-id="item.id" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaList/userOrder-pingjiaList?id='+$event.currentTarget.dataset.id}})">去评价</view>
-					</view>
-					<view class="underBtn d-flex j-end a-center py-3"  v-if="item.pay_status==1&&item.transport_status==2&&item.isremark==0&&item.type==6">
-						<view class="Bbtn red" 
-						:data-id="item.child[0].id" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjia/userOrder-pingjia?id='+$event.currentTarget.dataset.id}})">去评价</view>
-					</view>
-					<view class="underBtn d-flex j-end a-center py-3"  v-if="item.pay_status==1&&item.transport_status==2&&item.isremark==1">
-						<view class="Bbtn red" :data-id="item.id"
-						 @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaok/userOrder-pingjiaok?id='+$event.currentTarget.dataset.id}})">查看评论</view>
+					<view class="d-flex j-end">
+						<view class="underBtn d-flex j-end a-center pb-3 ml-3">
+							<view class="Bbtn red" @click="Router.navigateTo({route:{path:'/pages/refund-application/refund-application'}})">申请退款</view>
+						</view>
+						<view class="underBtn d-flex j-end a-center pb-3 ml-3" v-if="item.pay_status==1&&item.transport_status==1"
+						@click="orderUpdate(index)">
+							<view class="Bbtn red">确认收货</view>
+						</view>
+						<view class="underBtn d-flex j-end a-center pb-3"  v-if="item.pay_status==1&&item.transport_status==2&&item.isremark==0&&item.type==1">
+							<view class="Bbtn red" 
+							:data-id="item.id" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaList/userOrder-pingjiaList?id='+$event.currentTarget.dataset.id}})">去评价</view>
+						</view>
+						<view class="underBtn d-flex j-end a-center pb-3"  v-if="item.pay_status==1&&item.transport_status==2&&item.isremark==0&&item.type==6">
+							<view class="Bbtn red" 
+							:data-id="item.child[0].id" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjia/userOrder-pingjia?id='+$event.currentTarget.dataset.id}})">去评价</view>
+						</view>
+						<view class="underBtn d-flex j-end a-center pb-3"  v-if="item.pay_status==1&&item.transport_status==2&&item.isremark==1">
+							<view class="Bbtn red" :data-id="item.id"
+							 @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaok/userOrder-pingjiaok?id='+$event.currentTarget.dataset.id}})">查看评论</view>
+						</view>
 					</view>
 				</view>
 			</view>

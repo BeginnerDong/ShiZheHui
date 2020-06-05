@@ -34,6 +34,12 @@
 					</view>
 					<view class="f5Text f5bj rounded10 p-2 font-26 color6 mt-2">
 						<view>{{item.message&&item.message[0]?item.message[0].description:''}}</view>
+						<view class="d-flex flex-wrap plPicBox mt-2">
+							<image class="plPic rounded10 mr-2" src="../../static/images/to-the-pointl-img.png"></image>
+							<image class="plPic rounded10 mr-2" src="../../static/images/to-the-pointl-img.png"></image>
+							<image class="plPic rounded10 mr-2" src="../../static/images/to-the-pointl-img.png"></image>
+							<image class="plPic rounded10 mr-2" src="../../static/images/to-the-pointl-img.png"></image>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -129,4 +135,8 @@
 	page{background: #F5F5F5;padding-bottom:30rpx;}
 	
 	.f5Text{line-height: 42rpx;}
+	
+	.plPic{width: 180rpx;height: 180rpx;}
+	.plPicBox .plPic:nth-child(3n){margin-right: 0;}
+	.plPicBox .plPic:nth-child(n+4){margin-top: 20rpx;}
 </style>

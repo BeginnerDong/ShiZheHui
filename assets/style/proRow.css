@@ -1,9 +1,9 @@
 
 /* 列表 */
 .proRow .item{padding: 30rpx 4%;background: #fff;border-radius: 10rpx;overflow: hidden;align-items: flex-start;}
-.proRow .item .pic{width: 200rpx; height: 200rpx;border-radius: 10rpx;overflow: hidden;}
+.proRow .item .pic{width: 190rpx; height: 190rpx;border-radius: 10rpx;overflow: hidden;}
 .proRow .item .infor{ width:65%;height: 200rpx;position: relative;}
-.proRow .item .B-price{position: absolute;left: 0;right: 0;bottom:0rpx;}
+/* .proRow .item .B-price{position: absolute;left: 0;right: 0;bottom:0rpx;} */
 .proRow .item .lable{line-height: 40rpx;padding: 0 8rpx;border: 1px solid #c0bebe;font-size: 24rpx;color: #999;border-radius: 8rpx;}
 .proRow .item .infor .price{font-size: 30rpx; font-weight: bold;}
 .proRow .item .infor .price2{font-size: 24rpx; font-weight: bold; color: #666;margin-left: 20rpx;}

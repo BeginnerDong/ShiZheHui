@@ -283,6 +283,20 @@
 				"onReachBottomDistance":100
 			}
 		}
+        ,{
+            "path" : "pages/refundOrder/refundOrder",
+            "style" : {
+							"navigationBarTitleText": "退款订单",
+							"onReachBottomDistance":100
+						}
+        }
+        ,{
+            "path" : "pages/refund-application/refund-application",
+            "style" : {
+							"navigationBarTitleText": "退款申请",
+							"onReachBottomDistance":100
+						}
+        }
     ],
 	"globalStyle": {
 		//"navigationStyle":"custom",

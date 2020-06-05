@@ -46,9 +46,13 @@
 							</view>
 							<view class="d-flex a-center mt-2">
 								<view class="price font-30 font-weight mr-1">{{item.price}}</view>
-								<view class="font-24">会员</view>
+								<!-- <view class="font-24">会员</view>
 								<view class="VipPrice font-28"><image class="arrow" src="../../static/images/home-icon6.png" mode="">
-								</image>￥{{item.member_price}}</view>
+								</image>￥{{item.member_price}}</view> -->
+							</view>
+							<view class="d-flex a-center mt-2">
+								<view class="font-24">会员</view>
+								<view class="VipPrice font-30"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥{{item.member_price}}</view>
 							</view>
 						</view>
 					</view>
@@ -304,7 +308,8 @@
 	.category .item .pic{width: 100rpx;height: 100rpx;margin: 0 auto;background-color: #efefef;}
 	
 	
-	.HotProduct .item{width: 245rpx;height: 398rpx;}
+	/* .HotProduct .item{width: 245rpx;height: 398rpx;} */
+	.HotProduct .item{width: 245rpx;}
 	.HotProduct .item .pic{width: 100%;height: 220rpx;background-color: efefef;}
 	.HotProduct .item .infor{padding: 16rpx 0;}
 </style>

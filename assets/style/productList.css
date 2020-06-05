@@ -16,7 +16,8 @@
 .pinTab .item .price{line-height: 30rpx;}
 
 /* 热销 */
-.HotProduct .item{width: 335rpx;height: 480rpx;background: #fff;overflow: hidden; border-radius: 20rpx;}
+/* .HotProduct .item{width: 335rpx;height: 480rpx;background: #fff;overflow: hidden; border-radius: 20rpx;} */
+.HotProduct .item{width: 335rpx;background: #fff;overflow: hidden; border-radius: 20rpx;}
 .HotProduct .item .pic{width: 100%;height: 300rpx;}
 .HotProduct .item .pic image{width: 100%;height:100%; display: block;}
 .HotProduct .item .infor{padding: 16rpx 20rpx;}

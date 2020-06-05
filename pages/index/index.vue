@@ -123,6 +123,8 @@
 						</view>
 						<view class="d-flex a-center mt-2">
 							<view class="price font-30 font-weight mr-2">{{item.price}}</view>
+						</view>
+						<view class="d-flex a-center mt-2">
 							<view class="font-24">会员</view>
 							<view class="VipPrice font-30"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥{{item.member_price}}</view>
 						</view>

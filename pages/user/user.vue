@@ -78,6 +78,12 @@
 					<view class="font-30 font-weight">我的服务</view>
 				</view>
 				<view class="menu d-flex a-center color6 flex-wrap pt-3 text-center">
+					<view class="item" @click="Router.navigateTo({route:{path:'/pages/refundOrder/refundOrder'}})">
+						<view class="icon">
+							<image src="../../static/images/about-icon14.png"></image>
+						</view>
+						<view>退款订单</view>
+					</view>
 					<view class="item" @click="Router.navigateTo({route:{path:'/pages/userOrder-myPingjia/userOrder-myPingjia'}})">
 						<view class="icon">
 							<image src="../../static/images/about-icon7.png"></image>
