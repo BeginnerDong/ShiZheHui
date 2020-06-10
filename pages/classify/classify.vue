@@ -45,14 +45,12 @@
 								<view class="avoidOverflow2">{{item.title}}</view>
 							</view>
 							<view class="d-flex a-center mt-2">
-								<view class="price font-30 font-weight mr-1">{{item.price}}</view>
-								<!-- <view class="font-24">会员</view>
-								<view class="VipPrice font-28"><image class="arrow" src="../../static/images/home-icon6.png" mode="">
-								</image>￥{{item.member_price}}</view> -->
+								<view class="price font-30 font-weight mr-2">{{item.sku&&item.sku[0]?item.sku[0].price:''}}</view>
 							</view>
 							<view class="d-flex a-center mt-2">
 								<view class="font-24">会员</view>
-								<view class="VipPrice font-30"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥{{item.member_price}}</view>
+								<view class="VipPrice font-30"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>
+								￥{{item.sku&&item.sku[0]?item.sku[0].member_price:''}}</view>
 							</view>
 						</view>
 					</view>
@@ -277,6 +275,17 @@
 				postData.searchItem = self.$Utils.cloneForm(self.searchItem);
 				postData.order = {
 					sale_count: 'desc'
+				};
+				postData.getAfter = {
+					sku:{
+						tableName:'Sku',
+						middleKey:'product_no',
+						key:'product_no',
+						searchItem:{
+							status:1,
+						},
+						condition:'='
+					}
 				};
 				var callback = function(res) {
 					if (res.info.data.length > 0 && res.info.data[0]) {

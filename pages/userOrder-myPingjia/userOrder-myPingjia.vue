@@ -34,11 +34,8 @@
 					</view>
 					<view class="f5Text f5bj rounded10 p-2 font-26 color6 mt-2">
 						<view>{{item.message&&item.message[0]?item.message[0].description:''}}</view>
-						<view class="d-flex flex-wrap plPicBox mt-2">
-							<image class="plPic rounded10 mr-2" src="../../static/images/to-the-pointl-img.png"></image>
-							<image class="plPic rounded10 mr-2" src="../../static/images/to-the-pointl-img.png"></image>
-							<image class="plPic rounded10 mr-2" src="../../static/images/to-the-pointl-img.png"></image>
-							<image class="plPic rounded10 mr-2" src="../../static/images/to-the-pointl-img.png"></image>
+						<view class="d-flex flex-wrap plPicBox mt-2" v-if="item.message&&item.message[0]&&item.message[0].mainImg&&item.message[0].mainImg.length>0">
+							<image class="plPic rounded10 mr-2" v-for="(c_item,c_index) in item.message[0].mainImg" :src="c_item.url"></image>
 						</view>
 					</view>
 				</view>

@@ -60,19 +60,19 @@
 		<view class="proRow mt-3">
 			<view class="item d-flex j-sb mb-3" v-for="(item,index) in mainData" :key="index">
 				<view class="pic"><image :src="item.product&&item.product.mainImg&&item.product.mainImg[0]?item.product.mainImg[0].url:''" mode=""></image></view>
-				<view class="infor">
+				<view class="infor position-relative">
 					<view class="tit avoidOverflow">{{item.product?item.product.title:''}}</view>
-					<!-- <view class="d-flex font-24 color6 mt">
-						<view class="specsBtn mr-1">{{item.product&&item.product.sku&&item.product.sku[item.skuIndex]?item.product.sku[item.skuIndex].title:''}}</view>
-					</view> -->
-					<view class="B-price">
-						<view class="d-flex j-end">
+					<view class="d-flex font-24 color6 mt">
+						<!-- <view class="specsBtn mr-1">{{item.product&&item.product.sku&&item.product.sku[item.skuIndex]?item.product.sku[item.skuIndex].title:''}}</view> -->
+					</view>
+					<view class="B-price position-absolute bottom-0 left-0">
+						<!-- <view class="d-flex j-end">
 							<view class="numBox d-flex">
 								<view class="btn" @click="counter(index,'-')">-</view>
 								<view class="num">{{item.count}}</view>
 								<view class="btn pubBj white add" @click="counter(index,'+')">+</view>
 							</view>
-						</view>
+						</view> -->
 						
 						<view class="d-flex  a-center">
 							<view class="price font-30 font-weight mr-2">{{item.product?item.product.price:''}}</view>
@@ -80,6 +80,7 @@
 								<view class="font-24">会员</view>
 								<view class="VipPrice font-30"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥{{item.product&&item.product.sku&&item.product.sku[item.skuIndex]?item.product.sku[item.skuIndex].member_price:''}}</view>
 							</view> -->
+							<view class="font-26">×{{item.count?item.count:''}}</view>
 						</view>
 					</view>
 				</view>

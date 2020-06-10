@@ -112,12 +112,13 @@
 			if(options.type){
 				self.type = options.type
 			};
-			self.$Utils.loadAll(['getMainData','getUserInfoData'], self);
+			self.$Utils.loadAll(['getMainData'], self);
 		},
 		
 		onShow() {
 			const self = this;
 			self.orderList = [];
+			self.getUserInfoData();
 			uni.removeStorageSync('payPro');
 		},
 		
@@ -136,7 +137,8 @@
 						searchItem:{
 							type:6,
 							pay_status:1,
-							
+							level:1,
+							member:0
 						},
 						condition:'='
 					}
@@ -145,7 +147,7 @@
 					if (res.info.data.length > 0) {
 						self.userInfoData = res.info.data[0];
 					}
-					self.$Utils.finishFunc('getUserInfoData');
+					
 				};
 				self.$apis.userInfoGet(postData, callback);
 			},

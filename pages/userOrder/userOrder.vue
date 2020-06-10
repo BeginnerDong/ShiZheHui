@@ -36,7 +36,7 @@
 							<view class="red" v-if="item.transport_status==2&&item.isremark==0">已收货</view>
 							<view class="red" v-if="item.isremark==1">已评价</view>
 						</view>
-						<view class="d-flex a-center j-sb mb-2"  v-for="(c_item,c_index) in item.child" :key="index">
+						<view class="d-flex a-center j-sb mb-2"  v-for="(c_item,c_index) in item.child" :key="c_index">
 							<view class="pic" v-if="item.type==1">
 								<image :src="c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product&&c_item.orderItem[0].snap_product.product&&
 								c_item.orderItem[0].snap_product.product.mainImg&&c_item.orderItem[0].snap_product.product.mainImg[0]?c_item.orderItem[0].snap_product.product.mainImg[0].url:''" mode=""></image>
@@ -66,8 +66,9 @@
 						</view>
 					</view>
 					<view class="d-flex j-end">
-						<view class="underBtn d-flex j-end a-center pb-3 ml-3">
-							<view class="Bbtn red" @click="Router.navigateTo({route:{path:'/pages/refund-application/refund-application'}})">申请退款</view>
+						<view class="underBtn d-flex j-end a-center pb-3 ml-3" v-if="item.transport_status==0">
+							<view class="Bbtn red" :data-id="item.id" 
+							@click="Router.navigateTo({route:{path:'/pages/refund-application/refund-application?id='+$event.currentTarget.dataset.id}})">申请退款</view>
 						</view>
 						<view class="underBtn d-flex j-end a-center pb-3 ml-3" v-if="item.pay_status==1&&item.transport_status==1"
 						@click="orderUpdate(index)">
@@ -82,8 +83,8 @@
 							:data-id="item.child[0].id" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjia/userOrder-pingjia?id='+$event.currentTarget.dataset.id}})">去评价</view>
 						</view>
 						<view class="underBtn d-flex j-end a-center pb-3"  v-if="item.pay_status==1&&item.transport_status==2&&item.isremark==1">
-							<view class="Bbtn red" :data-id="item.id"
-							 @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaok/userOrder-pingjiaok?id='+$event.currentTarget.dataset.id}})">查看评论</view>
+							<view class="Bbtn red" :data-no="item.order_no"
+						 @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaok/userOrder-pingjiaok?no='+$event.currentTarget.dataset.no}})">查看评论</view>
 						</view>
 					</view>
 				</view>
@@ -177,7 +178,8 @@
 				searchItem:{
 					pay_status:1,
 					transport_type:1,
-					level:1
+					level:1,
+					order_step:0
 				},
 				mainData:[],
 				Utils:this.$Utils,

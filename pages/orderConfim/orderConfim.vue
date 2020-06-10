@@ -390,7 +390,7 @@
 								user_no:uni.getStorageSync('user_info').user_no
 							},
 							data: {
-								save:parseFloat(self.userInfoData.save)+self.save
+								save:parseFloat(parseFloat(self.userInfoData.save)+parseFloat(self.save)).toFixed(2)
 							},
 						},
 					];

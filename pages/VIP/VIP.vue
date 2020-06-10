@@ -409,7 +409,7 @@
 					type:5
 				};
 				postData.order = {
-					listorder: 'desc'
+					member: 'asc'
 				};
 				var callback = function(res) {
 					if (res.info.data.length > 0 && res.info.data[0]) {

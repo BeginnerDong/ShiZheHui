@@ -11,35 +11,38 @@
 						</view>
 						<view class="d-flex a-center j-sb">
 							<view class="pic" v-if="item.type==1">
-								<image :src="c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product&&c_item.orderItem[0].snap_product.product&&
-								c_item.orderItem[0].snap_product.product.mainImg&&c_item.orderItem[0].snap_product.product.mainImg[0]?c_item.orderItem[0].snap_product.product.mainImg[0].url:''" mode=""></image>
+								<image :src="item.orderItem&&item.orderItem[0]&&item.orderItem[0].snap_product&&item.orderItem[0].snap_product.product&&
+								item.orderItem[0].snap_product.product.mainImg&&item.orderItem[0].snap_product.product.mainImg[0]?item.orderItem[0].snap_product.product.mainImg[0].url:''" mode=""></image>
 							</view>
 							<view class="pic" v-if="item.type==6">
-								<image :src="c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product&&c_item.orderItem[0].snap_product&&
-								c_item.orderItem[0].snap_product.mainImg&&c_item.orderItem[0].snap_product.mainImg[0]?c_item.orderItem[0].snap_product.mainImg[0].url:''" mode=""></image>
+								<image :src="item.orderItem&&item.orderItem[0]&&item.orderItem[0].snap_product&&item.orderItem[0].snap_product&&
+								item.orderItem[0].snap_product.mainImg&&item.orderItem[0].snap_product.mainImg[0]?item.orderItem[0].snap_product.mainImg[0].url:''" mode=""></image>
 							</view>
 							<view class="infor">
-								<view class="tit avoidOverflow"  v-if="item.type==1">{{c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product
-								&&c_item.orderItem[0].snap_product&&c_item.orderItem[0].snap_product.product?c_item.orderItem[0].snap_product.product.title:''}}</view>
-								<view class="tit avoidOverflow"  v-if="item.type==6">{{c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product
-								&&c_item.orderItem[0].snap_product?c_item.orderItem[0].snap_product.title:''}}</view>
+								<view class="tit avoidOverflow"  v-if="item.type==1">{{item.orderItem&&item.orderItem[0]&&item.orderItem[0].snap_product
+								&&item.orderItem[0].snap_product&&item.orderItem[0].snap_product.product?item.orderItem[0].snap_product.product.title:''}}</view>
+								<view class="tit avoidOverflow"  v-if="item.type==6">{{item.orderItem&&item.orderItem[0]&&item.orderItem[0].snap_product
+								&&item.orderItem[0].snap_product?item.orderItem[0].snap_product.title:''}}</view>
 								<view class="d-flex font-24 color6 mt-1">
-									<view class="specsBtn mr-1"  v-if="item.type==1">{{c_item.orderItem&&c_item.orderItem[0]&&c_item.orderItem[0].snap_product
-								&&c_item.orderItem[0].snap_product?c_item.orderItem[0].snap_product.title:''}}</view>
+									<view class="specsBtn mr-1"  v-if="item.type==1">{{item.orderItem&&item.orderItem[0]&&item.orderItem[0].snap_product
+								&&item.orderItem[0].snap_product?item.orderItem[0].snap_product.title:''}}</view>
 								</view>
 								<view class="B-price d-flex a-center j-sb">
 									<view class="d-flex a-center">
-										<view class="price font-30 font-weight mr-2">{{c_item.unit_price?c_item.unit_price:''}}</view>
+										<view class="price font-30 font-weight mr-2">{{item.unit_price?item.unit_price:''}}</view>
 										<!-- <view class="font-24">会员</view>
 										<view class="VipPrice font-30"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥69</view> -->
 									</view>
-									<view class="font-26">×{{c_item.count?c_item.count:''}}</view>
+									<view class="font-26">×{{item.count?item.count:''}}</view>
 								</view>
 							</view>
 						</view>
 					</view>
 					<view class="f5Text f5bj rounded10 p-2 font-26 color6 mt-2">
 						<view>{{item.message&&item.message[0]?item.message[0].description:''}}</view>
+						<view class="d-flex flex-wrap plPicBox mt-2" v-if="item.message&&item.message[0]&&item.message[0].mainImg&&item.message[0].mainImg.length>0">
+							<image class="plPic rounded10 mr-2" v-for="(c_item,c_index) in item.message[0].mainImg" :src="c_item.url"></image>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -104,7 +107,7 @@
 				};
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
-						self.mainData.pusha.apply(self.mainData,res.info.data)
+						self.mainData.push.apply(self.mainData,res.info.data)
 					};
 					console.log('self.mainData', self.mainData)
 					self.$Utils.finishFunc('getMainData');
@@ -121,4 +124,8 @@
 	page{background: #F5F5F5;padding-bottom:30rpx;}
 	
 	.f5Text{line-height: 42rpx;}
+	
+	.plPic{width: 180rpx;height: 180rpx;}
+	.plPicBox .plPic:nth-child(3n){margin-right: 0;}
+	.plPicBox .plPic:nth-child(n+4){margin-top: 20rpx;}
 </style>

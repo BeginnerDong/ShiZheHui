@@ -238,6 +238,7 @@
 								}
 							};
 							self.mainData = self.$Utils.getStorageArray('cartData');
+							self.countTotalPrice();
 						} else if (res.cancel) {
 							console.log('用户点击取消');
 						}

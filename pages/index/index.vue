@@ -4,7 +4,7 @@
 		<view class="px-3 py-3 headTop">
 			<view class="d-flex j-sb a-center">
 				<view class="d-flex a-center text-white">
-					<view class="font-30 font-weight mr-1">{{city}}</view>
+					<view class="font-30 font-weight mr-1">{{city!=''?city:'无'}}</view>
 					<view class="arrowB"><image src="../../static/images/home-icon.png" mode=""></image></view>
 				</view>
 				<view class="seachbox" style="width: 75%;">
@@ -122,11 +122,12 @@
 							<view class="avoidOverflow2">{{item.title}}</view>
 						</view>
 						<view class="d-flex a-center mt-2">
-							<view class="price font-30 font-weight mr-2">{{item.price}}</view>
+							<view class="price font-30 font-weight mr-2">{{item.sku&&item.sku[0]?item.sku[0].price:''}}</view>
 						</view>
 						<view class="d-flex a-center mt-2">
 							<view class="font-24">会员</view>
-							<view class="VipPrice font-30"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>￥{{item.member_price}}</view>
+							<view class="VipPrice font-30"><image class="arrow" src="../../static/images/home-icon6.png" mode=""></image>
+							￥{{item.sku&&item.sku[0]?item.sku[0].member_price:''}}</view>
 						</view>
 						
 					</view>
@@ -335,13 +336,11 @@
 				const callback = (res) => {
 					if (res) {
 						console.log('res', res)
-						/* if(res.authSetting){
-							self.data.is_show=true;
-							self.setData({
-								is_show:self.data.is_show
-							})
+						if(res.authSetting){
+							//self.$Utils.showToast('功能开发中','none')
+							self.$Utils.finishFunc('getLocation');
 							return
-						} */
+						}
 						self.city = res.address_component.district
 					};
 					self.$Utils.finishFunc('getLocation');

@@ -30,7 +30,17 @@
 			</view>
 			<view class="openBtn text-center text-white font-30 rounded50" @click="Router.redirectTo({route:{path:'/pages/VIP/VIP'}})">立即开通</view>
 		</view>
-		
+		<view class="openVip rounded10 overflow-h px-3 py-2 mx-3 d-flex a-center j-sb" v-else
+		style="background-image: linear-gradient(to right,#534e4e,#191516);margin-top: -50rpx;">
+			<view style="width: 100%;">
+				<view class="font-26 d-flex a-center" style="color: #b89673;">
+					<image style="width: 26rpx;height: 24rpx;margin-right: 6rpx;" src="../../static/images/about-icon1.png" mode="">
+						
+					</image>按您的消费计算，已为您节省{{userInfoData.save?userInfoData.save:''}}元</view>
+				<view class="font-22 mt-1" style="color: #c6a787;">有效期至：{{Utils.timeto(userInfoData.member_time*1000,'ymd')?Utils.timeto(userInfoData.member_time*1000,'ymd'):''}}</view>
+			</view>
+			
+		</view>
 		<view class="mx-3">
 			<!-- 我的订单 -->
 			<view class="userBox2 rounded10 bg-white font-24 px-3 mt-3">
@@ -201,7 +211,8 @@
 			return {
 				Router:this.$Router,
 				now:'',
-				userInfoData:{}
+				userInfoData:{},
+				Utils:this.$Utils
 			}
 		},
 		onLoad() {

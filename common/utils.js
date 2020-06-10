@@ -86,7 +86,7 @@ export default {
 			};
 		};
 		wx.uploadFile({
-			url: 'http://106.12.155.217/szh/public/index.php/api/v1/Base/FtpFile/upload',
+			url: 'https://www.glamhm.com/api/public/index.php/api/v1/Base/FtpFile/upload',
 			filePath: filePath,
 			name: name,
 			formData: formData,
