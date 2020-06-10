@@ -49,7 +49,7 @@
 					<view class="tt" :class="curr==2?'on':''" @click="currChange('2')">商品评论</view>
 				</view>
 			</view>
-			<view class="py-3">
+			<view class="py-3 w-100">
 				<view class=" xqInfor" v-show="curr==1">
 					<view class="cont fs14 text-center">
 						<view class="content ql-editor" style="padding:0;" v-html="mainData.content">
@@ -420,7 +420,7 @@
 	page{padding-bottom:140rpx;}
 	
 	/* .banner-box {width: 100%;height: 420rpx;box-sizing: border-box;overflow: hidden;} */
-	.swiper-box {height: 420rpx;box-sizing: border-box;}
+	.swiper-box {height: 750rpx;box-sizing: border-box;}
 	.swiper-box swiper-item{width: 100%;box-sizing: border-box;overflow: hidden;}
 	
 	.bottom-btnCont{width: 520rpx;line-height: 80rpx;}
@@ -436,4 +436,5 @@
 	
 	.main-bgTwo{background-color: #ffcdd7;}
 	
+	.cont .content img{width: 100%;height: auto;}
 </style>
