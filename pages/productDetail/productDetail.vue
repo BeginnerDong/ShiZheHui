@@ -436,5 +436,5 @@
 	
 	.main-bgTwo{background-color: #ffcdd7;}
 	
-	.cont .content img{width: 100%;height: auto;}
+	.cont .content img{width: 100%;height: auto;overflow: hidden;}
 </style>
