@@ -26,7 +26,7 @@
 		style="background-image: linear-gradient(to right,#534e4e,#191516);margin-top: -50rpx;">
 			<view style="width: 70%;">
 				<view class="font-26 d-flex a-center" style="color: #b89673;"><image style="width: 26rpx;height: 24rpx;margin-right: 6rpx;" src="../../static/images/about-icon1.png" mode=""></image>开通会员享全场成本价</view>
-				<view class="font-22 mt-1" style="color: #c6a787;">开通试折惠会员享4大权益</view>
+				<view class="font-22 mt-1" style="color: #c6a787;">开通美蘑街会员享4大权益</view>
 			</view>
 			<view class="openBtn text-center text-white font-30 rounded50" @click="Router.redirectTo({route:{path:'/pages/VIP/VIP'}})">立即开通</view>
 		</view>

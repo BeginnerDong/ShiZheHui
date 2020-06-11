@@ -36,7 +36,7 @@
 			<view class="py-3">
 				<view class=" xqInfor" v-show="curr==1">
 					<view class="cont fs14 text-center">
-						<view class="content ql-editor" style="padding:0;" v-html="mainData.content">
+						<view class="content ql-editor" style="padding:0;line-height: 0;" v-html="mainData.content">
 						</view>
 					</view>
 				</view>

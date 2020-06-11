@@ -111,12 +111,12 @@
 				</view>
 			</view>
 			<view class="mt-3">
-				<!-- <view class="font-26">规格</view> -->
-				<!-- <view class="specsLable d-flex font-26 color6">
+				<view class="font-26">规格</view>
+				<view class="specsLable d-flex font-26 color6">
 					<view class="tt" :class="specsCurr==index?'on':''" 
 					v-for="(item,index) in mainData.sku" :key="index" @click="specsChange(index)">{{item.title}}</view>
-				</view> -->
-				<scroll-view class="specsLable d-flex font-26 color6" scroll-y="true" style="height: 360rpx;">
+				</view>
+				<!-- <scroll-view class="specsLable d-flex font-26 color6" scroll-y="true" style="height: 360rpx;">
 					<view v-for="(item,index) in labelData" :key="index" style="margin-top: 20rpx;">
 						<view class="fs13">{{item.title}}</view>
 						<view class="tt" v-for="(c_item,c_index) in item.children" 
@@ -126,7 +126,7 @@
 						  :key="c_index" :data-c_id="c_item.id" :data-id="item.id"
 						@click="Utils.inArray($event.currentTarget.dataset.c_id,choose_sku_item)!=-1?chooseSku($event.currentTarget.dataset.id,$event.currentTarget.dataset.c_id):''">{{c_item.title}}</view>
 					</view>
-				</scroll-view>
+				</scroll-view> -->
 			</view>
 			<view class="xqbotomBar px-3 mb-3" style="box-shadow:initial">
 				<view class="bottom-btnCont d-flex rounded50 overflow-h text-white font-30" style="width: 100%">
@@ -160,11 +160,11 @@
 				mainData:{},
 				messageData:[],
 				orderList:[],
-				labelData:[],
+				/* labelData:[],
 				skuData:[],
 				
 				sku_item:[],
-				choose_sku_item:[]
+				choose_sku_item:[] */
 			}
 		},
 		
@@ -294,21 +294,18 @@
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
 						self.mainData = res.info.data[0];
-						for(var key in self.mainData.label){
+						/* for(var key in self.mainData.label){
 						  if(self.mainData.sku_array.indexOf(parseInt(key))!=-1){
 						    self.labelData.push(self.mainData.label[key])
 						  };    
 						};
 						console.log('self.labelData',self.labelData)
 						for (var i = 0; i < self.mainData.sku.length; i++) {
-						  /* if(self.mainData.sku[i].id==self.id){
-						    self.skuData = self.$Utils.cloneForm(self.mainData.sku[i]);
-						  }; */
-										
+						  	
 						  self.choose_sku_item.push.apply(self.choose_sku_item,self.mainData.sku[i].sku_item);
 						};
 						self.skuData = self.$Utils.cloneForm(self.mainData.sku[0]);
-						self.sku_item = self.skuData.sku_item;
+						self.sku_item = self.skuData.sku_item; */
 						const regex = new RegExp('<img', 'gi');
 						self.mainData.content = self.mainData.content.replace(regex, `<img style="max-width: 100%;"`);
 					};

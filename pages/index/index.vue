@@ -218,7 +218,7 @@
 			const self = this;
 			if (ops.from === 'button') {
 				return {
-					title: '格莱美试折惠',
+					title: '美蘑街',
 					path: '/pages/index/index', //点击分享的图片进到哪一个页面
 					///imageUrl: self.mainData.mainImg[0].url ? self.mainData.mainImg[0].url : '',
 					success: function(res) {
@@ -232,7 +232,7 @@
 				}
 			} else {
 				return {
-					title: '格莱美试折惠',
+					title: '美蘑街',
 					path: '/pages/index/index', //点击分享的图片进到哪一个页面
 					///imageUrl: self.mainData.mainImg[0].url ? self.mainData.mainImg[0].url : '',
 					success: function(res) {

@@ -17,7 +17,7 @@
 					</view>
 					
 					<view class="d-flex a-center j-sb">
-						<view class="font-26" style="width: 65%;color: #f27f97;" v-if="!isMember">试折惠，专业会员制电商平台</view>
+						<view class="font-26" style="width: 65%;color: #f27f97;" v-if="!isMember">美蘑街，专业会员制电商平台</view>
 						<view class="font-26" style="width: 65%;color: #f27f97;" v-else>有效期至：{{Utils.timeto(userInfoData.member_time*1000,'ymd')}}</view>
 						<view class="btn text-white text-center font-28" v-if="!isMember" @click="VipBuyShow">{{isMember&&isMember==true?'立即续费':'立即开通'}}</view>
 					</view>
