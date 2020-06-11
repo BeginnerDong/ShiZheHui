@@ -52,7 +52,7 @@
 			<view class="py-3 w-100">
 				<view class=" xqInfor" v-show="curr==1">
 					<view class="cont fs14 text-center">
-						<view class="content ql-editor" style="padding:0;" v-html="mainData.content">
+						<view class="content ql-editor" style="padding:0;line-height: 0;" v-html="mainData.content">
 						</view>
 					</view>
 				</view>
@@ -423,7 +423,7 @@
 	.bottom-btnCont{width: 520rpx;line-height: 80rpx;}
 	.bottom-btnCont .hei{background-color: #3c3c3c;}
 	
-	.specsLable{flex-wrap: wrap;}
+	.specsLable{flex-wrap: wrap;max-height: 300rpx;overflow: scroll;margin-top: 20rpx;}
 	.specsLable .tt{margin: 30rpx 50rpx 0 0;border: 1px solid #ddd;line-height: 60rpx;padding: 0 16rpx;border-radius:10rpx;}
 	
 	.specsLable .tt.on{background-color: #fff2f5;color: #ffb2c2;border: 1px solid #ffb2c2;}
@@ -433,5 +433,5 @@
 	
 	.main-bgTwo{background-color: #ffcdd7;}
 	
-	.cont .content img{width: 100%;height: auto;overflow: hidden;}
+	
 </style>
