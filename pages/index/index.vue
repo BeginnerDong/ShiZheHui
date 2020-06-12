@@ -201,11 +201,13 @@
 		onLoad() {
 			const self = this;
 			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
-			self.$Utils.loadAll(['getUserData','getLabelData','getSliderData','getLocation','getMainData','getNoticeData'], self);
+			self.getLocation();
+			self.$Utils.loadAll(['getUserData','getLabelData','getSliderData','getMainData','getNoticeData'], self);
 		},
 		
 		onReachBottom() {
 			console.log('onReachBottom')
+			uni.showLoading();
 			const self = this;
 			if (!self.isLoadAll && uni.getStorageSync('loadAllArray')) {
 				self.paginate.currentPage++;
@@ -337,13 +339,11 @@
 					if (res) {
 						console.log('res', res)
 						if(res.authSetting){
-							//self.$Utils.showToast('功能开发中','none')
-							self.$Utils.finishFunc('getLocation');
+							//self.$Utils.showToast('未授权位置信息，可在设置中开启','none')
 							return
-						}
+						};
 						self.city = res.address_component.district
 					};
-					self.$Utils.finishFunc('getLocation');
 				};
 				self.$Utils.getLocation('reverseGeocoder', callback);
 			},
@@ -394,6 +394,7 @@
 				var postData = {};
 				postData.paginate = self.$Utils.cloneForm(self.paginate);
 				postData.searchItem = self.$Utils.cloneForm(self.searchItem);
+				postData.getLimit = ['content','bannerImg'];
 				postData.order = {
 					listorder: 'desc'
 				};

@@ -131,6 +131,16 @@
 			self.$Utils.loadAll(['getLabelData','getBrandData'], self);
 		},
 		
+		onReachBottom() {
+			console.log('onReachBottom')
+			uni.showLoading();
+			const self = this;
+			if (!self.isLoadAll && uni.getStorageSync('loadAllArray')) {
+				self.paginate.currentPage++;
+				self.getMainData()
+			};
+		},
+		
 		methods: {
 			
 			changeCurr(index){
@@ -273,6 +283,7 @@
 				var postData = {};
 				postData.paginate = self.$Utils.cloneForm(self.paginate);
 				postData.searchItem = self.$Utils.cloneForm(self.searchItem);
+				postData.getLimit = ['content','bannerImg'];
 				postData.order = {
 					sale_count: 'desc'
 				};

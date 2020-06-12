@@ -81,6 +81,16 @@
 			self.$Utils.loadAll(['getMainData'], self);
 		},
 		
+		onReachBottom() {
+			console.log('onReachBottom')
+			uni.showLoading();
+			const self = this;
+			if (!self.isLoadAll && uni.getStorageSync('loadAllArray')) {
+				self.paginate.currentPage++;
+				self.getMainData()
+			};
+		},
+		
 		methods: {
 			
 			
@@ -115,6 +125,7 @@
 				if(JSON.stringify(self.order)!='{}'){
 					postData.order = self.$Utils.cloneForm(self.order)
 				};
+				postData.getLimit = ['content','bannerImg'];
 				postData.getAfter = {
 					sku:{
 						tableName:'Sku',

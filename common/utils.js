@@ -2,7 +2,7 @@ import assetsConfig from "@/config/assets.config.js";
 import token from '@/common/token.js';
 var QQMapWX = require('./qqmap-wx-jssdk.min.js');
 var wxMap = new QQMapWX({
-	key: '4BEBZ-ZM43U-U6SVY-BZ5X3-44T35-4ZFD6' // 必填
+	key: 'GQHBZ-K34WP-PM6D3-V7JBZ-OIYR5-32BGK' // 必填
 });
 export default {
 	
@@ -139,6 +139,7 @@ export default {
 					            callback&&callback(res.result)
 					          },
 					          fail(res){
+								  console.log('位置',res)
 					            wx.showToast({
 					                title:'获取位置失败',
 					                icon:'none',
@@ -180,6 +181,7 @@ export default {
 					            callback&&callback(res.result)
 					          },
 					          fail(res){
+								  console.log('位置',res)
 					            wx.showToast({
 					                title:'获取位置失败',
 					                icon:'none',
