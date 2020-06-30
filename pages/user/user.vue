@@ -2,12 +2,12 @@
 	<view>
 		
 		<view class="userHead  main-bg-color">
-			<view class="infor mx-3">
+			<view class="infor px-3">
 				<view class="d-flex a-center mt-4">
 					<view class="photo" style="overflow: hidden;"><open-data type="userAvatarUrl"></open-data></view>
 					<view style="width: 70%;">
 						<view class="font-30 font-weight"><open-data type="userNickName"></open-data></view>
-						<view class="d-flex mt-1">
+						<view class="d-flex mt-1 a-center">
 							<view class="d-flex a-center font-24 rounded50" style="min-width: 150rpx;background-color: rgba(255,255,255,0.5);padding: 0rpx 6rpx; line-height: 40rpx;">
 								<image style="width: 30rpx;height: 26rpx;" src="../../static/images/about-icon.png" mode=""></image>
 								<view class="ml" v-if="userInfoData.member==1&&userInfoData.member_time>now">月卡会员</view>
@@ -16,8 +16,10 @@
 								<view class="ml" v-if="userInfoData.member==4&&userInfoData.member_time>now">年卡会员</view>
 								<view class="ml" v-if="userInfoData.member_time<now">普通用户</view>
 							</view>
+							<view class="font-24 color2 pl-2">推荐者：张丹</view>
 						</view>
 					</view>
+					<view class="tg font-26 color2 text-center right-0" @click="Router.redirectTo({route:{path:'/pages/promotionPoster/promotionPoster'}})">推广二维码</view>
 				</view>
 			</view>
 		</view>
@@ -281,4 +283,6 @@
 		color: #000000;
 		background: none;
 	}
+	
+	.tg{background-color: #ffd3e6;width: 182rpx;line-height: 60rpx;border-top-left-radius: 30rpx;border-bottom-left-radius: 30rpx;position: absolute;}
 </style>

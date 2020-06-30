@@ -19,7 +19,7 @@
 			</view>
 			<view class="banner-box mt-3">
 				<view class="banner">
-					<swiper class="swiper-box rounded10 overflow-h" indicator-dots="true" autoplay="true" interval="3000" duration="1000" indicator-color="#ffffff" indicator-active-color="#222222">
+					<swiper class="swiper-box rounded10 overflow-h"  indicator-dots="true" autoplay="true" interval="3000" duration="1000" indicator-color="#ffffff" indicator-active-color="#222222">
 						<block v-for="(item,index) in sliderData.mainImg" :key="index">
 							<swiper-item class="swiper-item">
 								<image :src="item.url" class="slide-image" />

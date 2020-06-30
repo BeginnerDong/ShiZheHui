@@ -297,6 +297,35 @@
 							"onReachBottomDistance":100
 						}
         }
+        ,{
+            "path" : "pages/promotionPoster/promotionPoster",
+            "style" : {
+							"navigationBarTitleText": "推广海报",
+							"onReachBottomDistance":100
+						}
+        }
+        ,{
+            "path" : "pages/userOrder-detail/userOrder-detail",
+            "style" : {
+							"navigationBarTitleText": "订单详情",
+							"onReachBottomDistance":100
+						}
+        }
+        ,{
+            "path" : "pages/userOrder-wuliu/userOrder-wuliu",
+            "style" : {
+							"navigationBarTitleText": "物流信息",
+							"onReachBottomDistance":100
+						}
+        }
+				
+        ,{
+            "path" : "pages/vipRealname/vipRealname",
+            "style" : {
+							"navigationBarTitleText": "实名认证",
+							"onReachBottomDistance":100
+						}
+        }
     ],
 	"globalStyle": {
 		//"navigationStyle":"custom",

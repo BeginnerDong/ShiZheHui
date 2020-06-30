@@ -82,6 +82,13 @@
 							<view class="Bbtn red" 
 							:data-id="item.child[0].id" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjia/userOrder-pingjia?id='+$event.currentTarget.dataset.id}})">去评价</view>
 						</view>
+						
+						
+						<view class="underBtn d-flex j-end a-center pb-3" >
+							<view class="Bbtn red" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaok/userOrder-pingjiaok'}})">查看详情</view>
+						</view>
+						
+						
 						<view class="underBtn d-flex j-end a-center pb-3"  v-if="item.pay_status==1&&item.transport_status==2&&item.isremark==1">
 							<view class="Bbtn red" :data-no="item.order_no"
 						 @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaok/userOrder-pingjiaok?no='+$event.currentTarget.dataset.no}})">查看评论</view>
