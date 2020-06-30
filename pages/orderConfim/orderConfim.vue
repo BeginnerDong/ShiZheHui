@@ -58,7 +58,7 @@
 			</view>
 		</view>
 		<view class="proRow mt-3">
-			<view class="bg-white rounded10 mb-3" v-for="(item,index) in mainData" :key="index">
+			<view class="bg-white  mb-3" v-for="(item,index) in mainData" :key="index">
 				<view class="item d-flex j-sb">
 					<view class="pic"><image :src="item.product&&item.product.mainImg&&item.product.mainImg[0]?item.product.mainImg[0].url:''" mode=""></image></view>
 					<view class="infor position-relative">
@@ -87,7 +87,10 @@
 				</view>
 			</view>
 		</view>
-		
+		<view class="px-3 py-3 pdlr4 d-flex whiteBj pdt15 pdb15 radius8 mgt15">
+			<view>留言：</view>
+			<view class="BZ-Text"><input type="text" v-model="passage1" placeholder="请输入留言信息" placeholder-class="" /></view>
+		</view>
 		<view class="xqbotomBar pl-3">
 			<view class="d-flex a-center mr-3 font-26">总计<view class="price font-weight font-30">{{totalPrice}}</view></view>
 			<button style="border-radius: 0;" class="payBtn main-bg-color font-30 text-white" open-type="getUserInfo"  @getuserinfo="Utils.stopMultiClick(submit)">立即支付</button>

@@ -31,8 +31,8 @@
 		</view>
 		
 		<!-- 菜单 -->
-		<view class="indHome d-flex py-3 font-26">
-			<view class="item" v-for="(item,index) in labelData" :key="index" :data-index="index"
+		<view class="indHome d-flex pt-3 font-26" style="flex-wrap: wrap;">
+			<view class="item" style="margin-bottom: 30rpx;" v-for="(item,index) in labelData" :key="index" :data-index="index"
 			  @click="Router.navigateTo({route:{path:'/pages/classify/classify?index='+$event.currentTarget.dataset.index}})">
 				<image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''"></image>
 				<view class="tit">{{item.title}}</view>

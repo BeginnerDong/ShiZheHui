@@ -1,20 +1,10 @@
 <template>
 	<view>
 		
-		<view class="border-bottom position-fixed left-0 right-0 top0"></view>
-		<view class="">
-			<view class="mx-3">
-				<view class="xqInfor">
-					<view class="font-30 font-weight py-2">{{mainData.title}}</view>
-					<view class="cont font-26">
-						<view class="content ql-editor" style="padding:0;"
-						v-html="mainData.content">
-						</view>
-					</view>
-				</view>
-			</view>
-			
+		<view>
+			<image class="w-100" :src="mainData.mainImg&&mainData.mainImg[0]?mainData.mainImg[0].url:''" mode="widthFix"></image>
 		</view>
+		
 	</view>
 </template>
 
@@ -56,8 +46,7 @@
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
 						self.mainData = res.info.data[0];
-						const regex = new RegExp('<img', 'gi');
-						self.mainData.content = self.mainData.content.replace(regex, `<img style="max-width: 100%;"`);
+					
 					};
 					console.log(self.mainData)
 					self.$Utils.finishFunc('getMainData');

@@ -54,7 +54,7 @@
 			<!-- 首冲会员享受优惠 -->
 			<view class="pinTab oh px-2 mt-2 py-3 bg-white rounded10">
 				<view class="font-30 font-weight d-flex j-sb a-center">首充会员享受优惠</view>
-				<view class="d-flex pt-3">
+				<view class="d-flex pt-3 itemBox">
 					<view class="item" v-for="(item,index) in mainData" v-if="item.member==0" :key="index" :data-id="item.id"
 					 @click="Router.navigateTo({route:{path:'/pages/vipProductDetail/vipProductDetail?id='+$event.currentTarget.dataset.id+'&type=new'}})">
 						<view class="pic"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
@@ -68,7 +68,7 @@
 			<!-- 月卡礼品 -->
 			<view class="pinTab oh px-2 mt-2 py-3 bg-white rounded10">
 				<view class="font-30 font-weight d-flex j-sb a-center">月卡礼品</view>
-				<view class="d-flex pt-3">
+				<view class="d-flex pt-3 itemBox">
 					<view class="item" v-for="(item,index) in mainData" v-if="item.member==1" :key="index" :data-id="item.id"
 					@click="Router.navigateTo({route:{path:'/pages/vipProductDetail/vipProductDetail?id='+$event.currentTarget.dataset.id}})">
 						<view class="pic"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
@@ -82,7 +82,7 @@
 			<!-- 季卡礼品 -->
 			<view class="pinTab oh px-2 mt-2 py-3 bg-white rounded10">
 				<view class="font-30 font-weight d-flex j-sb a-center">季卡礼品</view>
-				<view class="d-flex pt-3">
+				<view class="d-flex pt-3 itemBox">
 					<view class="item" v-for="(item,index) in mainData" v-if="item.member==2" :key="index" :data-id="item.id"
 					@click="Router.navigateTo({route:{path:'/pages/vipProductDetail/vipProductDetail?id='+$event.currentTarget.dataset.id}})">
 						<view class="pic"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
@@ -96,7 +96,7 @@
 			<!-- 半年卡礼品 -->
 			<view class="pinTab oh px-2 mt-2 py-3 bg-white rounded10">
 				<view class="font-30 font-weight d-flex j-sb a-center">半年卡礼品</view>
-				<view class="d-flex pt-3">
+				<view class="d-flex pt-3 itemBox">
 					<view class="item" v-for="(item,index) in mainData" v-if="item.member==3" :key="index" :data-id="item.id"
 					@click="Router.navigateTo({route:{path:'/pages/vipProductDetail/vipProductDetail?id='+$event.currentTarget.dataset.id}})">
 						<view class="pic"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
@@ -110,7 +110,7 @@
 			<!-- 年卡礼品 -->
 			<view class="pinTab oh px-2 mt-2 py-3 bg-white rounded10">
 				<view class="font-30 font-weight d-flex j-sb a-center">年卡礼品</view>
-				<view class="d-flex pt-3">
+				<view class="d-flex pt-3 itemBox">
 					<view class="item" v-for="(item,index) in mainData" v-if="item.member==4" :key="index" :data-id="item.id"
 					@click="Router.navigateTo({route:{path:'/pages/vipProductDetail/vipProductDetail?id='+$event.currentTarget.dataset.id}})">
 						<view class="pic"><image :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" mode=""></image></view>
@@ -491,8 +491,9 @@
 	.VipFour .item .icon{width: 90rpx;height: 90rpx;margin: 0 auto;}
 	.VipFour .item .text2{color: #ffc3cf;}
 	
-	.pinTab .item{width: 200rpx;height: 330rpx;margin-right: 26rpx;}
-	.pinTab .item:nth-of-type(3n){margin-right: 0;}
+	.pinTab .itemBox{overflow-x: auto;}
+	.pinTab .item{width: 200rpx;height: 330rpx;margin-right: 26rpx;flex-shrink: 0;}
+	/* .pinTab .item:nth-of-type(3n){margin-right: 0;} */
 	.pinTab .item .pic{height: 200rpx;}
 	
 	.black-bj,.VipBuy{bottom: 110rpx;}
