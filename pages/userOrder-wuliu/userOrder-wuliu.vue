@@ -12,13 +12,13 @@
 				<view class="font-26 shou text-center rounded-circle mr-2">收</view>
 				<view class="font-26 color2 gps avoidOverflow2">{{orderData.snap_address?orderData.snap_address.city+orderData.snap_address.detail:''}}</view>
 			</view>
-			<view class="d-flex a-center j-sb line-h my-5" v-for="(item,index) of mainData.Traces" :key="index">
-				<view class="time text-center">
+			<view class="d-flex a-center j-sb my-5" v-for="(item,index) of mainData.Traces" :key="index">
+				<view class="time text-center line-h">
 					<view class="font-24 color2 pb-1">{{item.date}}</view>
 					<view class="font-24 color6">{{item.time}}</view>
 				</view>
-				<view class="point rounded-circle mr-2 position-relative"></view>
-				<view class="font-26 color6 gps avoidOverflow">{{item.AcceptStation}}</view>
+				<view class="point rounded-circle mr-2 position-relative" :class="index==0?'point1':''"></view>
+				<view class="font-26 color6 gps">{{item.AcceptStation}}</view>
 			</view>
 		</view>
 		
@@ -122,5 +122,6 @@ page{background-color: #f5f5f5;}
 .time{width: 100rpx;}
 .point{width: 14rpx;height: 14rpx;background-color: #dcdddc;}
 .gps{width: 460rpx;}
-.point::before{content: '';height: 110rpx;width: 2rpx;background-color: #e1e1e1;position: absolute;bottom: 0;left: 6rpx;}
+.point::before{content: '';height: 200rpx;width: 2rpx;background-color: #e1e1e1;position: absolute;bottom: 0;left: 6rpx;}
+.point1::before{height: 110rpx;}
 </style>
