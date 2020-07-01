@@ -85,7 +85,7 @@
 						
 						
 						<view class="underBtn d-flex j-end a-center pb-3" >
-							<view class="Bbtn red" @click="Router.navigateTo({route:{path:'/pages/userOrder-pingjiaok/userOrder-pingjiaok'}})">查看详情</view>
+							<view class="Bbtn red" :data-id="item.id" @click="Router.navigateTo({route:{path:'/pages/userOrder-detail/userOrder-detail?id='+$event.currentTarget.dataset.id}})">查看详情</view>
 						</view>
 						
 						

@@ -198,11 +198,23 @@
 			}
 		},
 		
-		onLoad() {
+		onLoad(options) {
 			const self = this;
-			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
-			self.getLocation();
-			self.$Utils.loadAll(['getUserData','getLabelData','getSliderData','getMainData','getNoticeData'], self);
+			if(options.scene){
+				var scene = decodeURIComponent(options.scene);
+				const callback = (res) => {
+					self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
+					self.getLocation();
+					self.$Utils.loadAll(['getUserData','getLabelData','getSliderData','getMainData','getNoticeData'], self);
+				};
+				self.$Token.getProjectToken(callback, {
+					refreshToken: true,parent_no:scene
+				})
+			}else{
+				self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
+				self.getLocation();
+				self.$Utils.loadAll(['getUserData','getLabelData','getSliderData','getMainData','getNoticeData'], self);
+			}
 		},
 		
 		onReachBottom() {

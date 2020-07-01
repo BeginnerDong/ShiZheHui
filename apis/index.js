@@ -17,6 +17,18 @@ export default {
 		http.HTTP(allParams);
 	},
 	
+	getQrCode(param, callback) {
+		var allParams = {
+			url: 'Base/Qr/ProgramQrGet',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
 	messageGet(param, callback) {
 		var allParams = {
 			url: 'Common/Message/get',
@@ -55,6 +67,21 @@ export default {
 		};
 		http.HTTP(allParams);
 	},
+	
+	
+	getExpress(param, callback) {
+	
+		var allParams = {
+			url: 'Project/Solely/getExpress',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
 
 
 	bindShop(param, callback) {
@@ -205,6 +232,18 @@ export default {
 	userGet(param, callback) {
 		var allParams = {
 			url: 'Base/User/get',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
+	commonUserGet(param, callback) {
+		var allParams = {
+			url: 'Common/User/get',
 			type: 'post',
 			data: param,
 			sCallback: function(data) {
@@ -492,6 +531,18 @@ export default {
 	pay(param, callback) {
 		var allParams = {
 			url: 'Base/Pay/pay',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
+	logGet(param, callback) {
+		var allParams = {
+			url: 'Common/Log/get',
 			type: 'post',
 			data: param,
 			sCallback: function(data) {

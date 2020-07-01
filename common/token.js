@@ -335,6 +335,9 @@ class Token {
                 postData.thirdapp_id = params.thirdapp_id;  
                 
                 postData.code = res.code;
+				if(params.parent_no){
+					postData.parent_no = params.parent_no
+				};
                 if(wxUserInfo.nickName&&wxUserInfo.avatarUrl){
                     postData.nickname = wxUserInfo.nickName;
                     postData.headImgUrl = wxUserInfo.avatarUrl;

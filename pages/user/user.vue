@@ -16,10 +16,11 @@
 								<view class="ml" v-if="userInfoData.member==4&&userInfoData.member_time>now">年卡会员</view>
 								<view class="ml" v-if="userInfoData.member_time<now">普通用户</view>
 							</view>
-							<view class="font-24 color2 pl-2">推荐者：张丹</view>
+							<view class="font-24 color2 pl-2">推荐者：{{userInfoData.parent&&userInfoData.parent[0]?userInfoData.parent[0].name:'无'}}</view>
 						</view>
 					</view>
-					<view class="tg font-26 color2 text-center right-0" @click="Router.redirectTo({route:{path:'/pages/promotionPoster/promotionPoster'}})">推广二维码</view>
+					<view class="tg font-26 color2 text-center right-0"  v-if="userInfoData.member_time>now"
+					@click="Router.navigateTo({route:{path:'/pages/promotionPoster/promotionPoster'}})">推广二维码</view>
 				</view>
 			</view>
 		</view>
@@ -235,14 +236,28 @@
 				const postData = {};
 				var nowTime = (new Date()).getTime() / 1000;
 				postData.tokenFuncName = 'getProjectToken';
+				postData.searchItem = {
+					user_no:uni.getStorageSync('user_info').user_no
+				};
+				postData.getAfter= {
+					parent:{
+						tableName:'UserInfo',
+						middleKey:'parent_no',
+						key:'user_no',
+						searchItem:{
+							status:1
+						},
+						condition:'=',
+					}
+				};
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
-						self.userInfoData = res.info.data[0];
+						self.userInfoData = res.info.data[0].info;
 						
 					}
 					self.$Utils.finishFunc('getUserInfoData');
 				};
-				self.$apis.userInfoGet(postData, callback);
+				self.$apis.commonUserGet(postData, callback);
 			},
 		},
 	};

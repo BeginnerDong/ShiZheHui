@@ -19,8 +19,8 @@
 					<view class="d-flex a-center j-sb">
 						<view class="font-26" style="width: 65%;color: #f27f97;" v-if="!isMember">美蘑街，专业会员制电商平台</view>
 						<view class="font-26" style="width: 65%;color: #f27f97;" v-else>有效期至：{{Utils.timeto(userInfoData.member_time*1000,'ymd')}}</view>
-						<!-- <view class="btn text-white text-center font-28" v-if="!isMember" @click="VipBuyShow">{{isMember&&isMember==true?'立即续费':'立即开通'}}</view> -->
-						<view class="btn text-white text-center font-28" v-if="!isMember" @click="Router.navigateTo({route:{path:'/pages/vipRealname/vipRealname'}})">{{isMember&&isMember==true?'立即续费':'立即开通'}}</view>
+						<view class="btn text-white text-center font-28" v-if="!isMember" @click="goBuy">{{isMember&&isMember==true?'立即续费':'立即开通'}}</view>
+						<!-- <view class="btn text-white text-center font-28" v-if="!isMember" @click="Router.navigateTo({route:{path:'/pages/vipRealname/vipRealname'}})">{{isMember&&isMember==true?'立即续费':'立即开通'}}</view> -->
 					</view>
 				</view>
 			</view>
@@ -264,10 +264,27 @@
 			self.$Token.getProjectToken(callback, {
 				refreshToken: true
 			})
-			
+		},
+		
+		onShow() {
+			const self = this;
+			if(uni.getStorageSync('infoOk')){
+				uni.removeStorageSync('infoOk')
+				self.getUserInfoData()
+				self.VipBuyShow()
+			}
 		},
 		
 		methods: {
+			
+			goBuy(){
+				const self = this;
+				if(self.userInfoData.name!=''){
+					self.VipBuyShow()
+				}else{
+					self.Router.navigateTo({route:{path:'/pages/vipRealname/vipRealname'}})
+				}
+			},
 			
 			getUserInfoData() {
 				const self = this;		
