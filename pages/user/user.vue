@@ -16,7 +16,8 @@
 								<view class="ml" v-if="userInfoData.member==4&&userInfoData.member_time>now">年卡会员</view>
 								<view class="ml" v-if="userInfoData.member_time<now">普通用户</view>
 							</view>
-							<view class="font-24 color2 pl-2">推荐者：{{userInfoData.parent&&userInfoData.parent[0]?userInfoData.parent[0].name:'无'}}</view>
+							<view class="font-24 color2 pl-2">推荐者：
+							{{userData.parent&&userData.parent[0]?userData.parent[0].name:'无'}}</view>
 						</view>
 					</view>
 					<view class="tg font-26 color2 text-center right-0"  v-if="userInfoData.member_time>now"
@@ -215,7 +216,8 @@
 				Router:this.$Router,
 				now:'',
 				userInfoData:{},
-				Utils:this.$Utils
+				Utils:this.$Utils,
+				userData:{}
 			}
 		},
 		onLoad() {
@@ -253,7 +255,7 @@
 				const callback = (res) => {
 					if (res.info.data.length > 0) {
 						self.userInfoData = res.info.data[0].info;
-						
+						self.userData = res.info.data[0]
 					}
 					self.$Utils.finishFunc('getUserInfoData');
 				};

@@ -26,6 +26,7 @@
 				<view class="font-30 color2">电话</view>
 				<view class="font-26 color9 text-right"><input type="number" maxlength="11" v-model="submitData.phone" 
 				placeholder="请输入" /></view>
+				<button class="btn font-24" style="margin-top: 0;padding: 0 10rpx;line-height: 60rpx;" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">获取手机号</button>
 			</view>
 		</view>
 		
@@ -50,6 +51,27 @@
 		},
 		
 		methods: {
+			
+			getPhoneNumber(e) {
+				const self = this;
+				console.log('e', e);
+				if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
+					return
+				};
+				const postData = {
+					appid: uni.getStorageSync('user_info').thirdApp.appid,
+					tokenFuncName: 'getProjectToken',
+					encryptedData: e.detail.encryptedData,
+					iv: e.detail.iv
+				};
+				const callback = (res) => {
+					if (res.solely_code == 100000) {
+						self.submitData.phone = res.info.phoneNumber;
+						//self.userInfoUpdate(res.info.phoneNumber)
+					};
+				}
+				self.$apis.decryptWxInfo(postData, callback)
+			},
 			
 			changeGender(type){
 				const self = this;

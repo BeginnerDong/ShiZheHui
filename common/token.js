@@ -43,6 +43,9 @@ class Token {
 				info_name:'user_info',
 				token_name:'user_token'
 	        };
+			if(postData&&postData.parent_no){
+				params.parent_no = postData.parent_no
+			};
 			console.log('getProjectToken',callback)
 			if(callback){
 				this.getUserInfo(params,callback);

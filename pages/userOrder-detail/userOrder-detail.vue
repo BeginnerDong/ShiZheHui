@@ -54,7 +54,8 @@
 		<view class="jg"></view>
 		<view class="bg-white pb-3">
 			<view class="font-30 color2 pt-4 font-weight pl-3 line-h">物流信息</view>
-			<view class="shadow font-26 color2 p-3 mx-3 mt-3 d-flex a-center j-sb wl" v-for="item of expressData" :key="item.id">
+			<view class="shadow font-26 color2 p-3 mx-3 mt-3 d-flex a-center j-sb wl" 
+			v-if="expressData.length>0" v-for="item of expressData" :key="item.id">
 				<view class="wlTxt">
 					<view>物流公司：{{item.express?item.express.title:''}}</view>
 					<view class="pt-3">物流单号：{{item.result}}</view>
@@ -73,6 +74,7 @@
 					<image src="../../static/images/home-icon7.png"></image>
 				</view>
 			</view>
+			<view v-if="expressData.length==0" style="width: 100%;text-align: center;margin-top: 50px;">暂无物流信息</view>
 		</view>
 	</view>
 </template>

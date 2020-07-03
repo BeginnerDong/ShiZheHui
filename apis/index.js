@@ -3,7 +3,19 @@ import config from "@/config/index.config.js";
 
 
 export default {
-
+	
+	decryptWxInfo(param, callback) {
+		var allParams = {
+			url: 'Func/Common/decryptWxInfo',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
 	messageAdd(param, callback) {
 		var allParams = {
 			url: 'Common/Message/add',
