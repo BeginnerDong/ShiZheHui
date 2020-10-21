@@ -62,7 +62,11 @@
 						<view class="item" v-for="(item,index) in messageData" :key="index">
 							<view class="d-flex j-sb a-center pb-1 font-24">
 								<view class="d-flex a-center">
-									<view class="photo mr-1"><image :src="item.headImg&&item.headImg[0]&&item.headImg[0].url!=''?item.headImg[0].url:''" mode=""></image></view>
+									<view class="photo mr-1">
+										<image :src="item.headImg&&item.headImg[0]&&item.headImg[0].url!=''?item.headImg[0].url:''" mode="">
+											
+										</image>
+									</view>
 									<view class="name color6">{{item.title!=''?item.title:'用户'}}</view>		
 								</view>
 								<view class="time color9">{{item.create_time}}</view>
